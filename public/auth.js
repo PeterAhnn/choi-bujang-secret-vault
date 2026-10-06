@@ -1,7 +1,7 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm';
 import { projectUrl, publishableKey } from './auth-config.js';
 
-const client = createClient(projectUrl, publishableKey);
+export const client = createClient(projectUrl, publishableKey);
 const form = document.querySelector('#login-form');
 const passwordInput = document.querySelector('#login-password');
 const loginButton = document.querySelector('#login-button');

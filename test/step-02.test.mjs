@@ -25,7 +25,7 @@ const deploymentEnv = {
   VERCEL_URL: 'student-defense-123.vercel.app',
 };
 
-async function callHandler({ method = 'GET', headers = {}, settings = env,
+async function callHandler({ method = 'GET', headers = { authorization: 'verified-fixture' }, settings = env,
   fetchImpl = async () => new Response(JSON.stringify(syntheticNotes)) } = {}) {
   const result = { headers: new Map() };
   const response = {
@@ -33,7 +33,8 @@ async function callHandler({ method = 'GET', headers = {}, settings = env,
     status(status) { result.status = status; return this; },
     json(body) { result.body = body; return this; },
   };
-  await createNotesHandler({ env: settings, fetchImpl })({ method, headers }, response);
+  await createNotesHandler({ env: settings, fetchImpl,
+    verifyAuthorization: async () => ({ userId: '11111111-1111-4111-8111-111111111111' }) })({ method, headers }, response);
   return result;
 }
 

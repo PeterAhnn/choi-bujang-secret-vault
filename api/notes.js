@@ -1,9 +1,24 @@
-// Step 2 intentionally exposes synthetic notes through a server API.
-// Client authentication is added in step 3; never store real student records here.
-export function createNotesHandler({ env = process.env, fetchImpl = fetch } = {}) {
+import config from '../aleph.config.json' with { type: 'json' };
+import { createLoginVerifier } from '../src/verify-login.mjs';
+
+export function createNotesHandler({ env = process.env, fetchImpl = fetch,
+  verifyAuthorization } = {}) {
+  let verifier = verifyAuthorization;
   return async function handler(request, response) {
     response.setHeader('Cache-Control', 'no-store');
     response.setHeader('X-Content-Type-Options', 'nosniff');
+    const authorization = request.headers?.authorization;
+    if (typeof authorization !== 'string' || !authorization) {
+      return response.status(401).json({ error: 'LOGIN_REQUIRED' });
+    }
+    let identity;
+    try {
+      verifier ??= createLoginVerifier({ config, supabaseSecretKey: env.SUPABASE_SECRET_KEY });
+      identity = await verifier(authorization);
+    } catch {
+      return response.status(401).json({ error: 'INVALID_LOGIN' });
+    }
+    if (!identity?.userId) return response.status(401).json({ error: 'INVALID_LOGIN' });
     if (request.method !== 'GET') {
       response.setHeader('Allow', 'GET');
       return response.status(405).json({ error: 'METHOD_NOT_ALLOWED' });

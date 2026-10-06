@@ -27,7 +27,7 @@
 </head>
 <body>
   <main>
-    <div class="eyebrow">BYTE BACK · 2단계 자료 이동</div>
+    <div class="eyebrow">BYTE BACK · 3단계 로그인 확인</div>
     <h1>내 자료실</h1>
     <section class="auth-panel" aria-label="자료실 로그인">
       <p id="auth-status" role="status">로그인 상태를 확인하는 중입니다.</p>
@@ -40,16 +40,37 @@
       <p id="auth-error" role="alert" hidden></p>
     </section>
     <p>아래 기록은 모두 실습용 가상 자료입니다. 서버가 학습용 DB에서 읽어 보여 줍니다.</p>
-    <div class="notice">아직 로그인 보호가 없어 공개 API로 자료를 읽을 수 있습니다. 실제 학생 자료를 넣지 마세요. 이전 공개 커밋과 배포에 남은 자료도 사라진 것이 아닙니다.</div>
-    <ul id="notes" aria-live="polite"><li>가상 자료를 불러오는 중입니다.</li></ul>
+    <div class="notice">로그인한 계정의 요청만 서버에서 확인합니다. 타인 자료의 소유자 검사는 다음 단계에서 붙입니다. 실제 학생 자료를 넣지 마세요. 이전 공개 커밋과 배포에 남은 자료도 사라진 것이 아닙니다.</div>
+    <ul id="notes" aria-live="polite"><li>로그인하면 가상 자료를 볼 수 있습니다.</li></ul>
   </main>
   <script type="module" src="/auth.js"></script>
   <script type="module">
+    import { client } from '/auth.js';
     const list = document.querySelector('#notes');
-    try {
-      const response = await fetch('/api/notes', { cache: 'no-store', credentials: 'omit' });
+    let currentRequest = 0;
+    let controller;
+    function showMessage(message) {
+      const item = document.createElement('li');
+      item.textContent = message;
+      list.replaceChildren(item);
+    }
+    async function loadNotes(session) {
+      const requestId = ++currentRequest;
+      controller?.abort();
+      if (!session?.access_token) {
+        showMessage('로그인하면 가상 자료를 볼 수 있습니다.');
+        return;
+      }
+      controller = new AbortController();
+      showMessage('가상 자료를 불러오는 중입니다.');
+      try {
+      const response = await fetch('/api/notes', { cache: 'no-store', credentials: 'omit',
+        headers: { Authorization: `Bearer ${session.access_token}` }, signal: controller.signal });
+      if (requestId !== currentRequest) return;
+      if (response.status === 401 || response.status === 403) throw new Error('로그인 확인에 실패했습니다. 다시 로그인해 주세요.');
       if (!response.ok) throw new Error('자료를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.');
       const data = await response.json();
+      if (requestId !== currentRequest) return;
       if (!Array.isArray(data.notes)) throw new Error('자료 형식이 맞지 않습니다.');
       if (!data.notes.length) throw new Error('아직 가상 자료가 준비되지 않았습니다.');
       list.replaceChildren(...data.notes.map(note => {
@@ -61,11 +82,14 @@
         item.append(title, content);
         return item;
       }));
-    } catch (error) {
-      const item = document.createElement('li');
-      item.textContent = error.message;
-      list.replaceChildren(item);
+      } catch (error) {
+        if (requestId !== currentRequest || error.name === 'AbortError') return;
+        showMessage(error.message);
+      }
     }
+    client.auth.onAuthStateChange((_event, session) => { void loadNotes(session); });
+    const { data } = await client.auth.getSession();
+    await loadNotes(data.session);
   </script>
 </body>
 </html>
