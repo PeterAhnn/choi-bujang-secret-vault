@@ -32,7 +32,11 @@ async function api(path, method = 'GET', body) {
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
   if (response.status === 401 || response.status === 403) throw new Error('로그인 확인에 실패했습니다. 다시 로그인해 주세요.');
-  if (response.status === 404) throw new Error('메모가 없습니다. 목록을 새로 확인해 주세요.');
+  if (response.status === 404) {
+    const error = new Error('메모가 없습니다. 목록을 새로 확인해 주세요.');
+    error.status = 404;
+    throw error;
+  }
   if (!response.ok) throw new Error('메모 요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.');
   return response.json();
 }
@@ -77,6 +81,10 @@ async function loadNotes() {
         remove.disabled = true;
         try {
           await api(`/api/notes/${encodeURIComponent(note.id)}`, 'DELETE');
+          try {
+            await api(`/api/notes/${encodeURIComponent(note.id)}`);
+            throw new Error('삭제 결과를 확인하지 못했습니다. 목록을 다시 확인해 주세요.');
+          } catch (error) { if (error.status !== 404) throw error; }
           if (editingId === note.id) resetEditor();
           operationStatus.textContent = '가상 메모를 삭제했습니다.';
           await loadNotes();
