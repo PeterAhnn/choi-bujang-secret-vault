@@ -34,7 +34,7 @@ test('the unmodified login verifier rejects malformed authorization without DB a
   assert.deepEqual(result.body, { error: 'INVALID_LOGIN' });
 });
 
-test('CRUD uses verified owner, lists only that owner, and preserves step 3 item-access gap', async () => {
+test('CRUD uses verified owner and refuses cross-owner reads, writes and ownership changes', async () => {
   const a = '11111111-1111-4111-8111-111111111111';
   const b = '22222222-2222-4222-8222-222222222222';
   const id = '33333333-3333-4333-8333-333333333333';
@@ -51,7 +51,7 @@ test('CRUD uses verified owner, lists only that owner, and preserves step 3 item
       const targetId = url.searchParams.get('note_id')?.slice(3);
       if (targetId) {
         let row = rows.get(targetId);
-        if (!row) return Response.json([]);
+        if (!row || row.owner_id !== url.searchParams.get('owner_id')?.slice(3)) return Response.json([]);
         if (options.method === 'PATCH') { row = { ...row, ...JSON.parse(options.body) }; rows.set(targetId, row); }
         if (options.method === 'DELETE') rows.delete(targetId);
         return Response.json([row]);
@@ -69,11 +69,22 @@ test('CRUD uses verified owner, lists only that owner, and preserves step 3 item
   assert.equal((await request(collection, { authorization: 'a' })).body.length, 1);
   assert.deepEqual((await request(collection, { authorization: 'b' })).body, []);
   const otherOwnerRead = await request(item, { authorization: 'b' }, 'GET', undefined, `/api/notes/${id}`);
-  assert.equal(otherOwnerRead.status, 200);
-  assert.deepEqual(Object.keys(otherOwnerRead.body).sort(), ['body','id','title']);
-  const updated = await request(item, { authorization: 'b' }, 'PUT',
+  assert.equal(otherOwnerRead.status, 404);
+  assert.deepEqual(otherOwnerRead.body, { error: 'NOTE_NOT_FOUND' });
+  for (const method of ['PUT', 'DELETE']) {
+    const refused = await request(item, { authorization: 'b' }, method,
+      method === 'PUT' ? { title: 'Forbidden', body: 'Forbidden' } : undefined, `/api/notes/${id}`);
+    assert.equal(refused.status, 404);
+    assert.equal(rows.get(id).content, 'Synthetic body');
+  }
+  const reassigned = await request(item, { authorization: 'a' }, 'PUT',
     { title: 'Synthetic revised title', body: 'Synthetic revised body', owner_id: b }, `/api/notes/${id}`);
+  assert.equal(reassigned.status, 400);
+  assert.equal(rows.get(id).content, 'Synthetic body');
+  const updated = await request(item, { authorization: 'a' }, 'PUT',
+    { title: 'Synthetic revised title', body: 'Synthetic revised body' }, `/api/notes/${id}`);
   assert.equal(updated.status, 200);
+  assert.deepEqual(Object.keys(updated.body).sort(), ['body','id','title']);
   assert.equal(rows.get(id).owner_id, a);
   assert.equal(updated.body.body, 'Synthetic revised body');
   const removed = await request(item, { authorization: 'a' }, 'DELETE', undefined, `/api/notes/${id}`);

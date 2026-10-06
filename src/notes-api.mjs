@@ -50,6 +50,10 @@ export function createNotesHandler({ env = process.env, fetchImpl = fetch,
     let values;
     if (request.method === 'POST' || request.method === 'PUT') {
       const body = request.body;
+      if (request.method === 'PUT' && body && typeof body === 'object'
+          && Object.keys(body).some(field => !['title', 'body'].includes(field))) {
+        return response.status(400).json({ error: 'INVALID_NOTE' });
+      }
       if (!body || Array.isArray(body) || typeof body !== 'object'
           || typeof body.title !== 'string' || !body.title.trim() || body.title.length > 100
           || typeof body.body !== 'string' || !body.body.trim() || body.body.length > 2000) {
@@ -66,8 +70,10 @@ export function createNotesHandler({ env = process.env, fetchImpl = fetch,
       const url = new URL('/rest/v1/defense_notes', base);
       url.searchParams.set('select', 'note_id,title,content');
       if (itemRoute) {
-        // Step 3 verifies identity. Individual-item ownership is checked in step 4.
         url.searchParams.set('note_id', `eq.${noteId}`);
+        // Apply ownership to the same read/update/delete statement to avoid a race.
+        // Updates only carry title/content, so ownership cannot change in the new row.
+        url.searchParams.set('owner_id', `eq.${identity.userId}`);
       } else if (request.method === 'GET') {
         url.searchParams.set('owner_id', `eq.${identity.userId}`);
         url.searchParams.set('order', 'id.asc');
