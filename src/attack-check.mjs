@@ -11,11 +11,12 @@ const normalizeRepo = value => {
 };
 const result = (attackId, expected, observed) => ({ attackId, expected, observed });
 
-async function requestPath(app, path, wantsJson = false) {
+async function requestPath(app, path, wantsJson = false, method = 'GET', authorization) {
   try {
     const response = await fetch(new URL(path, app), {
-      method: 'GET', credentials: 'omit', redirect: 'error', cache: 'no-store',
-      headers: { Accept: wantsJson ? 'application/json' : 'text/html' },
+      method, credentials: 'omit', redirect: 'error', cache: 'no-store',
+      headers: { Accept: wantsJson ? 'application/json' : 'text/html',
+        ...(authorization ? { Authorization: authorization } : {}) },
       signal: AbortSignal.timeout(10000),
     });
     if (response.redirected || response.status >= 300 && response.status < 400) {
@@ -85,8 +86,44 @@ async function runStepTwoChecks(config, app) {
   ];
 }
 
+async function runStepThreeChecks(config, app) {
+  const item = '/api/notes/00000000-0000-4000-8000-000000000001';
+  const attempts = [
+    ['anonymous_list', '/api/notes', 'GET'],
+    ['anonymous_create', '/api/notes', 'POST'],
+    ['anonymous_item', item, 'GET'],
+    ['anonymous_update', item, 'PUT'],
+    ['anonymous_delete', item, 'DELETE'],
+    ['invalid_login', '/api/notes', 'GET', 'Bearer invalid'],
+  ];
+  const replies = await Promise.all(attempts.map(([, path, method, authorization]) =>
+    requestPath(app, path, true, method, authorization)));
+  const rejected = replies.map((reply, index) => result(attempts[index][0],
+    '로그인 검사 실패 요청은 자료 없이 JSON401/403으로 거부',
+    !reply.failed && [401, 403].includes(reply.status) && typeof reply.data?.error === 'string'
+      && Object.keys(reply.data).join(',') === 'error'
+      ? `자료 없이 JSON HTTP ${reply.status} 거부 확인` : failure(reply)));
+  const [page, staticData, identity] = await Promise.all([
+    requestPath(app, '/'), requestPath(app, '/data.json', true), requestPath(app, '/aleph.json', true),
+  ]);
+  const head = execFileSync('git', ['-C', root, 'rev-parse', 'HEAD'],
+    { encoding: 'utf8', windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  const identityMatches = identity.ok && identity.data?.step === 3 && identity.data.commit === head
+    && normalizeRepo(identity.data.repoUrl) === normalizeRepo(config.repoUrl)
+    && identity.data.judgeIssuer === config.judgeIssuer;
+  const staticGone = staticData.status === 404 || staticData.ok && !staticData.failed
+    && Array.isArray(staticData.data?.notes) && staticData.data.notes.length === 0
+    && !JSON.stringify(staticData.data).includes(config.sampleMarker);
+  return [...rejected,
+    result('anonymous_page', '비로그인 로그인 화면 HTTP200', page.ok ? 'HTTP200 확인' : failure(page)),
+    result('static_notes_removed', '정적 메모와1단계 확인 표시 없음', staticGone ? '정적 메모0건·확인 표시 없음 확인' : failure(staticData)),
+    result('deployment_identity', '3단계 배포 식별이 현재 저장소·HEAD·심판 주소와 일치', identityMatches ? '3단계 배포 식별 일치 확인' : failure(identity)),
+    result('security_nosniff', '첫 화면의 nosniff 보안 헤더', page.headers?.get('x-content-type-options') === 'nosniff' ? 'nosniff 확인' : 'nosniff 확인 실패'),
+  ];
+}
+
 export async function runAttackChecks(config) {
-  if (![1, 2].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if (![1, 2, 3].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
   let app;
   try {
     app = new URL(config.publicAppUrl);
@@ -98,6 +135,7 @@ export async function runAttackChecks(config) {
     throw new Error('aleph.config.json의 실제 배포 주소를 먼저 넣어 주세요.');
   }
   if (typeof config.sampleMarker !== 'string' || !config.sampleMarker) throw new Error('가상 메모의 확인 표시를 넣어 주세요.');
+  if (config.step === 3) return runStepThreeChecks(config, app);
   if (config.step === 2) return runStepTwoChecks(config, app);
   const response = await fetch(new URL('/data.json', app), {
     redirect: 'error', signal: AbortSignal.timeout(10000),

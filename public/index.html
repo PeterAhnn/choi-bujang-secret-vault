@@ -19,7 +19,8 @@
     [hidden] { display: none !important; }
     .auth-panel { padding: 20px; border: 1px solid #51667c; border-radius: 14px; }
     label { display: block; margin: 12px 0; }
-    input, button { font: inherit; padding: 10px 12px; border-radius: 8px; }
+    input, button, textarea { font: inherit; padding: 10px 12px; border-radius: 8px; }
+    textarea { display: block; margin-top: 6px; width: 100%; min-height: 100px; box-sizing: border-box; }
     input { display: block; margin-top: 6px; width: min(100%, 320px); box-sizing: border-box; }
     button { cursor: pointer; border: 1px solid #8ad8df; background: #23465b; color: #ecf4ff; }
     #auth-error { color: #ffb8c4; }
@@ -41,55 +42,18 @@
     </section>
     <p>아래 기록은 모두 실습용 가상 자료입니다. 서버가 학습용 DB에서 읽어 보여 줍니다.</p>
     <div class="notice">로그인한 계정의 요청만 서버에서 확인합니다. 타인 자료의 소유자 검사는 다음 단계에서 붙입니다. 실제 학생 자료를 넣지 마세요. 이전 공개 커밋과 배포에 남은 자료도 사라진 것이 아닙니다.</div>
+    <section id="note-editor" class="auth-panel" aria-label="가상 메모 작성" hidden>
+      <form id="note-form">
+        <label>메모 제목<input id="note-title" maxlength="100" required></label>
+        <label>가상 메모 내용<textarea id="note-body" maxlength="2000" required></textarea></label>
+        <button id="note-save" type="submit">메모 추가</button>
+        <button id="note-cancel" type="button" hidden>수정 취소</button>
+      </form>
+      <p id="operation-status" role="status"></p>
+    </section>
     <ul id="notes" aria-live="polite"><li>로그인하면 가상 자료를 볼 수 있습니다.</li></ul>
   </main>
   <script type="module" src="/auth.js"></script>
-  <script type="module">
-    import { client } from '/auth.js';
-    const list = document.querySelector('#notes');
-    let currentRequest = 0;
-    let controller;
-    function showMessage(message) {
-      const item = document.createElement('li');
-      item.textContent = message;
-      list.replaceChildren(item);
-    }
-    async function loadNotes(session) {
-      const requestId = ++currentRequest;
-      controller?.abort();
-      if (!session?.access_token) {
-        showMessage('로그인하면 가상 자료를 볼 수 있습니다.');
-        return;
-      }
-      controller = new AbortController();
-      showMessage('가상 자료를 불러오는 중입니다.');
-      try {
-      const response = await fetch('/api/notes', { cache: 'no-store', credentials: 'omit',
-        headers: { Authorization: `Bearer ${session.access_token}` }, signal: controller.signal });
-      if (requestId !== currentRequest) return;
-      if (response.status === 401 || response.status === 403) throw new Error('로그인 확인에 실패했습니다. 다시 로그인해 주세요.');
-      if (!response.ok) throw new Error('자료를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.');
-      const data = await response.json();
-      if (requestId !== currentRequest) return;
-      if (!Array.isArray(data.notes)) throw new Error('자료 형식이 맞지 않습니다.');
-      if (!data.notes.length) throw new Error('아직 가상 자료가 준비되지 않았습니다.');
-      list.replaceChildren(...data.notes.map(note => {
-        const item = document.createElement('li');
-        const title = document.createElement('strong');
-        const content = document.createElement('span');
-        title.textContent = note.title;
-        content.textContent = note.content;
-        item.append(title, content);
-        return item;
-      }));
-      } catch (error) {
-        if (requestId !== currentRequest || error.name === 'AbortError') return;
-        showMessage(error.message);
-      }
-    }
-    client.auth.onAuthStateChange((_event, session) => { void loadNotes(session); });
-    const { data } = await client.auth.getSession();
-    await loadNotes(data.session);
-  </script>
+  <script type="module" src="/notes.js"></script>
 </body>
 </html>

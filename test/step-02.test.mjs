@@ -12,6 +12,7 @@ const root = resolve(import.meta.dirname, '..');
 const syntheticKey = ['sb', 'secret', 'fixture'].join('_');
 const env = { SUPABASE_URL: 'https://syntheticproject.supabase.co', SUPABASE_SECRET_KEY: syntheticKey };
 const syntheticNotes = Array.from({ length: 4 }, (_, index) => ({
+  note_id: `11111111-1111-4111-8111-11111111111${index}`,
   title: `Synthetic ${index + 1}`, content: `Synthetic value ${index + 1}`,
 }));
 const config = {
@@ -38,10 +39,10 @@ async function callHandler({ method = 'GET', headers = { authorization: 'verifie
   return result;
 }
 
-test('notes rejects POST before making a provider request', async () => {
-  const response = await callHandler({ method: 'POST', fetchImpl() { assert.fail('provider request forbidden'); } });
+test('collection rejects DELETE before making a provider request', async () => {
+  const response = await callHandler({ method: 'DELETE', fetchImpl() { assert.fail('provider request forbidden'); } });
   assert.equal(response.status, 405);
-  assert.equal(response.headers.get('allow'), 'GET');
+  assert.equal(response.headers.get('allow'), 'GET, POST');
   assert.equal(response.headers.get('cache-control'), 'no-store');
   assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
   assert.deepEqual(response.body, { error: 'METHOD_NOT_ALLOWED' });
@@ -63,7 +64,7 @@ test('notes sanitizes provider HTTP, JSON, redirect and network failures', async
     async () => new Response('', { status: 302, headers: { location: 'https://example.org/' } }),
     async () => { throw new Error(`provider detail ${syntheticKey}`); },
     async () => new Response(JSON.stringify([{ title: 'Incomplete' }])),
-    async () => new Response(JSON.stringify([...syntheticNotes, syntheticNotes[0]])),
+    async () => new Response(JSON.stringify(Array(101).fill(syntheticNotes[0]))),
   ];
   for (const fetchImpl of providers) {
     const response = await callHandler({ fetchImpl });
@@ -84,12 +85,13 @@ test('notes sends only server credentials and strips extra provider fields', asy
       return new Response(JSON.stringify(rows));
     } });
   assert.equal(response.status, 200);
-  assert.deepEqual(response.body, { sampleMarker: 'SAMPLE_NOTE_1', notes: syntheticNotes });
+  assert.deepEqual(response.body, syntheticNotes.map(note => ({ id: note.note_id, title: note.title, body: note.content })));
   assert.equal(requestedUrl.origin, env.SUPABASE_URL);
   assert.equal(requestedUrl.pathname, '/rest/v1/defense_notes');
-  assert.equal(requestedUrl.searchParams.get('select'), 'title,content');
+  assert.equal(requestedUrl.searchParams.get('select'), 'note_id,title,content');
+  assert.equal(requestedUrl.searchParams.get('owner_id'), 'eq.11111111-1111-4111-8111-111111111111');
   assert.equal(requestedUrl.searchParams.get('order'), 'id.asc');
-  assert.equal(requestedUrl.searchParams.get('limit'), '4');
+  assert.equal(requestedUrl.searchParams.get('limit'), '100');
   assert.deepEqual(requestedOptions.headers, { apikey: syntheticKey, Accept: 'application/json' });
   assert.equal(requestedOptions.redirect, 'error');
   assert.equal(requestedOptions.cache, 'no-store');
@@ -140,7 +142,7 @@ function checkerResponse(path, localCommit, overrides = {}) {
     '/': '<!doctype html><title>Synthetic library</title>',
     '/data.json': { notes: [] },
     '/aleph.json': { ...deploymentIdentity(deploymentEnv, config), commit: localCommit },
-    '/api/notes': { sampleMarker: config.sampleMarker, notes: syntheticNotes },
+    '/api/notes': { sampleMarker: config.sampleMarker, notes: syntheticNotes.map(({ title, content }) => ({ title, content })) },
   };
   if (overrides[path]) return overrides[path]();
   return new Response(path === '/' ? bodies[path] : JSON.stringify(bodies[path]), {

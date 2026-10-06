@@ -31,5 +31,6 @@
 - 2단계 실제100/100점·조건4개·가점3개·등록 자료 복구,3단계 개방을 확인했다. 근거는 Git 제외 `.local/step-02-final-judge-result.json`.
 - 이어받기 완료.3단계 전체 안내·프롬프트·직접 확인·가점·막힘/복구 원문 확인 완료.
 - 제작1 완료. 실제 배포에서 비로그인 상태·가상 잘못된 계정 실패 이유·비밀번호 칸 비움 확인. 사용자가 A를 생성했고 실제 DB 계정1개·이메일 확인1개를 확인했다. A 정상 로그인과 로그아웃 후 로그인 폼 재등장을 직접 관찰했으며 사용자가 다시 로그인 완료도 알렸다. 개인정보·비밀번호·JWT는 기록하지 않았다.
-- 제작2 진행. 원본 검증 도우미를 고치지 않고 서버에서 호출한다. 브라우저는 SDK 토큰만 요청에 보내고 로그아웃하면 자료를 비운다. 발급자는 전용 프로젝트/auth/v1, audience는authenticated다. 거부 응답JSON401과 정상 A 조회의 실제 배포 검증은 다음 순서다. 제작3은 아직 수행하지 않는다.
+- 제작2 완료. 커밋 `c1b1716de8fa7f3ff66c71d6589504423ce399f2` 실제 배포 step3·원격 일치. 원본 도우미SHA256 `7e642c89438769b850978ce05f18bad1a253cb2f52ba0b1e3792cf78b4204275` 유지. 실제 무로그인·잘못된 토큰은JSON401·자료 없음·no-store·nosniff. 정상 A 실제 화면4카드, 별도 비로그인0카드 확인. 발급자는 전용 프로젝트/auth/v1·audience authenticated.
+- 제작3 구현: 기존 정수ID·본문을 보존하면서 UUID note_id·자동번호를 추가하고 서버 역할에만 CRUD를 허용했다. 실제 DB4건·UUID4·A owner4·anon/authenticated SELECT 없음 확인. 목록은 서버 검증 신원의 자료 배열, 추가 owner는 서버 신원이며 클라이언트 지정 owner/userId/role을 무시한다. 한 건 접근의 소유자 차단은4단계에 남긴다. 실제 UI CRUD·삭제 후 GET404·배포 검사·최종 저장점/bundle/공식 판정은 다음 순서다.
 - 공식 문서 확인: [로그인](https://supabase.com/docs/reference/javascript/auth-signinwithpassword), [현재 세션 로그아웃](https://supabase.com/docs/reference/javascript/auth-signout). 최신 changelog의 신규 server 어댑터 폐기는 이번 supabase-js 브라우저 SDK 흐름에 적용되지 않는다.
