@@ -119,7 +119,8 @@ test('actual step 2 build removes stale static notes and preserves aleph identit
       stdio: ['ignore', 'pipe', 'pipe'],
     });
     const staticText = await readFile(join(sandbox, 'public', 'data.json'), 'utf8');
-    assert.deepEqual(JSON.parse(staticText), { sampleMarker: config.sampleMarker, notes: [] });
+    assert.deepEqual(JSON.parse(staticText), { notes: [] });
+    assert.ok(!staticText.includes(config.sampleMarker));
     assert.ok(!staticText.includes(syntheticNotes[0].content));
     const identity = JSON.parse(await readFile(join(sandbox, 'public', 'aleph.json'), 'utf8'));
     assert.deepEqual(identity, deploymentIdentity(deploymentEnv, config));
@@ -136,7 +137,7 @@ test('actual step 2 build removes stale static notes and preserves aleph identit
 function checkerResponse(path, localCommit, overrides = {}) {
   const bodies = {
     '/': '<!doctype html><title>Synthetic library</title>',
-    '/data.json': { sampleMarker: config.sampleMarker, notes: [] },
+    '/data.json': { notes: [] },
     '/aleph.json': { ...deploymentIdentity(deploymentEnv, config), commit: localCommit },
     '/api/notes': { sampleMarker: config.sampleMarker, notes: syntheticNotes },
   };
@@ -202,6 +203,13 @@ test('step 2 checker records malformed JSON, provider failures, redirects and mi
     });
     const missingStatic = await runAttackChecks(config);
     assert.match(missingStatic.find(item => item.attackId === 'static_notes_removed').observed, /404 확인/u);
+    globalThis.fetch = async url => checkerResponse(url.pathname, localCommit, {
+      '/data.json': () => new Response(JSON.stringify({ sampleMarker: config.sampleMarker, notes: [] }), {
+        headers: { 'x-content-type-options': 'nosniff' },
+      }),
+    });
+    const staleMarker = await runAttackChecks(config);
+    assert.match(staleMarker.find(item => item.attackId === 'static_notes_removed').observed, /불일치/u);
     globalThis.fetch = async url => checkerResponse(url.pathname, localCommit, {
       '/data.json': () => new Response(JSON.stringify({ notes: syntheticNotes })),
     });

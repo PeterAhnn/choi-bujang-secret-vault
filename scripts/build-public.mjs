@@ -19,7 +19,7 @@ if (config.step === 1) {
   if (!Array.isArray(data.notes) || data.notes.length) {
     throw new Error('2단계부터 data.json에 메모를 남기면 안 됩니다. DB로 옮긴 뒤 비워 주세요.');
   }
-  await writeFile(output, `${JSON.stringify({ sampleMarker: config.sampleMarker, notes: [] })}\n`, 'utf8');
+  await writeFile(output, `${JSON.stringify({ notes: [] })}\n`, 'utf8');
   console.log('공개 data.json은 메모 0건입니다. 화면은 서버 API를 사용합니다.');
 } else {
   throw new Error('단계 설정을 확인하세요.');

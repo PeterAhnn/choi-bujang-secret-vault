@@ -52,7 +52,8 @@ async function runStepTwoChecks(config, app) {
   const requests = await Promise.all(paths.map(path => requestPath(app, path, path !== '/')));
   const [page, staticData, identity, api] = requests;
   const staticGone = !staticData.failed && staticData.ok
-    && Array.isArray(staticData.data?.notes) && staticData.data.notes.length === 0;
+    && Array.isArray(staticData.data?.notes) && staticData.data.notes.length === 0
+    && !JSON.stringify(staticData.data).includes(config.sampleMarker);
   // A real 404 also removes the static endpoint, even when its body is HTML.
   const staticNotFound = staticData.status === 404 && staticData.failed !== '리다이렉트 응답';
   const repo = normalizeRepo(config.repoUrl);
@@ -70,9 +71,9 @@ async function runStepTwoChecks(config, app) {
   return [
     result('anonymous_page', '비로그인 GET / 응답 HTTP 200',
       page.ok && !page.failed && page.status === 200 ? '비로그인 화면 HTTP 200 확인' : failure(page)),
-    result('static_notes_removed', '비로그인 GET /data.json의 메모 0건 또는 HTTP 404',
+    result('static_notes_removed', '비로그인 GET /data.json의 메모·1단계 확인 표시 없음 또는 HTTP 404',
       staticNotFound ? '정적 자료 경로 HTTP 404 확인' : staticGone
-        ? '정적 자료의 메모 0건 확인' : failure(staticData)),
+        ? '정적 자료의 메모 0건·1단계 확인 표시 없음 확인' : failure(staticData)),
     result('deployment_identity', 'GET /aleph.json의 2단계·저장소·커밋이 로컬 HEAD와 일치',
       identityMatches ? '2단계·저장소·커밋·심판 주소·확인 표시가 로컬 설정과 일치'
         : !localCommit ? '로컬 HEAD 커밋 확인 실패' : failure(identity)),
