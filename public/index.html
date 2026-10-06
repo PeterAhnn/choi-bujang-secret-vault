@@ -16,16 +16,34 @@
     li { border: 1px solid #51667c; border-radius: 14px; padding: 17px 19px; background: #1a2a3d; }
     strong { display: block; font-size: 18px; margin-bottom: 5px; }
     li span { color: #bfd0e5; }
+    [hidden] { display: none !important; }
+    .auth-panel { padding: 20px; border: 1px solid #51667c; border-radius: 14px; }
+    label { display: block; margin: 12px 0; }
+    input, button { font: inherit; padding: 10px 12px; border-radius: 8px; }
+    input { display: block; margin-top: 6px; width: min(100%, 320px); box-sizing: border-box; }
+    button { cursor: pointer; border: 1px solid #8ad8df; background: #23465b; color: #ecf4ff; }
+    #auth-error { color: #ffb8c4; }
   </style>
 </head>
 <body>
   <main>
     <div class="eyebrow">BYTE BACK · 2단계 자료 이동</div>
     <h1>내 자료실</h1>
+    <section class="auth-panel" aria-label="자료실 로그인">
+      <p id="auth-status" role="status">로그인 상태를 확인하는 중입니다.</p>
+      <form id="login-form" hidden>
+        <label>이메일<input id="login-email" type="email" autocomplete="username" required></label>
+        <label>비밀번호<input id="login-password" type="password" autocomplete="current-password" required></label>
+        <button id="login-button" type="submit">로그인</button>
+      </form>
+      <button id="logout-button" type="button" hidden>로그아웃</button>
+      <p id="auth-error" role="alert" hidden></p>
+    </section>
     <p>아래 기록은 모두 실습용 가상 자료입니다. 서버가 학습용 DB에서 읽어 보여 줍니다.</p>
     <div class="notice">아직 로그인 보호가 없어 공개 API로 자료를 읽을 수 있습니다. 실제 학생 자료를 넣지 마세요. 이전 공개 커밋과 배포에 남은 자료도 사라진 것이 아닙니다.</div>
     <ul id="notes" aria-live="polite"><li>가상 자료를 불러오는 중입니다.</li></ul>
   </main>
+  <script type="module" src="/auth.js"></script>
   <script type="module">
     const list = document.querySelector('#notes');
     try {
