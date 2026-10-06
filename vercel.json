@@ -3,6 +3,7 @@
   "framework": null,
   "buildCommand": "npm run build",
   "outputDirectory": "public",
+  "rewrites": [{"source":"/auth/v1/:path*","destination":"/api/auth?authPath=:path*"}],
   "headers": [{
     "source": "/(.*)",
     "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }]

@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
+import { readFile } from 'node:fs/promises';
 
 // These are student self-checks, not the judge's decision.
 // Never return tokens, private keys, real names, or note bodies.
@@ -123,7 +124,7 @@ async function runStepThreeChecks(config, app) {
 }
 
 export async function runAttackChecks(config) {
-  if (![1, 2, 3, 4].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if (![1, 2, 3, 4, 5].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
   let app;
   try {
     app = new URL(config.publicAppUrl);
@@ -135,6 +136,30 @@ export async function runAttackChecks(config) {
     throw new Error('aleph.config.json의 실제 배포 주소를 먼저 넣어 주세요.');
   }
   if (typeof config.sampleMarker !== 'string' || !config.sampleMarker) throw new Error('가상 메모의 확인 표시를 넣어 주세요.');
+  if (config.step === 5) {
+    const attempts=await runStepThreeChecks(config,app);
+    const identity=await requestPath(app,'/aleph.json',true);
+    attempts.push(result('allowed_routes','배포 식별에 허용 경로가 하나 이상',
+      Array.isArray(identity.data?.allowedRoutes) && identity.data.allowedRoutes.length
+        ? '허용 경로 확인' : '허용 경로 확인 실패'));
+    const script=await fetch(new URL('/auth.js',app),{redirect:'error',cache:'no-store'});
+    const code=await script.text();
+    attempts.push(result('client_key_removed','화면 인증 코드에 실제 Supabase 키 없음',
+      script.ok && !/sb_(?:publishable|secret)_|eyJ[A-Za-z0-9_-]+\./u.test(code)
+        ? '화면 코드의 실제 키 없음 확인' : '화면 키 제거 확인 실패'));
+    try {
+      const {publishableKey}=JSON.parse(await readFile(resolve(root,'.local/public-check-config.json'),'utf8'));
+      const original=new URL(config.originalApiUrl);
+      original.searchParams.set('select','note_id');
+      original.searchParams.set('limit','1');
+      const direct=await fetch(original,{headers:{apikey:publishableKey},redirect:'error',cache:'no-store',signal:AbortSignal.timeout(10000)});
+      const data=await direct.json();
+      attempts.push(result('direct_storage_denied','공개 키 원본 요청은 자료 없이 거부',
+        [401,403].includes(direct.status) && !Array.isArray(data)
+          ? `공개 키 직접 요청 HTTP ${direct.status}·자료 없음 확인` : '원본 직접 거부 확인 실패'));
+    } catch { attempts.push(result('direct_storage_denied','공개 키 원본 요청은 자료 없이 거부','직접 검사 미완료')); }
+    return attempts;
+  }
   if ([3, 4].includes(config.step)) return runStepThreeChecks(config, app);
   if (config.step === 2) return runStepTwoChecks(config, app);
   const response = await fetch(new URL('/data.json', app), {

@@ -1,7 +1,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm';
-import { projectUrl, publishableKey } from './auth-config.js';
-
-export const client = createClient(projectUrl, publishableKey);
+// A non-key label is used for the same-origin transport; real keys stay on the server.
+export const client = createClient(window.location.origin, 'auth-proxy', {
+  auth: { storageKey: 'sb-hqqopjvhpgsrechaycoc-auth-token' },
+});
 const form = document.querySelector('#login-form');
 const passwordInput = document.querySelector('#login-password');
 const loginButton = document.querySelector('#login-button');
@@ -62,6 +63,8 @@ logoutButton.addEventListener('click', async () => {
   finally { logoutButton.disabled = false; }
 });
 
-const { data, error } = await client.auth.getSession();
+const initial = await client.auth.getSession();
+const { data, error } = initial.data.session
+  ? await client.auth.refreshSession() : initial;
 renderSession(data.session);
 if (error) showError('로그인 상태를 확인하지 못했습니다. 다시 로그인해 주세요.');
