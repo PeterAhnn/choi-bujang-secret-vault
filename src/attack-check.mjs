@@ -108,7 +108,7 @@ async function runStepThreeChecks(config, app) {
   ]);
   const head = execFileSync('git', ['-C', root, 'rev-parse', 'HEAD'],
     { encoding: 'utf8', windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-  const identityMatches = identity.ok && identity.data?.step === 3 && identity.data.commit === head
+  const identityMatches = identity.ok && identity.data?.step === config.step && identity.data.commit === head
     && normalizeRepo(identity.data.repoUrl) === normalizeRepo(config.repoUrl)
     && identity.data.judgeIssuer === config.judgeIssuer;
   const staticGone = staticData.status === 404 || staticData.ok && !staticData.failed
@@ -117,13 +117,13 @@ async function runStepThreeChecks(config, app) {
   return [...rejected,
     result('anonymous_page', '비로그인 로그인 화면 HTTP200', page.ok ? 'HTTP200 확인' : failure(page)),
     result('static_notes_removed', '정적 메모와1단계 확인 표시 없음', staticGone ? '정적 메모0건·확인 표시 없음 확인' : failure(staticData)),
-    result('deployment_identity', '3단계 배포 식별이 현재 저장소·HEAD·심판 주소와 일치', identityMatches ? '3단계 배포 식별 일치 확인' : failure(identity)),
+    result('deployment_identity', `${config.step}단계 배포 식별이 현재 저장소·HEAD·심판 주소와 일치`, identityMatches ? `${config.step}단계 배포 식별 일치 확인` : failure(identity)),
     result('security_nosniff', '첫 화면의 nosniff 보안 헤더', page.headers?.get('x-content-type-options') === 'nosniff' ? 'nosniff 확인' : 'nosniff 확인 실패'),
   ];
 }
 
 export async function runAttackChecks(config) {
-  if (![1, 2, 3].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if (![1, 2, 3, 4].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
   let app;
   try {
     app = new URL(config.publicAppUrl);
@@ -135,7 +135,7 @@ export async function runAttackChecks(config) {
     throw new Error('aleph.config.json의 실제 배포 주소를 먼저 넣어 주세요.');
   }
   if (typeof config.sampleMarker !== 'string' || !config.sampleMarker) throw new Error('가상 메모의 확인 표시를 넣어 주세요.');
-  if (config.step === 3) return runStepThreeChecks(config, app);
+  if ([3, 4].includes(config.step)) return runStepThreeChecks(config, app);
   if (config.step === 2) return runStepTwoChecks(config, app);
   const response = await fetch(new URL('/data.json', app), {
     redirect: 'error', signal: AbortSignal.timeout(10000),
