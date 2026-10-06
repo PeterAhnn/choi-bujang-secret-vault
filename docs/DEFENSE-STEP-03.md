@@ -34,3 +34,13 @@
 - 제작2 완료. 커밋 `c1b1716de8fa7f3ff66c71d6589504423ce399f2` 실제 배포 step3·원격 일치. 원본 도우미SHA256 `7e642c89438769b850978ce05f18bad1a253cb2f52ba0b1e3792cf78b4204275` 유지. 실제 무로그인·잘못된 토큰은JSON401·자료 없음·no-store·nosniff. 정상 A 실제 화면4카드, 별도 비로그인0카드 확인. 발급자는 전용 프로젝트/auth/v1·audience authenticated.
 - 제작3 구현: 기존 정수ID·본문을 보존하면서 UUID note_id·자동번호를 추가하고 서버 역할에만 CRUD를 허용했다. 실제 DB4건·UUID4·A owner4·anon/authenticated SELECT 없음 확인. 목록은 서버 검증 신원의 자료 배열, 추가 owner는 서버 신원이며 클라이언트 지정 owner/userId/role을 무시한다. 한 건 접근의 소유자 차단은4단계에 남긴다. 실제 UI CRUD·삭제 후 GET404·배포 검사·최종 저장점/bundle/공식 판정은 다음 순서다.
 - 공식 문서 확인: [로그인](https://supabase.com/docs/reference/javascript/auth-signinwithpassword), [현재 세션 로그아웃](https://supabase.com/docs/reference/javascript/auth-signout). 최신 changelog의 신규 server 어댑터 폐기는 이번 supabase-js 브라우저 SDK 흐름에 적용되지 않는다.
+
+## 제작3 실제 확인과 제출 전 저장점
+
+- CRUD 구현 커밋 `8003a9893be777e2554b3e3f79e965041d89919d`, 삭제 뒤404 확인 커밋 `a460752d25d386aab5bc8a86589138adfda19ef7`. 실제 A 화면에서 임시 메모 생성·한 건 조회·수정·삭제 확인. 삭제 성공 안내는 DELETE 뒤 같은 경로 GET404를 확인한 뒤에만 표시한다. 임시 메모0·원래 메모4·원래 네 제목/본문 전체 값의 백업 대조 일치를 확인했다.
+- 실제 무로그인 GET 목록·POST·GET 한 건·PUT·DELETE 모두JSON401·자료 없음, 잘못된 토큰JSON401. 로그인 없는 별도 브라우저0카드. 실제 첫 화면nosniff·정적 메모0·확인 표시 없음·/aleph.json step3·현재 저장소/커밋 일치 확인. 원본 검증 도우미 해시 유지·19개 검사 통과.
+- 새 Vercel 배포Ready만으로 공개 주소가 최신이라고 보지 않았다. 공개 주소가 이전 커밋을 가리켜 기존 주소를 새 배포에 연결한 뒤 실제 식별 파일SHA를 확인했다. 이후 저장점 배포도 같은 대조를 한다.
+- 근거는 Git 제외 `.local/step-03-maker-01-evidence.json`, `step-03-maker-02-evidence.json`, `step-03-maker-03-anonymous-checks.json`, `step-03-crud-evidence.json`이다. A 계정 이메일·비밀번호·JWT와 메모 본문을 기록에 넣지 않았다.
+- 실제 B 계정 검사는 미실행. 단위 검사에서 서버가 검증한 B의 한 건 접근·수정이 가능한 현재 허점을 확인했으며 운영에서 차단했다고 주장하지 않는다. 다음4단계에서 소유자 검사를 구현한다.
+- 보안 advisor: RLS 정책 없음INFO는 클라이언트 접근을 차단하는 현재 설계다. 별도로 [유출 비밀번호 보호](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection) 비활성WARN이 남아 있으며 이번 단계의 공식 통과 검증과 구분한다. 보안 지적0이라고 쓰지 않는다.
+- 공식 제출 전 원문에 따라 다음 저장점은 `3단계 저장점`. 그 뒤 bundle과 심판 제출·실제 점수는 실행 후 생성 JSON과 포털 결과로 별도 기록한다.
