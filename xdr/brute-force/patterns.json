@@ -3,7 +3,7 @@
   "patterns": [
     {
       "name": "repeated-login-failure",
-      "condition": "같은 출발 주소·계정의 짧은 시간 반복 로그인 실패. 구현 기준: 실패 집계30건 이상 및 규칙 수준10 이상이면 명확, 적은 반복 실패는 검토 대상으로 알림만 남긴다.",
+      "condition": "같은 출발 주소·계정의 짧은 시간 반복 로그인 실패. 구현 기준: 규칙 수준10 이상이며 실패 집계30건 이상 또는 명시적인 반복 대입 설명이 있으면 명확, 낮은 수준의 반복 실패는 검토 대상으로 알림만 남긴다.",
       "evidence": "MITRE ATT&CK T1110/T1110.001: 서비스에 반복적으로 비밀번호를 추측해 계정 접근을 시도한다.",
       "source": "https://attack.mitre.org/techniques/T1110/001/",
       "minimumCount": 30,

@@ -10,6 +10,7 @@ test('fixtures produce all actions; low-severity normal events never block', asy
   const results = await Promise.all(fixture.alerts.map(decide));
   assert.deepEqual([...new Set(results.map(r => r.action))].sort(), ['alert', 'block', 'record']);
   assert.equal((await decide({timestamp:'now',rule:{level:12,description:'같은 주소가 여러 계정에 같은 비밀번호를 연속으로 넣었습니다.'},data:{srcip:'192.0.2.99',srcuser:'user01'}})).action,'block');
+  assert.equal((await decide({timestamp:'now',rule:{level:12,description:'짧은 시간에 같은 계정 로그인 실패가 연속 발생'},data:{srcip:'192.0.2.98',srcuser:'user02'}})).action,'block');
   for (let i = 0; i < results.length; i++) {
     if (fixture.alerts[i].rule.level <= 3) assert.equal(results[i].action, 'record');
     assert.equal(results[i].reason.includes('\n'), false);
