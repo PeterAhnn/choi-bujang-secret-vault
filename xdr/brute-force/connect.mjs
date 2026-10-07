@@ -15,7 +15,7 @@ export function buildRules(alerts, decisions, now = Date.now()) {
 export function withXdrGuard(baseDecide, rules, clock=Date.now) {
   return async (request, trustedSource) => {
     const hit=rules.find(r=>r.source===trustedSource && Date.parse(r.expiresAt)>clock());
-    if (hit) return {schema:'aleph.decision.v1',requestId:request.requestId,decision:'deny',reasonCode:'starter_not_ready',ruleIds:[`xdr.brute-force.${hit.alertId}`]};
+    if (hit) return {schema:'aleph.decision.v1',requestId:request.requestId,decision:'deny',reasonCode:'starter_not_ready',ruleIds:[`xdr.${hit.moduleKey || 'brute-force'}.${hit.alertId}`]};
     return baseDecide(request);
   };
 }
