@@ -6,6 +6,11 @@ import { extractAlert } from '../xdr/brute-force/read-alerts.mjs';
 import { buildRules, withXdrGuard } from '../xdr/brute-force/connect.mjs';
 
 const fixture = JSON.parse(await readFile(new URL('../xdr/fixtures/brute-force.json', import.meta.url), 'utf8'));
+test('standalone exported decide loads without sibling files and agrees on every fixture', async () => {
+  const source=await readFile(new URL('../xdr/brute-force/decide.mjs',import.meta.url),'utf8');
+  const isolated=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+  for(const alert of fixture.alerts) assert.deepEqual(await isolated.decide(alert),await decide(alert));
+});
 test('fixtures produce all actions; low-severity normal events never block', async () => {
   const results = await Promise.all(fixture.alerts.map(decide));
   assert.deepEqual([...new Set(results.map(r => r.action))].sort(), ['alert', 'block', 'record']);

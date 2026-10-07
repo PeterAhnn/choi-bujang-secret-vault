@@ -1,16 +1,13 @@
-import { readFile } from 'node:fs/promises';
-import { extractAlert } from './read-alerts.mjs';
-
-const patterns = JSON.parse(await readFile(new URL('./patterns.json', import.meta.url), 'utf8')).patterns;
-const repeat = patterns.find(p => p.name === 'repeated-login-failure');
-const spray = patterns.find(p => p.name === 'password-spraying');
-const actionFor = confidence => confidence >= 0.85 ? 'block' : confidence >= 0.5 ? 'alert' : 'record';
-
-// Provider injection keeps credentials and an unverified endpoint out of source.
-// A missing, invalid, or timed-out Jev response is the official alert fallback.
-export function createDecider({ askJev = async () => null, timeoutMs = 1000 } = {}) {
-  return async function decide(alert) {
-    const row = extractAlert(alert);
+// Standalone entry point: no filesystem, sibling import, or credentials needed.
+// Pattern names and thresholds mirror patterns.json; no alert-ID classification.
+export async function decide(alert, options = {}) {
+    const repeat = { name:'repeated-login-failure', minimumCount:30, minimumLevel:10 };
+    const spray = { name:'password-spraying', minimumLevel:10 };
+    const actionFor = confidence => confidence >= 0.85 ? 'block' : confidence >= 0.5 ? 'alert' : 'record';
+    const askJev = options.askJev || (async () => null);
+    const timeoutMs = options.timeoutMs ?? 1000;
+    const safeText = value => typeof value === 'string' ? value.replace(/(?:Bearer\s+)?eyJ[A-Za-z0-9_.-]+|sb_(?:secret|publishable)_[A-Za-z0-9_-]+/g,'[redacted]').replace(/((?:password|passwd|token|secret|api[_-]?key)\s*[=:]\s*)[^\s,;]+/gi,'$1[redacted]').replace(/[\r\n]+/g,' ').slice(0,500) : '';
+    const row = {timestamp:safeText(alert?.timestamp),source:safeText(alert?.data?.srcip),account:safeText(alert?.data?.srcuser),level:Number(alert?.rule?.level)||0,description:safeText(alert?.rule?.description)};
     const description = row.description;
     const count = Number(alert?.data?.count) || Number(description.match(/(\d+)건/)?.[1]) || 0;
     const spraying = /여러 계정|서로 다른 계정|계정\s*\d+개|같은 비밀번호/.test(description);
@@ -40,6 +37,7 @@ export function createDecider({ askJev = async () => null, timeoutMs = 1000 } = 
     } finally {
       clearTimeout(timer);
     }
-  };
 }
-export const decide = createDecider();
+export function createDecider(options = {}) {
+  return alert => decide(alert, options);
+}
