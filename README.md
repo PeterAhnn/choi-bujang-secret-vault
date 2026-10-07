@@ -102,3 +102,5 @@ npm run bundle
 보너스 XDR-01: npm run xdr:run -- brute-force 로 가상 경보28건을 판정합니다. block10·alert9·record9, 정상 차단0을 확인했습니다. node xdr/brute-force/connect.mjs 는 만료 규칙과 안전한 알림을 생성합니다. Jev 실제 연결과 운영 판정기 연결은 미완료이며 제공자/판정기 연결부를 가상 검사로 검증했습니다. 기존 판정기와 자료실을 보존했습니다. 공식 심판은 제출 뒤 확인합니다.
 
 XDR-01 공식100/100·기본4개/가점3개 통과(f39382c98a60bda950cfb8af53683d923f93c99d). XDR-02는 npm run xdr:run -- web-injection 로 block8·alert9·record9, 정상 차단0을 확인했습니다. 두 판단 모듈의 독립 실행과 연결부 검사를 포함11개 검사 통과. XDR-02 공식 판정은 제출 뒤 확인합니다.
+
+2026-10-07 최신 보너스 결과: XDR-01·02 모두 공식100/100점·방어 성공, 각 기본4개·완결성 가점3개 확인. XDR-02는 첫 제출 성공(f5ef4d6c803f632ce2e16b5a7fc5b22dccb793f6). 원본 경보/자료실/DB 보존. 실제 운영AI/접속 연결과 실습 판정은 구분합니다.
