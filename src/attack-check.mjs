@@ -124,13 +124,33 @@ async function runStepThreeChecks(config, app) {
 }
 
 export async function runAttackChecks(config) {
-  if (![1, 2, 3, 4, 5, 6, 7].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
-  if ([6, 7].includes(config.step)) {
+  if (![1, 2, 3, 4, 5, 6, 7, 8].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if ([6, 7, 8].includes(config.step)) {
     const { decide, RULE_IDS } = await import('./decider.mjs');
     const { checkDecider } = await import('../scripts/decider-test.mjs');
     const checks = await checkDecider({ decide, ruleIds: RULE_IDS });
-    return checks.map((check, index) => result(`device_fixture_${index + 1}`,
+    const attempts = checks.map((check, index) => result(`device_fixture_${index + 1}`,
       check.name, `가상 요청 연습: ${check.passed ? '통과' : '실패'} · ${check.name}`));
+    if (config.step === 8) {
+      const { fixtureRequests } = await import('../scripts/fixture-7.mjs');
+      const normal = fixtureRequests().normal;
+      for (const [attackId, change] of [
+        ['bulk_notes_denied', { path: '/notes', route: 'GET /notes' }],
+        ['bulk_api_notes_denied', { path: '/api/notes', route: 'GET /api/notes' }],
+        ['announcement_write_denied', { service: 'announcements', method: 'PUT', path: '/announcements/demo', route: 'PUT /announcements/:id' }],
+        ['function_path_denied', { path: '/notes/export', route: 'GET /notes/:id' }],
+      ]) {
+        const reply = await decide({ ...normal, ...change });
+        attempts.push(result(attackId, '기본 판정기에서 목록·공지 쓰기·기능 경로 거부',
+          `기본 decide 가상 요청: ${reply.decision === 'deny' ? '통과' : '실패'} · ${reply.decision}`));
+      }
+      const app = new URL(config.publicAppUrl);
+      if (app.protocol !== 'https:' || app.username || app.password || app.search || app.hash || app.pathname !== '/') {
+        throw new Error('aleph.config.json의 실제 배포 주소를 먼저 넣어 주세요.');
+      }
+      attempts.push(...await runStepThreeChecks(config, app));
+    }
+    return attempts;
   }
   let app;
   try {

@@ -68,6 +68,10 @@ test('CRUD uses verified owner and refuses cross-owner reads, writes and ownersh
   assert.equal(rows.get(id).owner_id, a);
   assert.equal((await request(collection, { authorization: 'a' })).body.length, 1);
   assert.deepEqual((await request(collection, { authorization: 'b' })).body, []);
+  const ownRead = await request(item, { authorization: 'a' }, 'GET', undefined, `/api/notes/${id}`);
+  assert.equal(ownRead.status, 200);
+  assert.deepEqual(ownRead.body, { id, title: 'Synthetic title', body: 'Synthetic body' });
+  assert.equal(ownRead.headers['X-Resource-ID'], 'notes');
   const otherOwnerRead = await request(item, { authorization: 'b' }, 'GET', undefined, `/api/notes/${id}`);
   assert.equal(otherOwnerRead.status, 404);
   assert.deepEqual(otherOwnerRead.body, { error: 'NOTE_NOT_FOUND' });
@@ -95,4 +99,22 @@ test('CRUD uses verified owner and refuses cross-owner reads, writes and ownersh
   const generated = await request(collection, { authorization: 'a' }, 'POST', { title: 'Synthetic', body: 'Synthetic' });
   assert.equal(generated.status, 201);
   assert.match(generated.body.id, /^[a-f0-9-]{36}$/u);
+});
+
+test('direct requests cannot select announcements, function routes or actions before DB access', async () => {
+  const userId = '11111111-1111-4111-8111-111111111111';
+  const id = '33333333-3333-4333-8333-333333333333';
+  for (const itemRoute of [false, true]) {
+    const handler = createNotesHandler({ itemRoute,
+      verifyAuthorization: async () => ({ kind: 'student', userId }),
+      fetchImpl() { assert.fail('DB must not be queried'); },
+    });
+    for (const url of [`/api/announcements/${id}`, '/api/notes/export',
+      `/api/notes/${id}?action=export`, '/api/notes?owner_id=all']) {
+      const result = await request(handler, { authorization: 'synthetic-student', role: 'teacher' },
+        'PUT', { title: 'Synthetic', body: 'Synthetic', role: 'teacher' }, url);
+      assert.ok([400, 403].includes(result.status));
+      assert.deepEqual(Object.keys(result.body), ['error']);
+    }
+  }
 });

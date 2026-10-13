@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import config from '../aleph.config.json' with { type: 'json' };
 import { createLoginVerifier } from './verify-login.mjs';
+import { RESOURCE_IDS, identifyResource } from './resources.mjs';
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iu;
 const displayNote = row => {
@@ -17,6 +18,7 @@ export function createNotesHandler({ env = process.env, fetchImpl = fetch,
   return async function handler(request, response) {
     response.setHeader('Cache-Control', 'no-store');
     response.setHeader('X-Content-Type-Options', 'nosniff');
+    response.setHeader('X-Resource-ID', RESOURCE_IDS.notes);
     const authorization = request.headers?.authorization;
     if (typeof authorization !== 'string' || !authorization) {
       return response.status(401).json({ error: 'LOGIN_REQUIRED' });
@@ -27,6 +29,15 @@ export function createNotesHandler({ env = process.env, fetchImpl = fetch,
       identity = await verifier(authorization);
     } catch { return response.status(401).json({ error: 'INVALID_LOGIN' }); }
     if (!uuid.test(identity?.userId ?? '')) return response.status(401).json({ error: 'INVALID_LOGIN' });
+    let requestedUrl;
+    try { requestedUrl = new URL(request.url, 'https://library.invalid'); } catch { /* reject below */ }
+    const resource = identifyResource(requestedUrl?.pathname);
+    if (!requestedUrl || requestedUrl.search || requestedUrl.hash
+        || resource?.resourceId !== RESOURCE_IDS.notes
+        || (itemRoute ? !requestedUrl.pathname.startsWith('/api/notes/')
+          : requestedUrl.pathname !== '/api/notes')) {
+      return response.status(403).json({ error: 'RESOURCE_NOT_ALLOWED' });
+    }
     const allowed = itemRoute ? ['GET', 'PUT', 'DELETE'] : ['GET', 'POST'];
     if (!allowed.includes(request.method)) {
       response.setHeader('Allow', allowed.join(', '));
@@ -34,8 +45,7 @@ export function createNotesHandler({ env = process.env, fetchImpl = fetch,
     }
     let noteId;
     if (itemRoute) {
-      try { noteId = /^\/api\/notes\/([^/]+)$/u.exec(new URL(request.url, 'https://library.invalid').pathname)?.[1]; }
-      catch { /* handled below */ }
+      noteId = resource.itemId;
       if (!uuid.test(noteId ?? '')) return response.status(400).json({ error: 'INVALID_NOTE_ID' });
     }
     let base;
