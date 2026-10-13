@@ -72,6 +72,8 @@ test('CRUD uses verified owner and refuses cross-owner reads, writes and ownersh
   assert.equal(ownRead.status, 200);
   assert.deepEqual(ownRead.body, { id, title: 'Synthetic title', body: 'Synthetic body' });
   assert.equal(ownRead.headers['X-Resource-ID'], 'notes');
+  assert.equal((await request(item, { authorization: 'a' }, 'GET', undefined, `/api/notes/${id}?id=${id}`)).status, 200);
+  assert.equal((await request(item, { authorization: 'b' }, 'GET', undefined, `/api/notes/${id}?id=${id}`)).status, 404);
   const otherOwnerRead = await request(item, { authorization: 'b' }, 'GET', undefined, `/api/notes/${id}`);
   assert.equal(otherOwnerRead.status, 404);
   assert.deepEqual(otherOwnerRead.body, { error: 'NOTE_NOT_FOUND' });
@@ -110,7 +112,9 @@ test('direct requests cannot select announcements, function routes or actions be
       fetchImpl() { assert.fail('DB must not be queried'); },
     });
     for (const url of [`/api/announcements/${id}`, '/api/notes/export',
-      `/api/notes/${id}?action=export`, '/api/notes?owner_id=all']) {
+      `/api/notes/${id}?action=export`, '/api/notes?owner_id=all',
+      `/api/notes/${id}?id=${userId}`, `/api/notes/${id}?id=${id}&id=${id}`,
+      `/api/notes/${id}?id=${id}&action=export`]) {
       const result = await request(handler, { authorization: 'synthetic-student', role: 'teacher' },
         'PUT', { title: 'Synthetic', body: 'Synthetic', role: 'teacher' }, url);
       assert.ok([400, 403].includes(result.status));

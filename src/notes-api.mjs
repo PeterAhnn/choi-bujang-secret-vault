@@ -32,17 +32,18 @@ export function createNotesHandler({ env = process.env, fetchImpl = fetch,
     let requestedUrl;
     try { requestedUrl = new URL(request.url, 'https://library.invalid'); } catch { /* reject below */ }
     const resource = identifyResource(requestedUrl?.pathname);
+    // Vercel's dynamic route adds the path ID as a query parameter.
+    // It may only repeat the exact path ID; no target selection or extra query is accepted.
+    if (itemRoute && uuid.test(resource?.itemId ?? '')
+        && requestedUrl.searchParams.getAll('id').length === 1
+        && requestedUrl.searchParams.get('id') === resource.itemId
+        && [...requestedUrl.searchParams].length === 1) {
+      requestedUrl.searchParams.delete('id');
+    }
     if (!requestedUrl || requestedUrl.search || requestedUrl.hash
         || resource?.resourceId !== RESOURCE_IDS.notes
         || (itemRoute ? !requestedUrl.pathname.startsWith('/api/notes/')
           : requestedUrl.pathname !== '/api/notes')) {
-      console.info('NOTES_ROUTE_REJECTED', JSON.stringify({ itemRoute,
-        classifiedAsNotes: resource?.resourceId === RESOURCE_IDS.notes,
-        hasQuery: !!requestedUrl?.search,
-        hasIdQuery: requestedUrl?.searchParams.has('id') ?? false,
-        queryCount: requestedUrl ? [...requestedUrl.searchParams].length : 0,
-        itemPath: /^\/api\/notes\/[0-9a-f-]{36}$/iu.test(requestedUrl?.pathname ?? ''),
-      }));
       return response.status(403).json({ error: 'RESOURCE_NOT_ALLOWED' });
     }
     const allowed = itemRoute ? ['GET', 'PUT', 'DELETE'] : ['GET', 'POST'];
