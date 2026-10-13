@@ -1,12 +1,21 @@
-# 최신 결과 · 2026-10-13
-
-XDR-05는 f63937038ec82accb94d0c7a5551352fbff12905로 첫 제출 공식100/100점입니다. XDR-06은 `npm run xdr:run -- exfiltration`로 block10·alert10·record10, 정상 차단0을 확인했습니다. `node xdr/exfiltration/respond.mjs`로 만료15분 목적지 거부규칙과 최소 알림 로그를 만듭니다. 운영 연결은 미확인이고 공식 XDR-06 판정은 다음 순서입니다. 아래 문구는 과거 시점의 기록입니다.
-
-# 최신 결과 · 2026-10-13
-
-XDR-04는 cfcf3891e13a40361a822f01ef4a31364071afac으로 첫 제출 공식100/100점입니다. XDR-05는 `npm run xdr:run -- privilege`로 block9·alert8·record9, 정상 차단0을 확인했습니다. 원본 경보 및 기존 판정기 규칙을 보존했습니다. `node xdr/privilege/respond.mjs`로 만료15분 거부규칙과 최소 알림 로그를 만듭니다. 운영 엔진 연결은 미확인이고 공식 XDR-05 판정은 다음 순서입니다. 아래 문구는 과거 시점의 기록입니다.
-
 # BYTE BACK · 내 자료실
+
+## 현재 공식 판정 · 2026-10-13
+
+6단계와7단계는 각각 공식100/100점입니다. 8단계는36/100점·S08_OTHER_ZONE_ALLOWED로 미통과이며9~12단계는 잠겨 있습니다. 판정기에 검증된 자원 소유자 연결 계약이 없어 최신 운영 안내를 요청했습니다. API 소유자 필터는 유지하며 임의 역할·가상 계정별 허용 분기를 만들지 않습니다.
+
+| 작전 | 공식 판정 | 확인한 커밋 |
+|---|---|---|
+| XDR-01 | 100/100 | f39382c98a60bda950cfb8af53683d923f93c99d |
+| XDR-02 | 100/100 | f5ef4d6c803f632ce2e16b5a7fc5b22dccb793f6 |
+| XDR-03 | 100/100, 첫 제출 | 4a0bb635d6787ee5f181b5a97e9529af9aec4fe2 |
+| XDR-04 | 100/100, 첫 제출 | cfcf3891e13a40361a822f01ef4a31364071afac |
+| XDR-05 | 100/100, 첫 제출 | f63937038ec82accb94d0c7a5551352fbff12905 |
+| XDR-06 | 100/100, 첫 제출 | 5daa35aae81bcb719ba61cdbd54ec24a2a722709 |
+
+XDR-01~02는 이전 실제 판정 기록이며03~06은 이번에 확인했습니다. 기여 점수80·100·120·100·100·100과 심판100점 척도는 구분합니다. XDR 원본 경보·기존 규칙·DB 자료를 보존했습니다. 운영 엔진 실제 연동은 미확인입니다.
+
+다시 실행: npm run xdr:run -- 모듈명. 모듈명은 brute-force, web-injection, known-cve, persistence, privilege, exfiltration입니다. 마지막 두 작전은 각각 block9/alert8/record9, block10/alert10/record10이며 정상 차단0입니다. 원문과 결과는 docs/DEFENSE-BONUS-XDR-01~06 기록에 보관했습니다. 아래 내용은 이전 시점의 기록입니다.
 
 ## 최신 상태 · 2026-10-13
 
