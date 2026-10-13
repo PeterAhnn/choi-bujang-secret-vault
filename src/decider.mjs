@@ -1,7 +1,7 @@
 // ALEPH SDP 엔진이 확인한 요청만 받는 학생 판정기 시작점입니다.
 // 등록 여부는 엔진이 확인한 불리언 값만 인정합니다.
 // 요청 본문의 userId, role, 기기 키, 토큰을 별도로 믿거나 저장하지 마세요.
-export const RULE_IDS = Object.freeze(['device_registered', 'step_up_required']);
+export const RULE_IDS = Object.freeze(['device_registered', 'step_up_required', 'resource_scope']);
 
 // Engine-provided judge fixtures only; browser headers never become signals.
 export function readVerifiedSignals(request) {
@@ -30,11 +30,23 @@ export async function decide(request) {
     && Number.isFinite(request.stepUp.authAgeSeconds)
     && request.stepUp.authAgeSeconds >= 0 && request.stepUp.authAgeSeconds <= 900;
   const needsStepUp = unusual && !verifiedAgain;
+  const basePath = request.path === '/notes' || request.path === '/api/notes';
+  const item = /^\/(?:api\/)?notes\/([A-Za-z0-9_-]+)$/u.exec(request.path ?? '');
+  const itemPath = item && !['export', 'admin', 'search', 'all'].includes(item[1].toLowerCase());
+  const expectedRoute = `${request.method} ${basePath ? request.path
+    : itemPath ? request.path.replace(/\/[^/]+$/u, '/:id') : ''}`;
+  const resourceAllowed = request.service === 'notes'
+    && typeof request.subjectId === 'string' && request.subjectId.length > 0
+    && typeof request.deviceId === 'string' && /^[a-f0-9]{16}$/u.test(request.deviceId)
+    && request.queryLength === 0 && request.route === expectedRoute
+    && (basePath && ['GET', 'POST'].includes(request.method)
+      || itemPath && ['GET', 'PUT', 'DELETE'].includes(request.method));
   return {
     schema: 'aleph.decision.v1',
     requestId: request.requestId,
-    decision: !registered ? 'deny' : needsStepUp ? 'step_up' : 'allow',
-    reasonCode: !registered ? 'device_not_registered' : needsStepUp ? 'step_up_required' : 'approved',
-    ruleIds: unusual && registered ? [...RULE_IDS] : [RULE_IDS[0]],
+    decision: !registered || !resourceAllowed ? 'deny' : needsStepUp ? 'step_up' : 'allow',
+    reasonCode: !registered ? 'device_not_registered' : !resourceAllowed ? 'resource_not_allowed'
+      : needsStepUp ? 'step_up_required' : 'approved',
+    ruleIds: !registered ? [RULE_IDS[0]] : [...RULE_IDS],
   };
 }
