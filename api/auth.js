@@ -3,6 +3,8 @@ export function createAuthHandler({env=process.env,fetchImpl=fetch}={}) {
   return async (req,res) => {
     res.setHeader('Cache-Control','no-store');
     res.setHeader('X-Content-Type-Options','nosniff');
+    // The SDK reads `code` only when this response declares the Auth API version.
+    res.setHeader('X-Supabase-Api-Version','2024-01-01');
     const path=req.query?.authPath;
     const grant=req.query?.grant_type;
     const token=path==='token' && req.method==='POST'
@@ -44,7 +46,7 @@ export function createAuthHandler({env=process.env,fetchImpl=fetch}={}) {
       if (token) url.searchParams.set('grant_type',grant);
       if (logout) url.searchParams.set('scope','local');
       const reply=await fetchImpl(url,{method:req.method,
-        headers:{apikey:key,'Content-Type':'application/json',
+        headers:{apikey:key,'Content-Type':'application/json','X-Supabase-Api-Version':'2024-01-01',
           ...(user || logout ? {Authorization:authorization}:{})},
         ...(body?{body:JSON.stringify(body)}:{}),
         redirect:'error',signal:AbortSignal.timeout(10000),cache:'no-store'});

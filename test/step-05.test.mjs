@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {createAuthHandler} from '../api/auth.js';
+import {createClient} from '@supabase/supabase-js';
 
 async function call(handler,query,body,headers={host:'library.vercel.app',origin:'https://library.vercel.app'}) {
   const out={};
@@ -33,4 +34,33 @@ test('auth transport forwards only login fields and returns only the user sessio
   const denied=await call(fail,{authPath:'token',grant_type:'password'},{email:'synthetic',password:'synthetic'});
   assert.equal(denied.status,401);
   assert.equal(JSON.stringify(denied.body).includes(env.SUPABASE_SECRET_KEY),false);
+});
+
+test('the installed browser SDK receives safe credential errors through the Auth API version boundary',async()=>{
+  for (const code of ['invalid_credentials','email_not_confirmed']) {
+    const handler=createAuthHandler({env,fetchImpl:async(_url,options)=>{
+      // Supabase uses error_code for legacy requests and code for the declared version.
+      const modern=options.headers['X-Supabase-Api-Version']==='2024-01-01';
+      return Response.json(modern?{code}:{error_code:code},{status:400});
+    }});
+    const client=createClient('https://library.vercel.app','auth-proxy',{
+      auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false},
+      global:{fetch:async(input,options)=>{
+        const url=new URL(input);
+        const headers={};
+        let result;
+        const response={setHeader(name,value){headers[name]=value;},
+          status(status){this.statusCode=status;return this;},
+          json(body){result=Response.json(body,{status:this.statusCode,headers});}};
+        await handler({method:options.method,query:{authPath:'token',grant_type:url.searchParams.get('grant_type')},
+          headers:{host:url.host,origin:url.origin},body:JSON.parse(options.body)},response);
+        return result;
+      }},
+    });
+    const {data,error}=await client.auth.signInWithPassword({email:'synthetic@example.invalid',password:'synthetic'});
+    assert.equal(data.session,null);
+    assert.equal(error.status,401);
+    assert.equal(error.code,code);
+    assert.equal(JSON.stringify(error).includes(env.SUPABASE_SECRET_KEY),false);
+  }
 });
