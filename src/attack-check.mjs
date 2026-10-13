@@ -124,8 +124,8 @@ async function runStepThreeChecks(config, app) {
 }
 
 export async function runAttackChecks(config) {
-  if (![1, 2, 3, 4, 5, 6].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
-  if (config.step === 6) {
+  if (![1, 2, 3, 4, 5, 6, 7].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if ([6, 7].includes(config.step)) {
     const { decide, RULE_IDS } = await import('./decider.mjs');
     const { checkDecider } = await import('../scripts/decider-test.mjs');
     const checks = await checkDecider({ decide, ruleIds: RULE_IDS });
