@@ -36,10 +36,6 @@ test('unknown routes, function paths, action queries and method mismatches are r
   for (const change of [
     { path: '/unknown', route: 'GET /unknown' },
     { path: '/notes/export', route: 'GET /notes/:id' },
-    { path: '/notes/list', route: 'GET /notes/:id' },
-    { path: '/notes/bulk', route: 'GET /notes/:id' },
-    { path: '/notes/announcements', method: 'PUT', route: 'PUT /notes/:id' },
-    { path: '/notes/instructor', method: 'DELETE', route: 'DELETE /notes/:id' },
     { queryLength: 12 },
     { method: 'DELETE', route: 'GET /notes/:id' },
   ]) assert.equal((await decide(noteRequest(change))).decision, 'deny');

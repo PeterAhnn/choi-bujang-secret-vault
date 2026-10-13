@@ -4,6 +4,8 @@
 
 ## 최신 공식 안내에 따른 정정
 
+e05120b080d66bae9ee6e14e0406ab2a62a93f1d의 이번 공식 판정은 36점이며 OWN_BROKEN과 OTHER_ZONE_ALLOWED가 함께 실패했다. 단계 최고 점수는 48점이다. API의 UUID 형식을 판정기에 적용하면 심판 정상 단건까지 막힌다는 실제 회귀가 확인됐다. 사용자에게 되돌리기 원문과 사라질 범위를 제시하고 기존 복구 승인에 따라 src/decider.mjs, scripts/fixture-7.mjs, test/step-08.test.mjs만 3c71c00 상태로 되돌렸다. API/DB/로그인/XDR/실행 기록은 유지한다. UUID 제한을 성공 수정으로 기록하지 않는다.
+
 3c71c00636b98cef25bd6a8be7350188b733e275 검사에서도 구역 규칙이 실패했다. 화면의 48점은 단계별 최고 점수이며 재제출 점수와 혼동하지 않는다. Vercel의 요청 메타데이터만 대조했으며 메시지·인증 헤더·키 값은 출력하지 않았다. 실제 B 응답이 200이었다는 운영 로그 근거는 얻지 못했다.
 
 독립 재현에서는 임의 문자열 단건 분류로 GET /notes/list, GET /notes/bulk, PUT /notes/announcements, DELETE /notes/instructor가 allow였다. 이것들이 심판 입력이라는 증거는 없다. 확인한 구조 문제는 UUID만 받는 실제 API보다 판정기의 단건 ID 범위가 넓다는 것이다. 판정기도 UUID 자료 ID만 허용하도록 맞추고 scripts/fixture-7.mjs의 가상 자료 ID demo를 UUID 형식으로 바꿨다. 목록으로 연습 경로를 바꾸거나 정상 기대값을 deny로 바꾸지 않았으며 판정기에 특정 fixture ID 예외도 넣지 않았다. 정상 allow·미등록 deny·복합 step_up·재확인 allow와 API A/B 소유자 검사를 그대로 검증한다.

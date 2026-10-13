@@ -30,9 +30,8 @@ export async function decide(request) {
     && Number.isFinite(request.stepUp.authAgeSeconds)
     && request.stepUp.authAgeSeconds >= 0 && request.stepUp.authAgeSeconds <= 900;
   const needsStepUp = unusual && !verifiedAgain;
-  // Use the API's UUID ID shape so function and resource names never become note IDs.
-  const item = /^\/(?:api\/)?notes\/([^/]+)$/u.exec(request.path ?? '');
-  const itemAllowed = item && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iu.test(item[1]);
+  const item = /^\/(?:api\/)?notes\/([A-Za-z0-9_-]+)$/u.exec(request.path ?? '');
+  const itemAllowed = item && !['export', 'admin', 'search', 'all'].includes(item[1].toLowerCase());
   const routePath = itemAllowed ? request.path.replace(/\/[^/]+$/u, '/:id') : null;
   // The engine must not open bulk note reads or announcement writes.
   // The final API compares the verified login identity with each stored note owner.
