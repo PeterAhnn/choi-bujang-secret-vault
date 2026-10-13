@@ -12,7 +12,7 @@ const normalizeRepo = value => {
 };
 const result = (attackId, expected, observed) => ({ attackId, expected, observed });
 
-async function requestPath(app, path, wantsJson = false, method = 'GET', authorization, attackId) {
+async function requestPath(app, path, wantsJson = false, method = 'GET', authorization, attackId, observations) {
   try {
     const response = await fetch(new URL(path, app), {
       method, credentials: 'omit', redirect: 'error', cache: 'no-store',
@@ -21,6 +21,9 @@ async function requestPath(app, path, wantsJson = false, method = 'GET', authori
       ...(attackId ? { alephEvidence: { caseId: attackId, requestKey: 'read' } } : {}),
       signal: AbortSignal.timeout(10000),
     });
+    if (attackId && observations && Number.isInteger(response.status)) {
+      observations.set(attackId, response.status);
+    }
     if (response.redirected || response.status >= 300 && response.status < 400) {
       return { status: response.status, failed: '리다이렉트 응답', headers: response.headers };
     }
@@ -88,7 +91,7 @@ async function runStepTwoChecks(config, app) {
   ];
 }
 
-async function runStepThreeChecks(config, app) {
+async function runStepThreeChecks(config, app, observations) {
   const item = '/api/notes/00000000-0000-4000-8000-000000000001';
   const attempts = [
     ['anonymous_list', '/api/notes', 'GET'],
@@ -100,7 +103,7 @@ async function runStepThreeChecks(config, app) {
   ];
   const replies = await Promise.all(attempts.map(([attackId, path, method, authorization]) =>
     config.step === 12 && !['GET', 'HEAD'].includes(method) ? { notRun: true }
-      : requestPath(app, path, true, method, authorization, config.step === 12 ? attackId : undefined)));
+      : requestPath(app, path, true, method, authorization, config.step === 12 ? attackId : undefined, observations)));
   const rejected = replies.map((reply, index) => result(attempts[index][0],
     '로그인 검사 실패 요청은 자료 없이 JSON401/403으로 거부',
     reply.notRun ? 'not_run'
@@ -108,9 +111,9 @@ async function runStepThreeChecks(config, app) {
       && Object.keys(reply.data).join(',') === 'error'
       ? `자료 없이 JSON HTTP ${reply.status} 거부 확인` : failure(reply)));
   const [page, staticData, identity] = await Promise.all([
-    requestPath(app, '/', false, 'GET', undefined, config.step === 12 ? 'anonymous_page' : undefined),
-    requestPath(app, '/data.json', true, 'GET', undefined, config.step === 12 ? 'static_notes_removed' : undefined),
-    requestPath(app, '/aleph.json', true, 'GET', undefined, config.step === 12 ? 'deployment_identity' : undefined),
+    requestPath(app, '/', false, 'GET', undefined, config.step === 12 ? 'anonymous_page' : undefined, observations),
+    requestPath(app, '/data.json', true, 'GET', undefined, config.step === 12 ? 'static_notes_removed' : undefined, observations),
+    requestPath(app, '/aleph.json', true, 'GET', undefined, config.step === 12 ? 'deployment_identity' : undefined, observations),
   ]);
   const head = execFileSync('git', ['-C', root, 'rev-parse', '--verify', 'HEAD'],
     { encoding: 'utf8', windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
@@ -132,6 +135,7 @@ async function runStepThreeChecks(config, app) {
 
 export async function runAttackChecks(config) {
   if (![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  const observations = config.step === 12 ? new Map() : null;
   if ([6, 7, 8, 9, 10, 11, 12].includes(config.step)) {
     const { decide, RULE_IDS } = await import('./decider.mjs');
     const { checkDecider } = await import('../scripts/decider-test.mjs');
@@ -171,7 +175,7 @@ export async function runAttackChecks(config) {
       if (app.protocol !== 'https:' || app.username || app.password || app.search || app.hash || app.pathname !== '/') {
         throw new Error('aleph.config.json의 실제 배포 주소를 먼저 넣어 주세요.');
       }
-      const publicChecks = await runStepThreeChecks(config, app);
+      const publicChecks = await runStepThreeChecks(config, app, observations);
       if (config.step >= 10) {
         attempts.push(...publicChecks.filter(check => check.attackId !== 'security_nosniff'));
         if (config.step === 12) {
@@ -185,7 +189,7 @@ export async function runAttackChecks(config) {
       } else attempts.push(...publicChecks);
       if (config.step >= 11) {
         const manifest = await requestPath(app, '/manifest.webmanifest', true, 'GET', undefined,
-          config.step === 12 ? 'app_manifest' : undefined);
+          config.step === 12 ? 'app_manifest' : undefined, observations);
         attempts.push(result('app_manifest', '공개 manifest의 앱 이름·시작 주소·standalone 설정 확인',
           manifest.ok && manifest.data?.name && manifest.data.start_url === '/' && manifest.data.display === 'standalone'
             ? 'manifest HTTP200·앱 이름·시작 주소·standalone 확인' : failure(manifest)));
@@ -195,12 +199,16 @@ export async function runAttackChecks(config) {
             offline.status === 200 && !offline.failed ? '오프라인 안내 HTTP200 확인' : failure(offline)));
         } else {
           const operations = await requestPath(app, '/api/operations', true, 'GET', undefined,
-            'anonymous_operations_denied');
+            'anonymous_operations_denied', observations);
           attempts.push(result('anonymous_operations_denied', '무로그인 작전실 요약은 자료 없이 JSON401로 거부',
             operations.status === 401 && Object.keys(operations.data ?? {}).join(',') === 'error'
               ? '작전실 요약 HTTP401·자료 없음 확인' : failure(operations)));
         }
       }
+    }
+    if (config.step === 12) {
+      return attempts.map(attempt => ({ ...attempt, observed: observations.has(attempt.attackId)
+        ? `HTTP ${observations.get(attempt.attackId)}` : 'not_run' }));
     }
     return attempts;
   }

@@ -55,3 +55,5 @@ ed0d34bf0053fb9a2e3f0c6b0286249e79586a7c의 제한 환경 실행은 모듈 5개�
 운영자가 공개한 byteback-sample-pass의 e94ecff31e6b7003d1ccc60d9fa943ac80c6411d에서 src/attack-check.mjs의fetch옵션은 `alephEvidence: { caseId, requestKey: 'read' }`이다. 모든 호출의caseId는반환attackId와같다. README는이메타데이터를헤더나URL에넣지않는다고명시한다. 두 독립 검토에서도 같은 코드를 확인했다. 출처: https://github.com/ChoiTimo/byteback-sample-pass/blob/e94ecff31e6b7003d1ccc60d9fa943ac80c6411d/README.md .
 
 로컬 제한 검사도 공식 표본의alephEvidence를 읽도록 수정하자 기존 코드의8개요청에서연결누락이재현됐다. 이 결과는 .local/step-12-actual-contract-before.json에 보존한다. 추정헤더와init.attackId를제거하고공식fetch메타데이터만추가했다. 가상연습8건·쓰기미실행4건·실제GET8건과기존R5의결과3필드를유지한다. 실제API·DB·화면·실측12건은보존한다.
+
+515b58671a1cdfb0c406c1a4ad82ad659208cd9a는53점이며 첫 오류가연결누락에서observed의확인불가문장으로바뀌었다. 심판은HTTP상태·bodyBytes·jsonArrayLength·jsonReady·method·urlSha256만확인한다고명시했다. 판정문과채운막힘프롬프트를다시먼저보여줬다. 허용값중실제응답의HTTP상태만기록하도록최소수정했다. 고정상태코드가아니라각응답status를사례별Map에보관하고같은attackId의observed를생성한다. 상태를읽지못한항목은not_run으로남긴다. 로컬제한검사에서수정전확인불가문장8건을재현했고 .local/step-12-observed-before.json에보존했다. API정책·실측표·DB는유지한다.

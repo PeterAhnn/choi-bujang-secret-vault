@@ -22,6 +22,8 @@
 
 현재 수정은 [공식 통과 표본](https://github.com/ChoiTimo/byteback-sample-pass/blob/e94ecff31e6b7003d1ccc60d9fa943ac80c6411d/src/attack-check.mjs)의 실제 연결 방식인 `fetch(url, { alephEvidence: { caseId: attackId, requestKey: 'read' } })`를 따른다. 메타데이터는 헤더나 URL에 넣지 않는다. 표본의 stage/result 등 다른 필드는 가져오지 않고 기존 R5 묶음의 세 필드를 유지한다. 공식 규격을 적용한 로컬 검사에서 수정 전 8건의 연결 누락을 재현했다. 실제 보호 API·DB·실측 표는 유지하며, 공식 재검사 결과는 별도로 확인한다.
 
+515b58671a1cdfb0c406c1a4ad82ad659208cd9a에서는 요청 연결이 인정됐으나 `observed`의 설명 문장이 지원되지 않아53점이었다. 12단계 묶음의 실행 결과는 실제 응답에서 읽은 `HTTP 상태번호`만 기록한다. HTTP를 실행하지 않은12항목은not_run으로 구분하고 설명·판단은별도문서에남긴다. 값은기대값이나고정성공문구로채우지않는다.
+
 자료실의 **작전실 새로고침**은 보호된 GET `/api/operations`를 호출한다. 서버가 읽은 판정 규칙3개, 현재 승인 상태, 사용자별 기기·백업·복구 감사 수, 안전 정책 명세 버전을 보여 준다. 같은 요청 ID·시각·표 내용이 가린 서버 기록과 일치함을 확인했다. 운영 탐지 사건 입력·운영 신원 회수의 연결 상태는 미확인으로 표시한다.
 
 [실제 요청 근거](evidence/step-12-http-results.json)에는 상태·요청 ID·확인 시각만 남긴다. 표의 기대값은 [고정 시험 목록](src/verification-results.mjs)에서 읽는다. 실제12건은 모두 기대와 일치하며, 이번 실행의 미실행5항목과41종 일괄 미실행을 따로 표시한다. 앞 단계 공식100점은 별도 이력이다. 전체 [실측 절차](docs/HTTP-VERIFICATION.md), [12단계 원문](docs/DEFENSE-STEP-12-PROMPTS.md), [실행 기록](docs/DEFENSE-STEP-12.md)을 확인한다.
