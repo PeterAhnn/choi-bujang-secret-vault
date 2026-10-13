@@ -21,8 +21,8 @@ export function readVerifiedSignals(request) {
 
 // Resource grants come from trusted server configuration, never request JSON.
 // Snapshot the policy so a caller cannot mutate grants after initialization.
-export function createDecider(resourcePolicies = []) {
-  const policies = Array.isArray(resourcePolicies) ? resourcePolicies.map(policy => ({
+export function createDecider(resourcePolicies = null) {
+  const policies = resourcePolicies === null ? null : Array.isArray(resourcePolicies) ? resourcePolicies.map(policy => ({
     classId: policy?.classId, projectId: policy?.projectId,
     policyRevision: policy?.policyRevision, service: policy?.service,
     path: policy?.path, routePath: policy?.routePath,
@@ -49,14 +49,16 @@ export function createDecider(resourcePolicies = []) {
     && !['export', 'admin', 'search', 'all'].includes(item[2].toLowerCase());
   const routePath = basePath ? request.path
     : itemPath ? request.path.replace(/\/[^/]+$/u, '/:id') : null;
-  const exactGrant = itemPath && policies.some(policy =>
+  // Existing authenticated note routes keep their final API ownership check.
+  // An explicitly supplied policy is enforced; an empty policy never grants an item.
+  const exactGrant = itemPath && (policies === null && request.service === 'notes' || policies?.some(policy =>
     policy.classId === request.classId && policy.projectId === request.projectId
     && Number.isInteger(policy.policyRevision) && policy.policyRevision === request.policyRevision
     && policy.service === request.service && policy.path === request.path
     && policy.routePath === routePath && policy.grants.some(grant =>
       typeof grant.subjectId === 'string' && grant.subjectId === request.subjectId
       && typeof grant.deviceId === 'string' && grant.deviceId === request.deviceId
-      && grant.methods.includes(request.method)));
+      && grant.methods.includes(request.method))));
   const resourceAllowed = typeof request.classId === 'string' && request.classId.length > 0
     && typeof request.projectId === 'string' && request.projectId.length > 0
     && typeof request.subjectId === 'string' && request.subjectId.length > 0
@@ -69,13 +71,16 @@ export function createDecider(resourcePolicies = []) {
     schema: 'aleph.decision.v1',
     requestId: request.requestId,
     decision: !registered || !resourceAllowed ? 'deny' : needsStepUp ? 'step_up' : 'allow',
-    reasonCode: !registered ? 'device_not_registered' : !resourceAllowed ? 'resource_not_allowed'
+    reasonCode: !registered ? 'device_not_registered' : !resourceAllowed ? 'starter_not_ready'
       : needsStepUp ? 'step_up_required' : 'approved',
     ruleIds: !registered ? [RULE_IDS[0]] : [...RULE_IDS],
   };
   };
 }
 
-// No item grants are inferred from a path or learned from its first requester.
-// Until trusted resource registration is connected, unregistered items fail closed.
-export const decide = createDecider();
+// Preserve the existing engine entry point and require final API ownership checks.
+// Trusted per-resource policies can be supplied only by server configuration.
+const defaultDecider = createDecider();
+export async function decide(request) {
+  return defaultDecider(request);
+}

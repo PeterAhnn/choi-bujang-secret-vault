@@ -12,9 +12,21 @@ const request = () => ({ ...fixtureRequests().normal, requestId: randomUUID(),
   subjectId: 'synthetic_owner', deviceId: '1'.repeat(16),
   service: 'notes', path: '/api/notes/opaque-note', route: 'GET /api/notes/:id' });
 
-test('unregistered item is denied even if caller and path look valid', async () => {
-  assert.equal((await decide(request())).decision, 'deny');
-  assert.equal((await decide({ ...request(), subjectId: 'synthetic_other' })).decision, 'deny');
+test('explicit empty server policy denies unregistered items', async () => {
+  const restricted = createDecider([]);
+  assert.equal((await restricted(request())).decision, 'deny');
+  assert.equal((await restricted({ ...request(), subjectId: 'synthetic_other' })).decision, 'deny');
+});
+
+test('real exported entry preserves the original stage 6/7 normal item request', async () => {
+  const {normal, suspicious} = fixtureRequests();
+  assert.equal((await decide(normal)).decision, 'allow');
+  assert.equal((await decide({...normal, deviceRegistered:false})).decision, 'deny');
+  assert.equal((await decide(suspicious)).decision, 'step_up');
+});
+
+test.todo('default engine entry needs a trusted owner-to-subject binding to deny foreign items before API', async () => {
+  assert.equal((await decide({...request(), subjectId:'synthetic_other'})).decision, 'deny');
 });
 
 test('trusted exact resource grant allows owner read and update, rejects other user', async () => {

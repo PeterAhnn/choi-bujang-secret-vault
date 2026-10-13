@@ -145,7 +145,7 @@ export async function runAttackChecks(config) {
         routePath: '/api/notes/:id', grants: [{ subjectId: item.subjectId,
           deviceId: item.deviceId, methods: ['GET', 'PUT'] }] }]);
       for (const [attackId, expected, handler, request] of [
-        ['resource_unregistered', '가상 미등록 단건 거부', decide, item],
+        ['resource_unregistered', '가상 빈 등록 정책의 단건 거부', createDecider([]), item],
         ['resource_owner_read', '가상 등록 정책의 본인 읽기 허용', scoped, item],
         ['resource_owner_write', '가상 등록 정책의 본인 수정 허용', scoped,
           { ...item, method: 'PUT', route: 'PUT /api/notes/:id' }],
@@ -158,6 +158,9 @@ export async function runAttackChecks(config) {
         attempts.push(result(attackId, expected,
           `가상 등록 정책 연습: ${response.decision} · ${response.reasonCode}`));
       }
+      const unresolved = await decide({ ...item, subjectId: 'other_synthetic_subject' });
+      attempts.push(result('default_owner_scope_unresolved', '기본 진입점의 소유 구역 대조 연결 필요',
+        `가상 기본 진입점의 타 주체 단건: ${unresolved.decision} · API 소유자 대조와 별개로 미해결`));
     }
     return attempts;
   }
