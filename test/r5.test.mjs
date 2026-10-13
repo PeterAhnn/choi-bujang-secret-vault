@@ -30,6 +30,8 @@ test('build identity uses Vercel Git and deployment metadata', () => {
   assert.throws(() => deploymentIdentity({ ...env, VERCEL_GIT_PROVIDER: undefined }, config));
   assert.throws(() => deploymentIdentity({ ...env, VERCEL_GIT_COMMIT_SHA: 'short' }, config));
   assert.equal(deploymentIdentity(env, { ...config, step: 10, restoreRoute: '/api/restore' }).restoreRoute, '/api/restore');
+  assert.equal(deploymentIdentity({ ...env, VERCEL_ENV: 'production', VERCEL_PROJECT_PRODUCTION_URL: 'student-defense.vercel.app' }, config).publicAppUrl, 'https://student-defense.vercel.app');
+  assert.throws(() => deploymentIdentity({ ...env, VERCEL_ENV: 'production' }, config));
 });
 
 test('first attack check reads public data.json without credentials', async () => {
