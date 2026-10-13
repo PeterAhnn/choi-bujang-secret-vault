@@ -1,5 +1,103 @@
 {
   "schema": "aleph.http.results.v1",
-  "testedCommit": null,
-  "records": []
+  "testedCommit": "8ac9b381625d1f5030a25442d22100c6f72977c5",
+  "records": [
+    {
+      "caseId": "s01_anonymous_read",
+      "source": "measured_http",
+      "status": 401,
+      "requestId": "7a2a7464-e0ac-4bd5-90cf-a73d803748bb",
+      "checkedAt": "2026-10-13T08:38:38.669Z",
+      "observed": "HTTP 401·자료 없는 거부 응답"
+    },
+    {
+      "caseId": "s02_static_json",
+      "source": "measured_http",
+      "status": 200,
+      "requestId": "icn1::78xb9-1791880718823-cb6fa641f8f5",
+      "checkedAt": "2026-10-13T08:38:39.000Z",
+      "observed": "HTTP 200·정적 메모 0건",
+      "publicNotesCount": 0
+    },
+    {
+      "caseId": "s03_invalid_login",
+      "source": "measured_http",
+      "status": 401,
+      "requestId": "3b74874d-6c1e-4d52-aea2-a2c47e73d308",
+      "checkedAt": "2026-10-13T08:38:39.639Z",
+      "observed": "HTTP 401·자료 없는 거부 응답"
+    },
+    {
+      "caseId": "s05_direct_storage",
+      "source": "measured_http",
+      "status": 401,
+      "requestId": "01a13469-f0a6-79db-8c68-c668fbd2c356",
+      "checkedAt": "2026-10-13T08:38:41.000Z",
+      "observed": "HTTP 401·자료 없는 거부 응답"
+    },
+    {
+      "caseId": "s10_anonymous_restore",
+      "source": "measured_http",
+      "status": 401,
+      "requestId": "adbc8e70-30ae-42a3-be2a-78b1f5455f6f",
+      "checkedAt": "2026-10-13T08:38:41.653Z",
+      "observed": "HTTP 401·자료 없는 거부 응답"
+    },
+    {
+      "caseId": "s04_own_read",
+      "source": "measured_http",
+      "status": 200,
+      "requestId": "571bf281-228a-4eeb-9720-dcfc6f39ac9b",
+      "checkedAt": "2026-10-13T08:39:03.347Z",
+      "observed": "HTTP 200·GET note_item"
+    },
+    {
+      "caseId": "s10_own_restore",
+      "source": "measured_http",
+      "status": 200,
+      "requestId": "cf2fff7d-4b0b-43bf-b473-f61530a5a82b",
+      "checkedAt": "2026-10-13T08:39:19.469Z",
+      "observed": "HTTP 200·POST restore"
+    },
+    {
+      "caseId": "s11_unsigned",
+      "source": "measured_http",
+      "status": 403,
+      "requestId": "1cd61a5f-c0a4-4e06-bc8e-fa24d849ea26",
+      "checkedAt": "2026-10-13T08:39:28.625Z",
+      "observed": "HTTP 403·GET notes_collection·UNSIGNED_CLIENT_REQUEST"
+    },
+    {
+      "caseId": "s11_path_tamper",
+      "source": "measured_http",
+      "status": 403,
+      "requestId": "23a55dbc-ac45-4a4e-a861-90249ab085b9",
+      "checkedAt": "2026-10-13T08:39:29.091Z",
+      "observed": "HTTP 403·GET note_item·SIGNED_REQUEST_INVALID"
+    },
+    {
+      "caseId": "s11_body_tamper",
+      "source": "measured_http",
+      "status": 403,
+      "requestId": "401942ab-4ed7-4905-b386-196b049dc9e4",
+      "checkedAt": "2026-10-13T08:39:30.156Z",
+      "observed": "HTTP 403·PUT note_item·SIGNED_REQUEST_INVALID"
+    },
+    {
+      "caseId": "s11_normal",
+      "source": "measured_http",
+      "status": 200,
+      "requestId": "7c4fa78a-0e4c-4f5e-a34b-c81d7fb93b7f",
+      "checkedAt": "2026-10-13T08:39:31.602Z",
+      "observed": "HTTP 200·GET notes_collection"
+    },
+    {
+      "caseId": "s11_replay",
+      "source": "measured_http",
+      "status": 403,
+      "requestId": "ea394413-600b-420f-8c9e-43e447a12c9d",
+      "checkedAt": "2026-10-13T08:39:32.722Z",
+      "observed": "HTTP 403·GET notes_collection·SIGNED_REQUEST_REPLAYED"
+    }
+  ]
 }
