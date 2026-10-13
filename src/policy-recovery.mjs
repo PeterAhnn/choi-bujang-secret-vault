@@ -4,7 +4,7 @@ import { constants } from 'node:fs';
 import { lstat, mkdir, open, readFile, readdir, writeFile } from 'node:fs/promises';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 
-export const SAFE_POLICY_COMMIT = '36b7936a1829992c5837fd13a88586f652dd4747';
+export const SAFE_POLICY_COMMIT = 'f78dc936a3f76c309b76ee6cf7b4bed397abacdd';
 export const POLICY_PATHS = Object.freeze([
   'aleph.config.json', 'src/decider.mjs', 'src/detect.mjs',
   'src/notes-api.mjs', 'src/resources.mjs', 'src/verify-login.mjs',

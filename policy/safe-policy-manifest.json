@@ -1,11 +1,11 @@
 {
   "schema": "aleph.policy.safe-manifest.v1",
-  "safeCommit": "36b7936a1829992c5837fd13a88586f652dd4747",
+  "safeCommit": "f78dc936a3f76c309b76ee6cf7b4bed397abacdd",
   "files": [
     {
       "path": "aleph.config.json",
-      "sha256": "10d249d78534c93556818ea638e38b54d5367a89dbefb6576bf2ed8f6b76b7f9",
-      "bytes": 750
+      "sha256": "489eb98223ddf33a5168ea3c8127d803b14256c852852292c45c69f5227e06c4",
+      "bytes": 786
     },
     {
       "path": "src/decider.mjs",
@@ -19,8 +19,8 @@
     },
     {
       "path": "src/notes-api.mjs",
-      "sha256": "a945cb2a7ca563a142bc035f5a5ecf5abed056642c5f52a3e077df305a68cab4",
-      "bytes": 6113
+      "sha256": "c37da5016599081cd7d2f23c192f5760d9b45311e8526b8830d4cc0008a28899",
+      "bytes": 6570
     },
     {
       "path": "src/resources.mjs",
