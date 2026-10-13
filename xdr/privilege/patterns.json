@@ -1,0 +1,5 @@
+[
+  {"name":"unexpected-admin-group","condition":"높은 위험 수준의 경보에서 관리자 그룹 추가 또는 재가입이 확인됨","evidence":"MITRE ATT&CK T1078: 유효 계정 도용으로 권한과 접근을 얻을 수 있으므로 비정상 계정 권한 변경을 확인한다.","source":"https://attack.mitre.org/techniques/T1078/"},
+  {"name":"unusual-elevated-command","condition":"높은 위험 수준이며 새 권한·낯선 주소·업무 외 사용·타 계정 권한으로 관리자 명령이나 세션 상승이 확인됨","evidence":"MITRE ATT&CK T1068: 낮은 권한에서 높은 권한으로의 상승을 탐지한다. 이 경보만으로 특정 취약점 악용을 확정하지 않는다.","source":"https://attack.mitre.org/techniques/T1068/"},
+  {"name":"privilege-review","condition":"권한 관련 중간 위험 수준이나 취소·실패·단일 명령 등 맥락이 부족한 경보","evidence":"MITRE ATT&CK T1068/T1078: 권한·계정 이상 징후를 조사하되 애매한 신호만으로 정상 계정을 차단하지 않는다.","source":"https://attack.mitre.org/techniques/T1078/"}
+]

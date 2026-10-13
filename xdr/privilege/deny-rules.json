@@ -1,0 +1,68 @@
+{
+  "schema": "aleph.xdr.deny.v1",
+  "rules": [
+    {
+      "moduleKey": "privilege",
+      "source": "203.0.113.11",
+      "alertId": "pv-01",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unexpected-admin-group"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "203.0.113.11",
+      "alertId": "pv-02",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unusual-elevated-command"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "198.51.100.11",
+      "alertId": "pv-03",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unusual-elevated-command"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "192.0.2.11",
+      "alertId": "pv-04",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unexpected-admin-group"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "203.0.113.17",
+      "alertId": "pv-05",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unexpected-admin-group"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "198.51.100.17",
+      "alertId": "pv-06",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unusual-elevated-command"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "192.0.2.17",
+      "alertId": "pv-07",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unexpected-admin-group"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "203.0.113.27",
+      "alertId": "pv-08",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unusual-elevated-command"
+    },
+    {
+      "moduleKey": "privilege",
+      "source": "198.51.100.27",
+      "alertId": "pv-09",
+      "expiresAt": "2026-10-13T02:14:36.951Z",
+      "pattern": "unexpected-admin-group"
+    }
+  ]
+}
