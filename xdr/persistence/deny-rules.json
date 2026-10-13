@@ -1,0 +1,61 @@
+{
+  "schema": "aleph.xdr.deny.v1",
+  "rules": [
+    {
+      "moduleKey": "persistence",
+      "source": "203.0.113.12",
+      "alertId": "ps-01",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unsigned-service"
+    },
+    {
+      "moduleKey": "persistence",
+      "source": "203.0.113.12",
+      "alertId": "ps-02",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unusual-scheduled-task"
+    },
+    {
+      "moduleKey": "persistence",
+      "source": "198.51.100.12",
+      "alertId": "ps-03",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unknown-startup-entry"
+    },
+    {
+      "moduleKey": "persistence",
+      "source": "192.0.2.12",
+      "alertId": "ps-04",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unsigned-service"
+    },
+    {
+      "moduleKey": "persistence",
+      "source": "203.0.113.19",
+      "alertId": "ps-05",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unusual-scheduled-task"
+    },
+    {
+      "moduleKey": "persistence",
+      "source": "198.51.100.19",
+      "alertId": "ps-06",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unsigned-service"
+    },
+    {
+      "moduleKey": "persistence",
+      "source": "192.0.2.19",
+      "alertId": "ps-07",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unusual-scheduled-task"
+    },
+    {
+      "moduleKey": "persistence",
+      "source": "203.0.113.33",
+      "alertId": "ps-08",
+      "expiresAt": "2026-10-13T02:07:48.745Z",
+      "pattern": "unsigned-service"
+    }
+  ]
+}

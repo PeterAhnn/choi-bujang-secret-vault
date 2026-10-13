@@ -1,0 +1,5 @@
+{"patterns":[
+ {"name":"unsigned-service","condition":"서명 없는 신규/변경 서비스와 낯선 실행 파일 또는 반복 등록","evidence":"MITRE ATT&CK T1543 시스템 프로세스 생성·변경","source":"https://attack.mitre.org/techniques/T1543/"},
+ {"name":"unusual-scheduled-task","condition":"예약 작업이 임시 실행 파일을 지정하거나 시작 프로그램과 같은 파일을 지정","evidence":"MITRE ATT&CK T1053 예약 작업 지속 실행","source":"https://attack.mitre.org/techniques/T1053/"},
+ {"name":"unknown-startup-entry","condition":"시작 폴더에 평소 목록에 없던 실행 항목 추가; 단순 변경은 알림","evidence":"시작 시 반복 실행과 신규 항목의 복합 신호를 검토","source":"https://attack.mitre.org/techniques/T1543/"}
+]}
