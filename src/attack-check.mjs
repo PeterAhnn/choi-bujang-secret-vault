@@ -137,6 +137,7 @@ export async function runAttackChecks(config) {
       for (const [attackId, change] of [
         ['bulk_notes_denied', { path: '/notes', route: 'GET /notes' }],
         ['bulk_api_notes_denied', { path: '/api/notes', route: 'GET /api/notes' }],
+        ['collection_post_denied', { method: 'POST', path: '/notes', route: 'POST /notes' }],
         ['announcement_write_denied', { service: 'announcements', method: 'PUT', path: '/announcements/demo', route: 'PUT /announcements/:id' }],
         ['function_path_denied', { path: '/notes/export', route: 'GET /notes/:id' }],
       ]) {

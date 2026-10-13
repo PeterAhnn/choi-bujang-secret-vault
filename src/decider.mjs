@@ -30,11 +30,9 @@ export async function decide(request) {
     && Number.isFinite(request.stepUp.authAgeSeconds)
     && request.stepUp.authAgeSeconds >= 0 && request.stepUp.authAgeSeconds <= 900;
   const needsStepUp = unusual && !verifiedAgain;
-  const collection = request.path === '/notes' || request.path === '/api/notes';
   const item = /^\/(?:api\/)?notes\/([A-Za-z0-9_-]+)$/u.exec(request.path ?? '');
   const itemAllowed = item && !['export', 'admin', 'search', 'all'].includes(item[1].toLowerCase());
-  const routePath = collection ? request.path
-    : itemAllowed ? request.path.replace(/\/[^/]+$/u, '/:id') : null;
+  const routePath = itemAllowed ? request.path.replace(/\/[^/]+$/u, '/:id') : null;
   // The engine must not open bulk note reads or announcement writes.
   // The final API compares the verified login identity with each stored note owner.
   const resourceAllowed = request.service === 'notes' && request.queryLength === 0
@@ -43,7 +41,7 @@ export async function decide(request) {
     && typeof request.projectId === 'string' && request.projectId.length > 0
     && typeof request.deviceId === 'string' && /^[a-f0-9]{16}$/u.test(request.deviceId)
     && routePath !== null && request.route === `${request.method} ${routePath}`
-    && (collection ? request.method === 'POST' : ['GET', 'PUT', 'DELETE'].includes(request.method));
+    && ['GET', 'PUT', 'DELETE'].includes(request.method);
   return {
     schema: 'aleph.decision.v1',
     requestId: request.requestId,

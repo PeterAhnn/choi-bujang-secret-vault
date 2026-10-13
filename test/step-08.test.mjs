@@ -14,10 +14,11 @@ test('the real entry preserves virtual A read and update', async () => {
   assert.equal((await decide(noteRequest({ method: 'PUT', route: request.route.replace(/^GET /u, 'PUT ') }))).decision, 'allow');
 });
 
-test('the real entry rejects bulk reads while preserving note creation', async () => {
+test('the real entry never opens collection routes for any method', async () => {
   for (const path of ['/notes', '/api/notes']) {
-    assert.equal((await decide(noteRequest({ path, route: `GET ${path}` }))).decision, 'deny');
-    assert.equal((await decide(noteRequest({ path, method: 'POST', route: `POST ${path}` }))).decision, 'allow');
+    for (const method of ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']) {
+      assert.equal((await decide(noteRequest({ path, method, route: `${method} ${path}` }))).decision, 'deny');
+    }
   }
 });
 
