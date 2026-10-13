@@ -1,0 +1,36 @@
+{
+  "schema": "aleph.policy.safe-manifest.v1",
+  "safeCommit": "36b7936a1829992c5837fd13a88586f652dd4747",
+  "files": [
+    {
+      "path": "aleph.config.json",
+      "sha256": "10d249d78534c93556818ea638e38b54d5367a89dbefb6576bf2ed8f6b76b7f9",
+      "bytes": 750
+    },
+    {
+      "path": "src/decider.mjs",
+      "sha256": "f66d95cddd73e4bdebc2e475adc060083ea5da0ab5298c797bc4ad8d2b4a136b",
+      "bytes": 3189
+    },
+    {
+      "path": "src/detect.mjs",
+      "sha256": "9c6738c6bec136d6940b461dd267835f5933227ab38af53155c9b3abf8fc990a",
+      "bytes": 1723
+    },
+    {
+      "path": "src/notes-api.mjs",
+      "sha256": "a945cb2a7ca563a142bc035f5a5ecf5abed056642c5f52a3e077df305a68cab4",
+      "bytes": 6113
+    },
+    {
+      "path": "src/resources.mjs",
+      "sha256": "d86e1752f27b30a4dca71ecc23db83eb461302765c3ab90f3b073ac1dd560a86",
+      "bytes": 474
+    },
+    {
+      "path": "src/verify-login.mjs",
+      "sha256": "c8fa6842c7904f9430e002bd92207d4aef9d54739a712f716153a2cb96e7389b",
+      "bytes": 5053
+    }
+  ]
+}
