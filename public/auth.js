@@ -1,7 +1,9 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm';
 // A non-key label is used for the same-origin transport; real keys stay on the server.
+// Remove this app's legacy persisted session without reading its contents.
+try { localStorage.removeItem('sb-hqqopjvhpgsrechaycoc-auth-token'); } catch { /* storage may be disabled */ }
 export const client = createClient(window.location.origin, 'auth-proxy', {
-  auth: { storageKey: 'sb-hqqopjvhpgsrechaycoc-auth-token' },
+  auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: false },
 });
 const form = document.querySelector('#login-form');
 const passwordInput = document.querySelector('#login-password');

@@ -126,8 +126,8 @@ async function runStepThreeChecks(config, app) {
 }
 
 export async function runAttackChecks(config) {
-  if (![1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
-  if ([6, 7, 8, 9, 10].includes(config.step)) {
+  if (![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if ([6, 7, 8, 9, 10, 11].includes(config.step)) {
     const { decide, RULE_IDS } = await import('./decider.mjs');
     const { checkDecider } = await import('../scripts/decider-test.mjs');
     const checks = await checkDecider({ decide, ruleIds: RULE_IDS });
@@ -153,10 +153,11 @@ export async function runAttackChecks(config) {
       }
       attempts.push(...await runStepThreeChecks(config, app));
     }
-    if ([9, 10].includes(config.step)) {
+    if ([9, 10, 11].includes(config.step)) {
       const { detect } = await import('./detect.mjs');
       const { checkDetection } = await import('../scripts/detect-test.mjs');
-      for (const [index, check] of (await checkDetection(detect)).entries()) {
+      const detectionChecks = await checkDetection(detect);
+      for (const [index, check] of detectionChecks.slice(0, config.step >= 11 ? 4 : 6).entries()) {
         attempts.push(result(`detection_fixture_${index + 1}`, check.name,
           `공식 연습 사건: ${check.passed ? '통과' : '실패'} · ${check.name}`));
       }
@@ -165,13 +166,22 @@ export async function runAttackChecks(config) {
         throw new Error('aleph.config.json의 실제 배포 주소를 먼저 넣어 주세요.');
       }
       const publicChecks = await runStepThreeChecks(config, app);
-      if (config.step === 10) {
+      if (config.step >= 10) {
         attempts.push(...publicChecks.filter(check => check.attackId !== 'security_nosniff'));
         const reply = await requestPath(app, config.restoreRoute, true, 'POST');
         attempts.push(result('anonymous_restore_denied', '비로그인 POST 복구 요청은 자료 없이 JSON401로 거부',
           !reply.failed && reply.status === 401 && Object.keys(reply.data ?? {}).join(',') === 'error'
             ? '비로그인 복구 HTTP401·자료 없음 확인' : failure(reply)));
       } else attempts.push(...publicChecks);
+      if (config.step === 11) {
+        const manifest = await requestPath(app, '/manifest.webmanifest', true);
+        attempts.push(result('app_manifest', '공개 manifest의 앱 이름·시작 주소·standalone 설정 확인',
+          manifest.ok && manifest.data?.name && manifest.data.start_url === '/' && manifest.data.display === 'standalone'
+            ? 'manifest HTTP200·앱 이름·시작 주소·standalone 확인' : failure(manifest)));
+        const offline = await requestPath(app, '/offline.html');
+        attempts.push(result('offline_notice', '공개 오프라인 안내 HTTP200',
+          offline.status === 200 && !offline.failed ? '오프라인 안내 HTTP200 확인' : failure(offline)));
+      }
     }
     return attempts;
   }

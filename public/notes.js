@@ -1,4 +1,5 @@
 import { client } from './auth.js';
+import { isDeviceApproved, protectedFetch } from './device.js';
 
 const list = document.querySelector('#notes');
 const editor = document.querySelector('#note-editor');
@@ -27,12 +28,7 @@ function resetEditor() {
 }
 async function api(path, method = 'GET', body) {
   if (!session?.access_token) throw new Error('먼저 로그인해 주세요.');
-  const response = await fetch(path, {
-    method, credentials: 'omit', cache: 'no-store',
-    headers: { Authorization: `Bearer ${session.access_token}`,
-      ...(body ? { 'Content-Type': 'application/json' } : {}) },
-    ...(body ? { body: JSON.stringify(body) } : {}),
-  });
+  const response = await protectedFetch(path, method, body);
   if (response.status === 401 || response.status === 403) throw new Error('로그인 확인에 실패했습니다. 다시 로그인해 주세요.');
   if (response.status === 404) {
     const error = new Error('메모가 없습니다. 목록을 새로 확인해 주세요.');
@@ -46,6 +42,10 @@ async function loadNotes() {
   const version = ++requestVersion;
   if (!session?.access_token) {
     showMessage('로그인하면 가상 자료를 볼 수 있습니다.');
+    return;
+  }
+  if (!isDeviceApproved()) {
+    showMessage('서버의 기기 승인이 필요합니다. 승인 전에는 보호 자료를 표시하지 않습니다.');
     return;
   }
   try {
@@ -143,11 +143,16 @@ function changeSession(nextSession) {
     restoreDeleted.hidden = true;
   }
   session = nextSession;
-  editor.hidden = !session?.user;
+  editor.hidden = !session?.user || !isDeviceApproved();
   resetEditor();
   operationStatus.textContent = '';
   void loadNotes();
 }
 client.auth.onAuthStateChange((_event, nextSession) => { changeSession(nextSession); });
+document.addEventListener('device-approval-changed', () => {
+  editor.hidden = !session?.user || !isDeviceApproved();
+  if (!isDeviceApproved()) { deletedId = undefined; restoreDeleted.hidden = true; }
+  void loadNotes();
+});
 const { data } = await client.auth.getSession();
 changeSession(data.session);
