@@ -12,6 +12,76 @@
 
 이전 단계의 상세 당시 기록은 [보존한 이력](docs/DEFENSE-HISTORY-BEFORE-STEP10.md)에 있다. 과거 미완료 문구와 현재 상태를 구분한다. 외부 문의는 보류한다.
 
+## 12단계 작전실과 검사한 버전
+
+실제 API를 검사한 코드 커밋은 **8ac9b381625d1f5030a25442d22100c6f72977c5**이다. 가린 실제 요청12건을 반영한 커밋은 **c2a817d83c2e5e515c0d70d15b87798d18e21d24**이다. 두 커밋 사이에 `api/`·`src/`·`public/`의 실행 코드는 바뀌지 않았다. 후속 기록·안내 커밋과 검사한 코드를 구분한다. 12단계 공식 판정은 아직 미실행이다.
+
+자료실의 **작전실 새로고침**은 보호된 GET `/api/operations`를 호출한다. 서버가 읽은 판정 규칙3개, 현재 승인 상태, 사용자별 기기·백업·복구 감사 수, 안전 정책 명세 버전을 보여 준다. 같은 요청 ID·시각·표 내용이 가린 서버 기록과 일치함을 확인했다. 운영 탐지 사건 입력·운영 신원 회수의 연결 상태는 미확인으로 표시한다.
+
+[실제 요청 근거](evidence/step-12-http-results.json)에는 상태·요청 ID·확인 시각만 남긴다. 표의 기대값은 [고정 시험 목록](src/verification-results.mjs)에서 읽는다. 실제12건은 모두 기대와 일치하며, 이번 실행의 미실행5항목과41종 일괄 미실행을 따로 표시한다. 앞 단계 공식100점은 별도 이력이다. 전체 [실측 절차](docs/HTTP-VERIFICATION.md), [12단계 원문](docs/DEFENSE-STEP-12-PROMPTS.md), [실행 기록](docs/DEFENSE-STEP-12.md)을 확인한다.
+
+실제 B 화면에서 자기 메모 단건 조회·복구와 정상 서명200, 미서명·경로 변조·본문 변조·재전송403을 확인했다. 비로그인·잘못된 토큰·직접 DB·무인증 복구는401이며 공개 JSON은200·메모0건이다. 원본 가상 메모4건의 ID·소유자·제목·본문·생성 시각이 최초 백업과 모두 같다. 실제 복구 확인 뒤 전체 복구 감사는8건이며 이전 감사도 보존한다.
+
+## 제공 엔진과 학생 작업의 출처
+
+**ALEPH SDP 엔진 사용**: 제공 엔진의 요청·응답 계약은 [DECIDER_REQUEST.md](docs/DECIDER_REQUEST.md)에 있다. 제공 엔진이 확인한 가명 신원·기기·경로를 학생 `decide(request)`에 전달하는 구조이며, 운영 심판의 판정은 ALEPH 방어전 사이트에서 확인한다.
+
+| 구성 요소 | 출처와 현재 범위 |
+|---|---|
+| ALEPH SDP 엔진·공식 심판 | ALEPH 제공 구성 요소이다. 이 저장소에는 운영 엔진의 비밀값이나 서버를 포장하지 않는다. |
+| 학생 판정기 | `src/decider.mjs`의 등록 기기·추가 본인 확인·자원 구역 규칙이다. 실제 API의 소유자 비교와 역할이 다르다. |
+| 학생 탐지 규칙 | `src/detect.mjs`의 사용자별10분·120건 초과 조회 탐지와 회수 제안이다. 운영 사건 수신·신원 회수 집행 연결은 미확인이다. |
+| 학생 접속 앱 | `public/`의 manifest·화면·메모리 기기 키·요청 서명이다. 별도 설치 프로그램은 없다. |
+| 학생 자료실·작전실 | `api/`·`src/`의 로그인/소유자/실제 DB 기기 승인/서명/복구/가린 결과 요약이다. |
+| 운영 DB·호스팅 | 본인 계정의 기존 Supabase 전용 DB와 Vercel 프로젝트이다. DB 자료·키는 저장소에 포장하지 않는다. |
+
+## 설치와 실행
+
+검사 환경은 Node.js24.21.0과 npm11.19이다. 의존성 버전은 package-lock.json으로 고정한다. 아래 명령은 PowerShell에서 저장소 폴더를 기준으로 실행한다.
+
+```powershell
+git clone https://github.com/PeterAhnn/choi-bujang-secret-vault.git
+Set-Location choi-bujang-secret-vault
+npm ci
+git log -1 --oneline
+```
+
+현재 서비스의 재현 순서는 다음과 같다.
+
+1. 기존 Vercel 프로젝트 `peter-ahns-projects/choi-bujang-secret-vault`와 연결된 저장소·커밋을 확인한다. `vercel project inspect --non-interactive`에서 같은 프로젝트가 나와야 한다.
+2. 서버 환경변수 **SUPABASE_URL·SUPABASE_SECRET_KEY**가 공식 비밀 설정에 있어야 한다. 값은 채팅·코드·명령 인자·로그에 넣지 않는다. 새 환경에서는 본인이 공식 설정 화면에서 입력한다. `database/`의 SQL은 처음 구성할 때 검토할 자료이며, 이미 적용한 운영 DB에는 다시 실행하지 않는다.
+3. Git 푸시 뒤 실제 `/aleph.json`의 저장소·단계·커밋·공개 운영 주소가 해당 저장점과 같은지 확인한다. 이 프로젝트는 Git 푸시로 자동 배포되는 것을 실제 확인했다.
+4. 공개 자료실에서 본인이 로그인하고 기기 승인을 요청한다. 관리자가 화면 지문을 검토해 승인한 뒤 **승인 결과 확인**을 누른다. **서명 보호 확인**과 **작전실 새로고침**으로 정상·거부 요청과 결과표를 확인한다. 앱 설치는 브라우저 메뉴에서 선택할 수 있으며 기기 승인 판단은 서버 상태를 따른다.
+
+로컬 정적 빌드는 `npm run build -- --local`로 검사한다. API를 포함한 개발 서버 명령은 `vercel dev --listen 127.0.0.1:3000`이다. 이 명령은 설치된 Vercel CLI61.1.0 도움말로 형식을 확인했으며, 프로젝트 연결·비공개 환경변수 준비 뒤 사용한다. 이번 실제 API 검증은 운영 Vercel 배포에서 수행했고 로컬 API 개발 서버 실행은 미실행이다.
+
+판정기·탐지기 연습과 복구 사본 확인은 다음 순서로 실행한다. 앞의 두 명령은 가상 연습이며 실제 신원 회수·공식 통과와 구분한다. 현재 폴더에는 검증된 사본이 있으며 새 복제본은 `node scripts/policy-recovery.mjs prepare`로 한 번 준비한 뒤 preview를 실행한다.
+
+```powershell
+npm run decider:test
+npm run detect:test
+node scripts/policy-recovery.mjs preview
+npm run build -- --local
+```
+
+전체62개 회귀를 재현하는 명령은 다음과 같다. 실제 DB 역할 검사·로그인 브라우저 검사·공식 심판 결과는 별도 근거로 확인한다.
+
+```powershell
+node --test test/step-03.test.mjs test/step-05.test.mjs test/step-08.test.mjs test/step-09.test.mjs test/step-10.test.mjs test/policy-recovery.test.mjs test/r5.test.mjs test/device-gate.test.mjs test/operations-api.test.mjs test/request-observation.test.mjs test/verification-results.test.mjs
+```
+
+## 중지와 복구
+
+| 구성 요소 | 중지 | 복구와 재개 |
+|---|---|---|
+| 접속 화면 | 로그아웃한 뒤 탭을 닫는다. 현재 화면의 키·토큰은 메모리에서 끝난다. | 다시 로그인하고 새 화면의 지문을 확인한다. 승인 후 기존 자기 메모와 정상/거부 요청을 대조한다. |
+| 로컬 API 개발 서버 | 실행 터미널에서 Ctrl+C를 누른다. DB는 유지한다. | 프로젝트 연결·비밀 설정을 확인한 뒤 같은 `vercel dev` 명령으로 재개한다. |
+| 학생 판정기·탐지 연습 | 명령이 끝나면 함수 호출도 끝난다. | 같은 커밋에서 연습 명령과 회귀 검사를 실행한다. 제공 운영 엔진의 관리 권한은 ALEPH 측 범위이다. |
+| 시험 정책 사본 | preview에서 누락·해시 오류가 나면 적용을 중단한다. | 검증한 previewId에만 `node scripts/policy-recovery.mjs apply <previewId>`를 실행한다. 시험 사본만 복구하며 운영 소스·DB·다른 변경은 유지한다. |
+| 자기 메모 한 건 | 잘못된 변경이 확인되면 추가 수정을 멈춘다. | 승인된 로그인 화면의 **백업으로 복구** 또는 **마지막 삭제 메모 복구**를 사용한다. 최초 비공개 사본과 감사 이력을 확인한다. |
+
+12단계 변경을 되돌릴 때는 현재 `git status`·`git diff`와11단계 정상 저장점 **2f67e3ab0cf7a321b1705e08178408a151e6561d**의 차이를 먼저 확인한다. 보존할 다른 변경·사라질 이번 단계 파일을 제시하고 본인 확인을 받은 뒤 이번 단계 파일만 복구한다. DB 메모·백업·감사와 다른 단계·XDR를 유지한다. 배포한 뒤 로그인·소유자·기기 서명·복구를 다시 확인한다. `reset --hard`는 사용하지 않는다.
+
 ## 11단계 완료
 
 현재 자료실에 manifest·앱 이름·설치/기기 상태 구분·공개 오프라인 안내를 추가했다. 제작1 실제 배포에서 B 정상1건 표시와 무로그인API401을 확인했다. 보호API/Auth/메모/토큰은서비스워커캐시에넣지않는다.
