@@ -19,7 +19,19 @@ export function readVerifiedSignals(request) {
   };
 }
 
-export async function decide(request) {
+// Resource grants come from trusted server configuration, never request JSON.
+// Snapshot the policy so a caller cannot mutate grants after initialization.
+export function createDecider(resourcePolicies = []) {
+  const policies = Array.isArray(resourcePolicies) ? resourcePolicies.map(policy => ({
+    classId: policy?.classId, projectId: policy?.projectId,
+    policyRevision: policy?.policyRevision, service: policy?.service,
+    path: policy?.path, routePath: policy?.routePath,
+    grants: Array.isArray(policy?.grants) ? policy.grants.map(grant => ({
+      subjectId: grant?.subjectId, deviceId: grant?.deviceId,
+      methods: Array.isArray(grant?.methods) ? [...grant.methods] : [],
+    })) : [],
+  })) : [];
+  return async function decide(request) {
   const signals = readVerifiedSignals(request);
   const unusual = signals && signals.network === 'unusual' && signals.hour !== null
     && (signals.hour < 6 || signals.hour >= 22)
@@ -30,17 +42,29 @@ export async function decide(request) {
     && Number.isFinite(request.stepUp.authAgeSeconds)
     && request.stepUp.authAgeSeconds >= 0 && request.stepUp.authAgeSeconds <= 900;
   const needsStepUp = unusual && !verifiedAgain;
-  const basePath = request.path === '/notes' || request.path === '/api/notes';
-  const item = /^\/(?:api\/)?notes\/([A-Za-z0-9_-]+)$/u.exec(request.path ?? '');
-  const itemPath = item && !['export', 'admin', 'search', 'all'].includes(item[1].toLowerCase());
-  const expectedRoute = `${request.method} ${basePath ? request.path
-    : itemPath ? request.path.replace(/\/[^/]+$/u, '/:id') : ''}`;
-  const resourceAllowed = request.service === 'notes'
+  const basePath = request.service === 'notes'
+    && (request.path === '/notes' || request.path === '/api/notes');
+  const item = /^\/(?:api\/)?(notes|announcements)\/([A-Za-z0-9_-]+)$/u.exec(request.path ?? '');
+  const itemPath = item && request.service === item[1]
+    && !['export', 'admin', 'search', 'all'].includes(item[2].toLowerCase());
+  const routePath = basePath ? request.path
+    : itemPath ? request.path.replace(/\/[^/]+$/u, '/:id') : null;
+  const exactGrant = itemPath && policies.some(policy =>
+    policy.classId === request.classId && policy.projectId === request.projectId
+    && Number.isInteger(policy.policyRevision) && policy.policyRevision === request.policyRevision
+    && policy.service === request.service && policy.path === request.path
+    && policy.routePath === routePath && policy.grants.some(grant =>
+      typeof grant.subjectId === 'string' && grant.subjectId === request.subjectId
+      && typeof grant.deviceId === 'string' && grant.deviceId === request.deviceId
+      && grant.methods.includes(request.method)));
+  const resourceAllowed = typeof request.classId === 'string' && request.classId.length > 0
+    && typeof request.projectId === 'string' && request.projectId.length > 0
     && typeof request.subjectId === 'string' && request.subjectId.length > 0
     && typeof request.deviceId === 'string' && /^[a-f0-9]{16}$/u.test(request.deviceId)
-    && request.queryLength === 0 && request.route === expectedRoute
+    && request.queryLength === 0 && routePath !== null
+    && request.route === `${request.method} ${routePath}`
     && (basePath && ['GET', 'POST'].includes(request.method)
-      || itemPath && ['GET', 'PUT', 'DELETE'].includes(request.method));
+      || exactGrant && ['GET', 'PUT', 'DELETE'].includes(request.method));
   return {
     schema: 'aleph.decision.v1',
     requestId: request.requestId,
@@ -49,4 +73,9 @@ export async function decide(request) {
       : needsStepUp ? 'step_up_required' : 'approved',
     ruleIds: !registered ? [RULE_IDS[0]] : [...RULE_IDS],
   };
+  };
 }
+
+// No item grants are inferred from a path or learned from its first requester.
+// Until trusted resource registration is connected, unregistered items fail closed.
+export const decide = createDecider();
