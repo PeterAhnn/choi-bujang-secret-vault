@@ -27,11 +27,14 @@
     input { display: block; margin-top: 6px; width: min(100%, 320px); box-sizing: border-box; }
     button { cursor: pointer; border: 1px solid #8ad8df; background: #23465b; color: #ecf4ff; }
     #auth-error { color: #ffb8c4; }
+    .table-wrap { overflow-x: auto; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 10px; border: 1px solid #51667c; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
   </style>
 </head>
 <body>
   <main>
-    <div class="eyebrow">BYTE BACK · 5단계 서버 자료실</div>
+    <div class="eyebrow">BYTE BACK · 12단계 서버 자료실</div>
     <h1>내 자료실</h1>
     <section class="auth-panel" aria-label="접속 앱과 기기 상태">
       <h2>내 자료실 접속 앱</h2>
@@ -69,9 +72,18 @@
       <button id="restore-deleted" type="button" hidden>마지막 삭제 메모 복구</button>
     </section>
     <ul id="notes" aria-live="polite"><li>로그인하면 가상 자료를 볼 수 있습니다.</li></ul>
+    <section id="operations-panel" class="auth-panel" aria-label="탈환 작전실" hidden>
+      <h2>탈환 작전실</h2>
+      <p>실제 보호 API에서 읽은 요약입니다. 미연결·미실행 항목을 통과로 표시하지 않습니다. 가상 메모 본문과 계정 정보는 이 요약에 넣지 않습니다.</p>
+      <button id="operations-refresh" type="button">작전실 새로고침</button>
+      <p id="operations-status" role="status"></p>
+      <p id="operations-origin"></p>
+      <div id="operations-sections"></div>
+    </section>
   </main>
   <script type="module" src="/auth.js"></script>
   <script type="module" src="/notes.js"></script>
   <script type="module" src="/app.js"></script>
+  <script type="module" src="/operations.js"></script>
 </body>
 </html>
