@@ -124,8 +124,8 @@ async function runStepThreeChecks(config, app) {
 }
 
 export async function runAttackChecks(config) {
-  if (![1, 2, 3, 4, 5, 6, 7, 8].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
-  if ([6, 7, 8].includes(config.step)) {
+  if (![1, 2, 3, 4, 5, 6, 7, 8, 9].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if ([6, 7, 8, 9].includes(config.step)) {
     const { decide, RULE_IDS } = await import('./decider.mjs');
     const { checkDecider } = await import('../scripts/decider-test.mjs');
     const checks = await checkDecider({ decide, ruleIds: RULE_IDS });
@@ -144,6 +144,19 @@ export async function runAttackChecks(config) {
         const reply = await decide({ ...normal, ...change });
         attempts.push(result(attackId, '기본 판정기에서 목록·공지 쓰기·기능 경로 거부',
           `기본 decide 가상 요청: ${reply.decision === 'deny' ? '통과' : '실패'} · ${reply.decision}`));
+      }
+      const app = new URL(config.publicAppUrl);
+      if (app.protocol !== 'https:' || app.username || app.password || app.search || app.hash || app.pathname !== '/') {
+        throw new Error('aleph.config.json의 실제 배포 주소를 먼저 넣어 주세요.');
+      }
+      attempts.push(...await runStepThreeChecks(config, app));
+    }
+    if (config.step === 9) {
+      const { detect } = await import('./detect.mjs');
+      const { checkDetection } = await import('../scripts/detect-test.mjs');
+      for (const [index, check] of (await checkDetection(detect)).entries()) {
+        attempts.push(result(`detection_fixture_${index + 1}`, check.name,
+          `공식 연습 사건: ${check.passed ? '통과' : '실패'} · ${check.name}`));
       }
       const app = new URL(config.publicAppUrl);
       if (app.protocol !== 'https:' || app.username || app.password || app.search || app.hash || app.pathname !== '/') {

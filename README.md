@@ -1,6 +1,16 @@
 # BYTE BACK · 내 자료실
 
+## 9단계 저장점 준비 · 2026-10-13
+
+8단계는 f77c16a904373d0072d7e30e50eb8afae5e6fbe8로 공식 100/100점이다. 9단계 원문을 전체 확인하고 제작 1→2→3 순서로 입력 정리·사용자별 10분 조회량 탐지·별도 회수 제안을 구현했다. detect는 공개 연습 계약의 at/method/identity.sub만 읽고 GET120건 초과 때 burst_read와 가명 subject 하나를 반환한다. 실제 회수 API나 권한 변경은 하지 않는다. 기존 decide·자료 API·DB·XDR는 보존한다.
+
+관련 검사15개, 공개 detect 연습6개, 기존 decider 연습4개와 로컬 빌드가 통과했다. 다시 확인: `node --test test/step-03.test.mjs test/step-05.test.mjs test/step-08.test.mjs test/step-09.test.mjs`, `npm run detect:test`, `npm run decider:test`, `npm run build -- --local`.
+
+공개 연습에는 팝업의 네트워크·기기·판정 필드가 없다. 없는 값을 만들거나 subject를 기기 ID라고 보고하지 않는다. 운영 복합 탐지·단일 기기 회수·회수 시간과 공식 9단계 판정은 심판에서 확인한다. 상세 원문·실행 범위는 docs/DEFENSE-STEP-09-PROMPTS.md와 docs/DEFENSE-STEP-09.md에 구분한다.
+
 ## 8단계 최신 안내 반영 · 2026-10-13
+
+최신 공식 결과: f77c16a904373d0072d7e30e50eb8afae5e6fbe8로 8단계 100/100점·조건 5개·완결성 가점 3개·모든 공격 격파를 확인했다. 9단계가 열렸으며 아래 실패·미완료 문구는 이전 실행 기록이다. 판정기 소유자 정책이나 UUID 제한을 새로 추가하지 않았다. 메모 소유자 비교는 최종 API가 담당하고 판정기는 공지 쓰기와 목록 경로를 거부한다.
 
 최신 실행: UUID 단건 제한을 제출한 e05120b는 이번 36점·OWN_BROKEN+OTHER_ZONE_ALLOWED였고 최고 점수는 48점이다. 정상 요청 회귀를 확인해 판정기·연습·관련 검사만 3c71c00으로 복구했다. API 소유자 보호와 다른 변경은 유지한다. 아래 UUID 수정 설명은 실패한 시도 기록이며 현재 허용 규칙이 아니다. 8단계는 아직 통과하지 못했다.
 
