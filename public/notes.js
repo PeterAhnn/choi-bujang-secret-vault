@@ -80,6 +80,7 @@ async function loadNotes() {
       remove.type = 'button';
       remove.textContent = '삭제';
       remove.addEventListener('click', async () => {
+        const actor = session?.user?.id;
         remove.disabled = true;
         try {
           await api(`/api/notes/${encodeURIComponent(note.id)}`, 'DELETE');
@@ -87,6 +88,7 @@ async function loadNotes() {
             await api(`/api/notes/${encodeURIComponent(note.id)}`);
             throw new Error('삭제 결과를 확인하지 못했습니다. 목록을 다시 확인해 주세요.');
           } catch (error) { if (error.status !== 404) throw error; }
+          if (session?.user?.id !== actor) return;
           if (editingId === note.id) resetEditor();
           deletedId = note.id;
           restoreDeleted.hidden = false;
@@ -105,12 +107,14 @@ async function loadNotes() {
   } catch (error) { if (version === requestVersion) showMessage(error.message); }
 }
 async function restoreNote(id, button) {
+  const actor = session?.user?.id;
   button.disabled = true;
   try {
     const restored = await api('/api/restore', 'POST', { id });
     if (restored.id !== id || restored.restored !== true || !/^[a-f0-9]{64}$/u.test(restored.contentHash ?? '')) {
       throw new Error('복구 결과를 확인하지 못했습니다.');
     }
+    if (session?.user?.id !== actor) return;
     if (deletedId === id) { deletedId = undefined; restoreDeleted.hidden = true; }
     operationStatus.textContent = '백업에서 메모 한 건을 복구했습니다.';
     await loadNotes();
