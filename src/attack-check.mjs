@@ -18,7 +18,7 @@ async function requestPath(app, path, wantsJson = false, method = 'GET', authori
       method, credentials: 'omit', redirect: 'error', cache: 'no-store',
       headers: { Accept: wantsJson ? 'application/json' : 'text/html',
         ...(authorization ? { Authorization: authorization } : {}),
-        ...(attackId ? { 'X-Aleph-Attack-Id': attackId } : {}) },
+        ...(attackId ? { 'x-aleph-attack-id': attackId } : {}) },
       ...(attackId ? { attackId } : {}),
       signal: AbortSignal.timeout(10000),
     });
