@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { RULE_IDS } from './decider.mjs';
 import safeManifest from '../policy/safe-policy-manifest.json' with { type: 'json' };
+import { verificationSection, verificationSourceSection } from './verification-results.mjs';
 import { DEVICE_ID, DeviceError, deviceConfiguration, deviceFetch,
   deviceIdentityVerifier, deviceResponseHeaders, readDevice } from './device-api.mjs';
 
@@ -92,6 +93,8 @@ export function createOperationsHandler({ env = process.env, fetchImpl = fetch,
             ['내 비공개 메모 백업 수', String(backups), '실측: 검증한 소유자의 사본 수만 정확히 집계했습니다. 본문은 읽지 않았습니다.'],
             ['내 메모 복구 감사 수', String(recoveries), '실측: 검증한 소유자의 복구 감사 수만 정확히 집계했습니다.'],
           ]),
+          verificationSection(),
+          verificationSourceSection(),
         ],
       };
       // The identical, content-free summary is the server-side comparison record.

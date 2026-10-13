@@ -113,10 +113,12 @@ test('verified-user HEAD aggregates, actual rules and device status produce the 
     for (const section of result.body.sections) {
       assert.equal(typeof section.title, 'string');
       assert.ok(section.title.length > 0);
-      assert.deepEqual(section.columns, ['항목', '결과', '검증 범위']);
+      assert.deepEqual(section.columns, section.title === '1~11단계 요청 확인 표'
+        ? ['시험', '기대 결과', '실제 API 결과', '확인 상태', '요청 ID', '확인 시각']
+        : ['항목', '결과', '검증 범위']);
       assert.ok(Array.isArray(section.rows) && section.rows.length > 0);
       for (const row of section.rows) {
-        assert.equal(row.length, 3);
+        assert.equal(row.length, section.columns.length);
         assert.ok(row.every(cell => typeof cell === 'string' && cell.length > 0));
         cells.push(...row);
       }
