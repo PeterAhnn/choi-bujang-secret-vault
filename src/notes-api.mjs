@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import config from '../aleph.config.json' with { type: 'json' };
 import { createLoginVerifier } from './verify-login.mjs';
-import { identifyResource } from './resources.mjs';
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iu;
 const displayNote = row => {
@@ -28,18 +27,6 @@ export function createNotesHandler({ env = process.env, fetchImpl = fetch,
       identity = await verifier(authorization);
     } catch { return response.status(401).json({ error: 'INVALID_LOGIN' }); }
     if (!uuid.test(identity?.userId ?? '')) return response.status(401).json({ error: 'INVALID_LOGIN' });
-    let requestUrl;
-    try { requestUrl = new URL(request.url, 'https://library.invalid'); } catch {
-      return response.status(400).json({ error: 'INVALID_RESOURCE' });
-    }
-    const resource = identifyResource(requestUrl.pathname);
-    if (resource?.resourceId !== 'notes'
-        || (itemRoute ? !resource.itemId : requestUrl.pathname !== '/api/notes')
-        || [...requestUrl.searchParams.keys()].some(name => name !== 'id')
-        || requestUrl.searchParams.has('id') && requestUrl.searchParams.get('id') !== resource.itemId) {
-      return response.status(403).json({ error: 'RESOURCE_NOT_ALLOWED' });
-    }
-    response.setHeader('X-Resource-ID', resource.resourceId);
     const allowed = itemRoute ? ['GET', 'PUT', 'DELETE'] : ['GET', 'POST'];
     if (!allowed.includes(request.method)) {
       response.setHeader('Allow', allowed.join(', '));

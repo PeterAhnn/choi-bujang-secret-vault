@@ -124,45 +124,13 @@ async function runStepThreeChecks(config, app) {
 }
 
 export async function runAttackChecks(config) {
-  if (![1, 2, 3, 4, 5, 6, 7, 8].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
-  if ([6, 7, 8].includes(config.step)) {
-    const { decide, createDecider, RULE_IDS } = await import('./decider.mjs');
+  if (![1, 2, 3, 4, 5, 6, 7].includes(config.step)) throw new Error('이 단계의 공격 점검을 src/attack-check.mjs에 구현해 주세요.');
+  if ([6, 7].includes(config.step)) {
+    const { decide, RULE_IDS } = await import('./decider.mjs');
     const { checkDecider } = await import('../scripts/decider-test.mjs');
     const checks = await checkDecider({ decide, ruleIds: RULE_IDS });
-    const attempts = checks.map((check, index) => result(`device_fixture_${index + 1}`,
+    return checks.map((check, index) => result(`device_fixture_${index + 1}`,
       check.name, `가상 요청 연습: ${check.passed ? '통과' : '실패'} · ${check.name}`));
-    if (config.step === 8) {
-      const { fixtureRequests } = await import('../scripts/fixture-7.mjs');
-      const { normal } = fixtureRequests();
-      for (const path of ['/notes/export', '/announcements/demo', '/unknown']) {
-        const response = await decide({ ...normal, path, route: `GET ${path}` });
-        attempts.push(result(`resource_${attempts.length}`, '가상 미허용 자원 거부',
-          `가상 요청 ${path}: ${response.decision} · ${response.reasonCode}`));
-      }
-      const item = { ...normal, path: '/api/notes/local-scope-check', route: 'GET /api/notes/:id' };
-      const scoped = createDecider([{ classId: item.classId, projectId: item.projectId,
-        policyRevision: item.policyRevision, service: 'notes', path: item.path,
-        routePath: '/api/notes/:id', grants: [{ subjectId: item.subjectId,
-          deviceId: item.deviceId, methods: ['GET', 'PUT'] }] }]);
-      for (const [attackId, expected, handler, request] of [
-        ['resource_unregistered', '가상 빈 등록 정책의 단건 거부', createDecider([]), item],
-        ['resource_owner_read', '가상 등록 정책의 본인 읽기 허용', scoped, item],
-        ['resource_owner_write', '가상 등록 정책의 본인 수정 허용', scoped,
-          { ...item, method: 'PUT', route: 'PUT /api/notes/:id' }],
-        ['resource_other_user', '가상 등록 정책의 다른 사용자 거부', scoped,
-          { ...item, subjectId: 'other_synthetic_subject' }],
-        ['resource_other_device', '가상 등록 정책의 다른 기기 거부', scoped,
-          { ...item, deviceId: 'b'.repeat(16) }],
-      ]) {
-        const response = await handler(request);
-        attempts.push(result(attackId, expected,
-          `가상 등록 정책 연습: ${response.decision} · ${response.reasonCode}`));
-      }
-      const unresolved = await decide({ ...item, subjectId: 'other_synthetic_subject' });
-      attempts.push(result('default_owner_scope_unresolved', '기본 진입점의 소유 구역 대조 연결 필요',
-        `가상 기본 진입점의 타 주체 단건: ${unresolved.decision} · API 소유자 대조와 별개로 미해결`));
-    }
-    return attempts;
   }
   let app;
   try {
