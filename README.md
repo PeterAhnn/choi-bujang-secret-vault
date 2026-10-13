@@ -10,6 +10,8 @@
 
 다시 확인: `node --test test/step-03.test.mjs test/step-05.test.mjs test/step-08.test.mjs`, `npm run decider:test`, `npm run build -- --local`. 원문과 재시작 기록은 `docs/DEFENSE-STEP-08-PROMPTS.md`, `docs/DEFENSE-STEP-08-RESTART.md`에 있다. 아래 내용은 이전 시점의 판단과 실행 기록이다.
 
+3c71c006 검사도 구역 규칙을 통과하지 못했고 화면의 최고 점수는 48점이다. 후속 조사에서 임의 문자열 단건 경로가 list/bulk/announcements 같은 기능·자원 이름도 허용하는 범위 차이를 재현했다. 판정기의 메모 ID를 실제 API와 같은 UUID로 제한하고 연습 요청의 가상 ID만 UUID 형식으로 맞췄다. 특정 가상 ID를 판정기에 예외 등록하지 않았으며 기존 네 가지 판정 기대값은 유지했다. 심판이 사용하는 실제 경로는 확인하지 못했으므로 새 공식 결과와 구분한다.
+
 ## 최신 공식 결과 · 2026-10-13
 
 c608c214fc7c3435bb80a71740551910c79af8c5 재검사는36/100점입니다. OWN_BROKEN은 해소됐고 구역 규칙 OTHER_ZONE_ALLOWED 한 항목만 실패했습니다. 원래6/7 정상 단건 및 API·DB 보호는 유지됩니다. 8단계 전체 완료·9단계 개방은 미완료입니다. 공개 R5 자료에서 찾지 못한 자원 소유자와 가명 주체의 공식 연결 방법 및 구역 거부 코드를 확인할 기술 문의 문안을 별도로 준비했습니다. 외부 문의는 사용자 승인 전까지 게시하지 않습니다. 아래는 이전 시점 기록입니다.
