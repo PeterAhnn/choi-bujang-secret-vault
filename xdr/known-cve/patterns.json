@@ -1,0 +1,6 @@
+{
+  "patterns": [
+    {"name":"log4shell-remote-lookup","condition":"요청 머리글 또는 URL의 완전한 ${jndi:ldap/rmi/dns://...} 원격 조회 형태","evidence":"CVE-2021-44228 원격 조회 형태, MITRE ATT&CK T1190","sources":["https://nvd.nist.gov/vuln/detail/CVE-2021-44228","https://attack.mitre.org/techniques/T1190/"]},
+    {"name":"known-cve-probe","condition":"원격 조회 형태가 불완전하거나 취약점/점검 도구 흔적만 존재하면 검토 알림으로 남김","evidence":"T1190 취약점 악용의 점검 신호이며 취약점 이름만으로 악용을 입증하지 않음","sources":["https://attack.mitre.org/techniques/T1190/"]}
+  ]
+}
