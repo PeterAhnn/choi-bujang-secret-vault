@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BYTE BACK | 내 자료실</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#101a28">
+  <link rel="icon" href="/app-icon.svg" type="image/svg+xml">
   <style>
     :root { color-scheme: dark; font-family: system-ui, sans-serif; }
     body { margin: 0; min-height: 100vh; background: #101a28; color: #ecf4ff; }
@@ -30,6 +33,13 @@
   <main>
     <div class="eyebrow">BYTE BACK · 5단계 서버 자료실</div>
     <h1>내 자료실</h1>
+    <section class="auth-panel" aria-label="접속 앱과 기기 상태">
+      <h2>내 자료실 접속 앱</h2>
+      <p id="install-status">앱 설치 여부를 확인합니다. 설치는 기기 승인이 아닙니다.</p>
+      <button id="install-app" type="button" hidden>접속 화면 설치</button>
+      <p id="device-status" role="status">기기 승인: 서버 확인 전입니다. 설치만으로 승인되지 않습니다.</p>
+      <p id="connection-status" role="status"></p>
+    </section>
     <section class="auth-panel" aria-label="자료실 로그인">
       <p id="auth-status" role="status">로그인 상태를 확인하는 중입니다.</p>
       <form id="login-form" hidden>
@@ -56,5 +66,6 @@
   </main>
   <script type="module" src="/auth.js"></script>
   <script type="module" src="/notes.js"></script>
+  <script type="module" src="/app.js"></script>
 </body>
 </html>

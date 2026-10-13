@@ -1,0 +1,13 @@
+{
+  "id": "/",
+  "name": "내 자료실 접속 앱",
+  "short_name": "내 자료실",
+  "lang": "ko",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#101a28",
+  "background_color": "#101a28",
+  "description": "서버가 확인한 기기에서 내 가상 자료실을 여는 접속 화면입니다.",
+  "icons": [{"src":"/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]
+}
