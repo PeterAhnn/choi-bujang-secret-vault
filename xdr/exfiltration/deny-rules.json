@@ -1,0 +1,75 @@
+{
+  "schema": "aleph.xdr.deny.v1",
+  "rules": [
+    {
+      "moduleKey": "exfiltration",
+      "destination": "203.0.113.50",
+      "alertId": "ex-01",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "198.51.100.40",
+      "alertId": "ex-02",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "203.0.113.50",
+      "alertId": "ex-03",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "198.51.100.40",
+      "alertId": "ex-04",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "203.0.113.55",
+      "alertId": "ex-05",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "192.0.2.90",
+      "alertId": "ex-06",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "198.51.100.45",
+      "alertId": "ex-07",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "203.0.113.60",
+      "alertId": "ex-08",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "203.0.113.61",
+      "alertId": "ex-09",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "c2-data-transfer"
+    },
+    {
+      "moduleKey": "exfiltration",
+      "destination": "198.51.100.46",
+      "alertId": "ex-10",
+      "expiresAt": "2026-10-13T02:19:08.543Z",
+      "pattern": "unusual-bulk-transfer"
+    }
+  ]
+}

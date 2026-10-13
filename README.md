@@ -1,5 +1,9 @@
 # 최신 결과 · 2026-10-13
 
+XDR-05는 f63937038ec82accb94d0c7a5551352fbff12905로 첫 제출 공식100/100점입니다. XDR-06은 `npm run xdr:run -- exfiltration`로 block10·alert10·record10, 정상 차단0을 확인했습니다. `node xdr/exfiltration/respond.mjs`로 만료15분 목적지 거부규칙과 최소 알림 로그를 만듭니다. 운영 연결은 미확인이고 공식 XDR-06 판정은 다음 순서입니다. 아래 문구는 과거 시점의 기록입니다.
+
+# 최신 결과 · 2026-10-13
+
 XDR-04는 cfcf3891e13a40361a822f01ef4a31364071afac으로 첫 제출 공식100/100점입니다. XDR-05는 `npm run xdr:run -- privilege`로 block9·alert8·record9, 정상 차단0을 확인했습니다. 원본 경보 및 기존 판정기 규칙을 보존했습니다. `node xdr/privilege/respond.mjs`로 만료15분 거부규칙과 최소 알림 로그를 만듭니다. 운영 엔진 연결은 미확인이고 공식 XDR-05 판정은 다음 순서입니다. 아래 문구는 과거 시점의 기록입니다.
 
 # BYTE BACK · 내 자료실

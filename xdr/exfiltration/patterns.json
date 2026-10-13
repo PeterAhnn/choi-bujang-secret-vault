@@ -1,0 +1,5 @@
+[
+  {"name":"unusual-bulk-transfer","condition":"높은 위험 수준이며 대용량 또는 다수 파일이 낯선 목적지·비정상 포트·업무 외 시간·반복 전송으로 확인됨","evidence":"MITRE ATT&CK T1048: 평소와 다른 프로토콜·업무 외 활동·비정상 전송량을 함께 조사한다.","source":"https://attack.mitre.org/techniques/T1048/"},
+  {"name":"c2-data-transfer","condition":"높은 위험 수준이며 명령 통로에서 큰 파일이나 반복 자료 전송이 확인됨","evidence":"MITRE ATT&CK T1041: 기존 명령 통로를 통해 수집 자료가 유출될 수 있다.","source":"https://attack.mitre.org/techniques/T1041/"},
+  {"name":"transfer-review","condition":"전송 관련 중간 위험 수준이며 작거나 단발성·실패·전송 전 압축 등 확정 근거가 부족함","evidence":"MITRE ATT&CK T1041/T1048: 비정상 전송 행위를 조사하며 파일 크기나 낯선 목적지 하나만으로 확정 차단하지 않는다.","source":"https://attack.mitre.org/techniques/T1048/"}
+]
