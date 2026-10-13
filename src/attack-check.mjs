@@ -111,6 +111,7 @@ async function runStepThreeChecks(config, app) {
     { encoding: 'utf8', windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
   const identityMatches = identity.ok && identity.data?.step === config.step && identity.data.commit === head
     && normalizeRepo(identity.data.repoUrl) === normalizeRepo(config.repoUrl)
+    && (config.step < 10 || identity.data.restoreRoute === config.restoreRoute)
     && identity.data.judgeIssuer === config.judgeIssuer;
   const staticGone = staticData.status === 404 || staticData.ok && !staticData.failed
     && Array.isArray(staticData.data?.notes) && staticData.data.notes.length === 0

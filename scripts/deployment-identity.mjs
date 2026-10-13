@@ -29,5 +29,6 @@ export function deploymentIdentity(env, config) {
     sampleMarker: config.sampleMarker,
     ...(config.step >= 3 ? {allowedRoutes: config.allowedRoutes ?? []} : {}),
     ...(config.step >= 5 ? {originalApiUrl: config.originalApiUrl} : {}),
+    ...(config.step >= 10 ? {restoreRoute: config.restoreRoute} : {}),
   };
 }
