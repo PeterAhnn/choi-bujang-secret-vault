@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
-import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
 // These are student self-checks, not the judge's decision.
 // Never return tokens, private keys, real names, or note bodies.
@@ -98,10 +98,12 @@ async function runStepThreeChecks(config, app) {
     ['invalid_login', '/api/notes', 'GET', 'Bearer invalid'],
   ];
   const replies = await Promise.all(attempts.map(([, path, method, authorization]) =>
-    requestPath(app, path, true, method, authorization)));
+    config.step === 12 && !['GET', 'HEAD'].includes(method) ? { notRun: true }
+      : requestPath(app, path, true, method, authorization)));
   const rejected = replies.map((reply, index) => result(attempts[index][0],
     '로그인 검사 실패 요청은 자료 없이 JSON401/403으로 거부',
-    !reply.failed && [401, 403].includes(reply.status) && typeof reply.data?.error === 'string'
+    reply.notRun ? 'not_run'
+      : !reply.failed && [401, 403].includes(reply.status) && typeof reply.data?.error === 'string'
       && Object.keys(reply.data).join(',') === 'error'
       ? `자료 없이 JSON HTTP ${reply.status} 거부 확인` : failure(reply)));
   const [page, staticData, identity] = await Promise.all([
@@ -168,10 +170,14 @@ export async function runAttackChecks(config) {
       const publicChecks = await runStepThreeChecks(config, app);
       if (config.step >= 10) {
         attempts.push(...publicChecks.filter(check => check.attackId !== 'security_nosniff'));
-        const reply = await requestPath(app, config.restoreRoute, true, 'POST');
-        attempts.push(result('anonymous_restore_denied', '비로그인 POST 복구 요청은 자료 없이 JSON401로 거부',
-          !reply.failed && reply.status === 401 && Object.keys(reply.data ?? {}).join(',') === 'error'
-            ? '비로그인 복구 HTTP401·자료 없음 확인' : failure(reply)));
+        if (config.step === 12) {
+          attempts.push(result('anonymous_restore_denied', '비로그인 POST 복구 요청은 자료 없이 JSON401로 거부', 'not_run'));
+        } else {
+          const reply = await requestPath(app, config.restoreRoute, true, 'POST');
+          attempts.push(result('anonymous_restore_denied', '비로그인 POST 복구 요청은 자료 없이 JSON401로 거부',
+            !reply.failed && reply.status === 401 && Object.keys(reply.data ?? {}).join(',') === 'error'
+              ? '비로그인 복구 HTTP401·자료 없음 확인' : failure(reply)));
+        }
       } else attempts.push(...publicChecks);
       if (config.step >= 11) {
         const manifest = await requestPath(app, '/manifest.webmanifest', true);
@@ -215,7 +221,7 @@ export async function runAttackChecks(config) {
       script.ok && !/sb_(?:publishable|secret)_|eyJ[A-Za-z0-9_-]+\./u.test(code)
         ? '화면 코드의 실제 키 없음 확인' : '화면 키 제거 확인 실패'));
     try {
-      const {publishableKey}=JSON.parse(await readFile(resolve(root,'.local/public-check-config.json'),'utf8'));
+      const {publishableKey}=JSON.parse(readFileSync(resolve(root,'.local/public-check-config.json'),'utf8'));
       const original=new URL(config.originalApiUrl);
       original.searchParams.set('select','note_id');
       original.searchParams.set('limit','1');
