@@ -35,3 +35,7 @@ c2a817d83c2e5e515c0d70d15b87798d18e21d24의 실제 배포를 대조한 뒤 현�
 현재 팝업의 실패 판정과 빈칸을 채운 막힘 프롬프트를 먼저 보여 줬다. scripts/detect-test.mjs에서node:util을 제거하고 평면 응답의 프로토타입·모든 자체 키·값을 비교한다. src/attack-check.mjs의node:fs/promises는허용된node:fs로대체한다. 같은 판정에 명시된 공개HTTPS GET·HEAD 제한에 따라12단계쓰기검사4건은호출하지않고not_run으로남긴다. 이전단계분기·판정기·탐지규칙·실제API·DB정책·실측12건은변경하지않았다.
 
 탐지 정상6건과 값/문자열·심볼 추가키/자료형 변조48건, 가상fetch의GET8건·쓰기4건미실행을 확인했다. 전체 묶음은 허용 모듈·Git 읽기·HTTPS GET·HEAD만 제공한 로컬 제한 환경에서 별도로 실행한다. 이는 공식 심판의 재실행 결과를 대신하지 않는다. 비밀값과 검사 전후 메모 본문은 출력하지 않는다.
+
+ed0d34bf0053fb9a2e3f0c6b0286249e79586a7c의 제한 환경 실행은 모듈 5개·공개 GET 8건·실행 16건·not_run 4건이며 일반 묶음과 일치했다. 두 번째 공식 판정은 0점·같은 지원 불가 코드였으나 첫 오류는 제출 묶음 확인용 Git 읽기 밖 명령이었다. 로컬 제한기가 Git 읽기 종류만 넓게 허용해 세부 인자 제한을 놓쳤다. 실패 판정과 빈칸을 채운 막힘 프롬프트를 다시 먼저 보여 줬다.
+
+공식 main의 scripts/bundle.mjs는 로컬 파일과 같았다. 자기 점검의 `rev-parse HEAD`만 공식 묶음의 `rev-parse --verify HEAD`와 달랐다. 공식 묶음의 정확한 명령 형식으로 제한하자 수정 전 같은 호출에서 실패를 재현했다. src/attack-check.mjs의 한 줄만 공식 형식에 맞췄다. 실제 API·DB·화면·정책·실측 스냅샷은 그대로 보존한다. 출처: https://github.com/ChoiTimo/aleph-defense-starter/blob/main/scripts/bundle.mjs .

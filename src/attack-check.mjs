@@ -109,7 +109,7 @@ async function runStepThreeChecks(config, app) {
   const [page, staticData, identity] = await Promise.all([
     requestPath(app, '/'), requestPath(app, '/data.json', true), requestPath(app, '/aleph.json', true),
   ]);
-  const head = execFileSync('git', ['-C', root, 'rev-parse', 'HEAD'],
+  const head = execFileSync('git', ['-C', root, 'rev-parse', '--verify', 'HEAD'],
     { encoding: 'utf8', windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
   const identityMatches = identity.ok && identity.data?.step === config.step && identity.data.commit === head
     && normalizeRepo(identity.data.repoUrl) === normalizeRepo(config.repoUrl)
