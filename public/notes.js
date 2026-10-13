@@ -8,6 +8,8 @@ const bodyInput = document.querySelector('#note-body');
 const saveButton = document.querySelector('#note-save');
 const cancelButton = document.querySelector('#note-cancel');
 const operationStatus = document.querySelector('#operation-status');
+const restoreDeleted = document.querySelector('#restore-deleted');
+let deletedId;
 let session;
 let editingId;
 let requestVersion = 0;
@@ -86,16 +88,36 @@ async function loadNotes() {
             throw new Error('삭제 결과를 확인하지 못했습니다. 목록을 다시 확인해 주세요.');
           } catch (error) { if (error.status !== 404) throw error; }
           if (editingId === note.id) resetEditor();
+          deletedId = note.id;
+          restoreDeleted.hidden = false;
           operationStatus.textContent = '가상 메모를 삭제했습니다.';
           await loadNotes();
         } catch (error) { operationStatus.textContent = error.message; remove.disabled = false; }
       });
-      actions.append(edit, document.createTextNode(' '), remove);
+      const restore = document.createElement('button');
+      restore.type = 'button';
+      restore.textContent = '백업으로 복구';
+      restore.addEventListener('click', () => restoreNote(note.id, restore));
+      actions.append(edit, document.createTextNode(' '), remove, document.createTextNode(' '), restore);
       item.append(title, body, actions);
       return item;
     }));
   } catch (error) { if (version === requestVersion) showMessage(error.message); }
 }
+async function restoreNote(id, button) {
+  button.disabled = true;
+  try {
+    const restored = await api('/api/restore', 'POST', { id });
+    if (restored.id !== id || restored.restored !== true || !/^[a-f0-9]{64}$/u.test(restored.contentHash ?? '')) {
+      throw new Error('복구 결과를 확인하지 못했습니다.');
+    }
+    if (deletedId === id) { deletedId = undefined; restoreDeleted.hidden = true; }
+    operationStatus.textContent = '백업에서 메모 한 건을 복구했습니다.';
+    await loadNotes();
+  } catch (error) { operationStatus.textContent = error.message; }
+  finally { button.disabled = false; }
+}
+restoreDeleted.addEventListener('click', () => { if (deletedId) void restoreNote(deletedId, restoreDeleted); });
 form.addEventListener('submit', async event => {
   event.preventDefault();
   saveButton.disabled = true;
@@ -112,6 +134,10 @@ form.addEventListener('submit', async event => {
 });
 cancelButton.addEventListener('click', () => { resetEditor(); operationStatus.textContent = '수정을 취소했습니다.'; });
 function changeSession(nextSession) {
+  if (session?.user?.id !== nextSession?.user?.id) {
+    deletedId = undefined;
+    restoreDeleted.hidden = true;
+  }
   session = nextSession;
   editor.hidden = !session?.user;
   resetEditor();
