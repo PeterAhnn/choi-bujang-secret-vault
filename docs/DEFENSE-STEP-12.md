@@ -47,3 +47,11 @@ ed0d34bf0053fb9a2e3f0c6b0286249e79586a7c의 제한 환경 실행은 모듈 5개�
 가상 판정·탐지 연습8건은 로컬 함수 실행이며 실제 HTTP가 아니다. 12단계 묶음에서는 쓰기 미실행4건과 함께not_run으로 구분한다. 실제 공개GET8건은 결과의attackId와 같은 값을fetch메타데이터 및X-Aleph-Attack-Id헤더에 명시한다. 공개 시작 틀 문서10개와JS/MJS16개에는 전송 연결 규격이 없었으므로 이 식별 구현을 공식 계약으로 주장하지 않는다. 로컬 제한 검사는 요청 식별자와 실행 결과의일대일연결을 확인하며 공식 인정 여부는 재검사로 확인한다. API정책·DB·화면·고정기대값·실측12건은 바꾸지 않았다.
 
 8e2376d827afffa93d4b0a44cae7d946acc0f6dd는 53점이다. 가상 연습8건은 오류 목록에서 빠졌으나 실제GET8건은 연결되지 않았다. 로컬 식별 연결 통과를 공식 인정으로 바꾸지 않는다. 같은 실패를 보존하고 채운 막힘 프롬프트를 다시 보여 줬다. 요청 헤더 이름을소문자x-aleph-attack-id로정규화하는한줄수정만했으며 이 인식 여부는 공식 재검사로 확인한다.
+
+## 공식 표본으로 확인한 요청 기록 규격
+
+소문자 헤더 수정본6c3b1461ee6a158425e05a4a67e59a738ea2dece도53점으로 실패했다. 사용자가 근거 없는 반복 수정을 지적했고 추정 수정과 재제출을 중단했다. 공식 시작 틀만 검색해 통과 표본을 놓친 조사 오류를 확인했다.
+
+운영자가 공개한 byteback-sample-pass의 e94ecff31e6b7003d1ccc60d9fa943ac80c6411d에서 src/attack-check.mjs의fetch옵션은 `alephEvidence: { caseId, requestKey: 'read' }`이다. 모든 호출의caseId는반환attackId와같다. README는이메타데이터를헤더나URL에넣지않는다고명시한다. 두 독립 검토에서도 같은 코드를 확인했다. 출처: https://github.com/ChoiTimo/byteback-sample-pass/blob/e94ecff31e6b7003d1ccc60d9fa943ac80c6411d/README.md .
+
+로컬 제한 검사도 공식 표본의alephEvidence를 읽도록 수정하자 기존 코드의8개요청에서연결누락이재현됐다. 이 결과는 .local/step-12-actual-contract-before.json에 보존한다. 추정헤더와init.attackId를제거하고공식fetch메타데이터만추가했다. 가상연습8건·쓰기미실행4건·실제GET8건과기존R5의결과3필드를유지한다. 실제API·DB·화면·실측12건은보존한다.

@@ -17,9 +17,8 @@ async function requestPath(app, path, wantsJson = false, method = 'GET', authori
     const response = await fetch(new URL(path, app), {
       method, credentials: 'omit', redirect: 'error', cache: 'no-store',
       headers: { Accept: wantsJson ? 'application/json' : 'text/html',
-        ...(authorization ? { Authorization: authorization } : {}),
-        ...(attackId ? { 'x-aleph-attack-id': attackId } : {}) },
-      ...(attackId ? { attackId } : {}),
+        ...(authorization ? { Authorization: authorization } : {}) },
+      ...(attackId ? { alephEvidence: { caseId: attackId, requestKey: 'read' } } : {}),
       signal: AbortSignal.timeout(10000),
     });
     if (response.redirected || response.status >= 300 && response.status < 400) {
