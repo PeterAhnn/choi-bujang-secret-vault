@@ -8,7 +8,7 @@
 
 실행: `on-client` 폴더에서 `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\start-alekov.ps1` 후 http://127.0.0.1:5189/ 를 연다. 기본은 외부 서버 미연결이며 `-Demo`는 예제 자료다. 외부 npm 설치·새 DB·Vercel 설정 변경은 필요하지 않다.
 
-14단계는 `renderDecision`을 구현했다. 문법·모의 DOM 24건·실제 로컬 예제 응답·13단계 보존 검사와 사용자 직접 확인 두 건을 완료했다. 공식 제출 전이며 진행과 실제 판정은 [14단계 기록](docs/DEFENSE-STEP-14.md)에 구분한다.
+14단계는 `renderDecision`을 구현해 첫 제출에서 필수 5항목 모두 공식 통과했다. 통과 커밋은 `c73abbbe801c7183424eb3fe43ee765267e62b7f`이며 서버 접수 시각은 2026-10-19 15:26이다. 문법·모의 DOM 24건·실제 로컬 예제 응답·13단계 보존 검사와 사용자 직접 확인 두 건을 완료했다. 15단계가 열렸으며 아직 구현하지 않았다. 진행과 실제 판정은 [14단계 기록](docs/DEFENSE-STEP-14.md)에 구분한다.
 
 [새 과정 규칙](on-client/AGENTS.md), [공식 원문](docs/DEFENSE-STEP-13-PROMPTS.md), [13단계 작업·검증 기록](docs/DEFENSE-STEP-13.md)을 따른다. 아래는 1~12단계 R5 기록이다.
 
