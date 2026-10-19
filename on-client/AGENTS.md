@@ -12,6 +12,9 @@
 ## 구현 경계
 
 - 13단계 앱 코드 수정은 student/extension.mjs의 renderIdentity 함수 하나다. createStudentView와 제공 앱의 호출·교체 계약을 먼저 읽고 다른 함수의 기본 문구를 유지한다.
+- 14단계 앱 코드 수정은 같은 파일의 renderDecision 함수 하나다. 13단계의 renderIdentity를 그대로 보존한다. 입력은 { status, mode, data?, error?, appId }이며 data는 { appId, decision, reason, checkedAt }이다. 요청은 제공 버튼이 보내므로 학생 함수에 요청·자동 재시도를 추가하지 않는다.
+- 14단계는 idle/loading/ok/error를 나누고 allow/deny/challenge/unknown을 한국어 뜻과 코드로 표시한다. 목록 밖 판정은 확인 불가(unknown), 오류는 요청 실패이며 거부 판정이 아님을 표시한다. 판정 이유·시각·대상 앱을 표시하고 예제·연결 없음·확인 불가 모드를 유지한다.
+- 14단계 실제 확인은 현재 반환 결과와 키보드 조작을 확인한다. 네 판정을 만들기 위해 정책·인증을 변경하지 않는다. 다른 분기는 별도 모의 입력으로 검사하며 실제 연결 결과와 구분한다.
 - public/app.js, src, 제공 서버·화면·판정 코드·인증 설정은 수정하지 않는다. 이름을 바꾼다는 이유로 제공 파일명·앱 제목을 임의 변경하지 않는다.
 - renderIdentity 입력은 { me, devices, sessions }, 각각 { status, mode, data?, error? }이다. 없는 계약·요청·사용자·권한을 만들지 않는다.
 - 세 입력의 loading/ok/error를 각각 처리하고, demo/disconnected/unknown은 loading·error 때도 표시한다. 오류가 나면 이전 사용자 값을 지운다. 새 입력으로 화면을 교체한다.

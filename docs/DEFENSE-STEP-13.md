@@ -73,4 +73,13 @@ Node.js v24.21.0에서 실행했다. 공식 도구가 허용하는 22~24 범위�
 
 수정 전 같은 조건으로 모의 DOM 검사를 바꿔 40/41, 기기 뜻과 원래 코드 불일치를 재현했다. renderIdentity 안의 상태 형식 함수와 현재 기기·세션 및 두 목록 출력 네 곳만 수정했다. 수정 뒤 문법 검사와 모의 DOM 41/41이 통과했고 실제 예제 앱에서 확인 불가(unknown)·활성(active)의 현재 상태와 목록 표시를 확인했다. 이는 AI가 수행한 재검증이며 사용자 확인을 새로 했다고 기록하지 않는다.
 
-on-client/AGENTS.md에 공통 규칙과 단계별 요구의 대조 및 뜻·코드 동시 검사를 추가했다. 원래 판정문은 .local/step13-evidence/first-official-result.txt, 수정 후 검사는 dom-check-corrected.json에 보관한다. 새 공식 판정은 아직 대기 전이다.
+on-client/AGENTS.md에 공통 규칙과 단계별 요구의 대조 및 뜻·코드 동시 검사를 추가했다. 원래 판정문은 .local/step13-evidence/first-official-result.txt, 수정 후 검사는 dom-check-corrected.json에 보관한다.
+
+## 최종 공식 결과
+
+- 통과 커밋: 9cb49a313aa7d064be975733852254237712ee38.
+- 처음 통과한 서버 접수 시각: 2026-10-19 15:04. AI 설명의 확인 시각: 2026-10-19 15:16.
+- 필수 5항목 모두 통과: student-source-changed, three-menus, student-identity-updates, student-failure-visible, identity-after-reload.
+- 공식 원문 JSON으로 전달했고 GitHub push는 수행하지 않았다. 통과 판정은 제출 원문 검토이며 서버의 실행 인증이 아니다.
+- 14단계 개방과 4~6차 진행 1/10을 확인했다. 사용자 요청에 따라 같은 프로젝트에서 14단계를 이어 간다.
+- 최종 화면과 판정문: .local/step13-evidence/official-pass.jpg 및 official-pass.txt. 이 결과 기록을 추가한 후속 커밋과 위 통과 커밋을 구분한다.
