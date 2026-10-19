@@ -18,6 +18,9 @@
 - 15단계는 renderEvents만 구현하고 13·14단계 함수를 보존한다. 받은 배열을 복사해 at 최신순으로 정렬하며 추가 요청 없이 kind·appId·state.access 원래 값과 all로 필터링한다. 선택 상자의 접근 가능한 이름은 기록 종류·업무 앱·접속 상태다.
 - 각 행의 data-student-event-id와 <event.id> 상세 버튼, 상세의 data-student-event-detail을 실제 내용·동작과 연결한다. 상세에 사건·앱 ID, 근거·규칙의 id/text, 접속·세션·기기 상태의 뜻과 코드를 따로 표시한다. 없는 앱은 확인 불가, unknown은 확인 불가(unknown)로 표시한다.
 - 15단계는 새 호출에서 이전 목록과 상세를 교체한다. 빈 배열·조회 실패·계약 불일치를 구분하고 오류 후 이전 목록을 남기지 않는다. 제공 화면의 범위 수치를 추정하지 않으며 지원 조치 버튼은 추가하지 않는다. 모의 검사·예제 앱·실제 계정 연결·사용자 직접 확인·공식 판정을 구분한다.
+- 16단계는 renderStatus와 renderEvents의 상세 안 미지원 안내만 수정한다. diagnostics는 제공 화면의 조회 결과이며 최초 idle도 구분한다. 학생 코드가 직접 조회하거나 자동 재시도하지 않는다. 기기·현재 세션·알림의 loading/ok/error/빈 목록을 나누고 시간 초과·수동 다시 불러오기·복구 후 이전 오류 제거를 확인한다.
+- 진단 정보는 requestId/component/version/checkedAt/engine.mode/engine.code만 명시적으로 골라 화면과 수동 복사에 사용한다. 전체 입력·전체 설정을 직렬화하지 않는다. 학생 상태 영역의 정확한 이름인 도움정보 복사 버튼은 진단 ok 때만 활성화하고, 사용자가 누를 때만 복사한다.
+- 16단계에서 supportedActions가 있을 때만 15단계 상세 안에 <action> 미지원 이름의 비활성 버튼과 준비 중 안내를 둔다. 빈 배열에서는 버튼을 만들지 않는다. 조치 요청·성공 주장은 추가하지 않는다.
 - public/app.js, src, 제공 서버·화면·판정 코드·인증 설정은 수정하지 않는다. 이름을 바꾼다는 이유로 제공 파일명·앱 제목을 임의 변경하지 않는다.
 - renderIdentity 입력은 { me, devices, sessions }, 각각 { status, mode, data?, error? }이다. 없는 계약·요청·사용자·권한을 만들지 않는다.
 - 세 입력의 loading/ok/error를 각각 처리하고, demo/disconnected/unknown은 loading·error 때도 표시한다. 오류가 나면 이전 사용자 값을 지운다. 새 입력으로 화면을 교체한다.
