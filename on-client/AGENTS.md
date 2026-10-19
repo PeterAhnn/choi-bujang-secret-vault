@@ -16,6 +16,7 @@
 - renderIdentity 입력은 { me, devices, sessions }, 각각 { status, mode, data?, error? }이다. 없는 계약·요청·사용자·권한을 만들지 않는다.
 - 세 입력의 loading/ok/error를 각각 처리하고, demo/disconnected/unknown은 loading·error 때도 표시한다. 오류가 나면 이전 사용자 값을 지운다. 새 입력으로 화면을 교체한다.
 - 현재 포털의 번역을 사용한다: compliant=보안 기준 충족, noncompliant=보안 기준 미충족, unknown=확인 불가; active=활성, expired=만료, revoked=철회됨.
+- 공식 STUDENT_PROMPTS.md의 공통 문구 규칙도 단계별 안내와 함께 대조한다. 기기·세션의 현재 상태와 목록 상태는 한국어 뜻과 전달받은 원래 코드를 함께 표시한다. 예: 보안 기준 미충족(noncompliant), 만료(expired). 한국어 뜻만 검사해서 코드 누락을 놓치지 않는다.
 - document.createElement와 textContent로 DOM 요소 하나를 반환한다. innerHTML로 입력을 해석하지 않는다. 색상 외 텍스트로 상태를 구분하고 기존 키보드 조작을 보존한다.
 - 비밀번호·토큰·개인키·서버 키를 요청하거나 코드·대화·Git·캡처·제출물에 남기지 않는다.
 

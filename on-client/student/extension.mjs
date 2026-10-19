@@ -23,6 +23,7 @@ export function createStudentView() {
       ]);
       const value = (input) => typeof input === 'string' && input.trim()
         ? input : '확인 불가';
+      const state = (labels, code) => `${labels.get(code) ?? '확인 불가'}(${typeof code === 'string' && code.trim() ? code : 'unknown'})`;
       const text = (parent, tag, content) => {
         const node = document.createElement(tag);
         node.textContent = content;
@@ -48,9 +49,9 @@ export function createStudentView() {
       renderSection('현재 사용자·기기·세션', me, (section, data) => {
         text(section, 'p', `사용자: ${value(data?.user?.label)} (ID: ${value(data?.user?.id)})`);
         text(section, 'p', `기기: ${value(data?.device?.label)} (ID: ${value(data?.device?.id)})`);
-        text(section, 'p', `기기 상태: ${deviceStates.get(data?.device?.status) ?? '확인 불가'}`);
+        text(section, 'p', `기기 상태: ${state(deviceStates, data?.device?.status)}`);
         text(section, 'p', `세션 ID: ${value(data?.session?.id)}`);
-        text(section, 'p', `세션 상태: ${sessionStates.get(data?.session?.status) ?? '확인 불가'}`);
+        text(section, 'p', `세션 상태: ${state(sessionStates, data?.session?.status)}`);
       });
       renderSection('기기 목록', devices, (section, data) => {
         if (!Array.isArray(data)) {
@@ -60,7 +61,7 @@ export function createStudentView() {
         } else {
           const list = document.createElement('ul');
           for (const device of data) {
-            text(list, 'li', `${value(device?.label)} (ID: ${value(device?.id)}) · ${deviceStates.get(device?.status) ?? '확인 불가'}`);
+            text(list, 'li', `${value(device?.label)} (ID: ${value(device?.id)}) · ${state(deviceStates, device?.status)}`);
           }
           section.appendChild(list);
         }
@@ -73,7 +74,7 @@ export function createStudentView() {
         } else {
           const list = document.createElement('ul');
           for (const session of data) {
-            text(list, 'li', `세션 ID: ${value(session?.id)} · ${sessionStates.get(session?.status) ?? '확인 불가'}`);
+            text(list, 'li', `세션 ID: ${value(session?.id)} · ${state(sessionStates, session?.status)}`);
           }
           section.appendChild(list);
         }
