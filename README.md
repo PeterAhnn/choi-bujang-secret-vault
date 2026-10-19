@@ -8,6 +8,8 @@
 
 실행: `on-client` 폴더에서 `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\start-alekov.ps1` 후 http://127.0.0.1:5189/ 를 연다. 기본은 외부 서버 미연결이며 `-Demo`는 예제 자료다. 외부 npm 설치·새 DB·Vercel 설정 변경은 필요하지 않다.
 
+14단계는 `renderDecision`을 구현했다. 문법·모의 DOM 24건·실제 로컬 예제 응답·13단계 보존 검사와 사용자 직접 확인 두 건을 완료했다. 공식 제출 전이며 진행과 실제 판정은 [14단계 기록](docs/DEFENSE-STEP-14.md)에 구분한다.
+
 [새 과정 규칙](on-client/AGENTS.md), [공식 원문](docs/DEFENSE-STEP-13-PROMPTS.md), [13단계 작업·검증 기록](docs/DEFENSE-STEP-13.md)을 따른다. 아래는 1~12단계 R5 기록이다.
 
 방어전 R5에서 시작한 공개 저장소이며 AI 과제와 별도로 관리한다. 실제 학생 자료와 비밀값을 넣지 않는다. 운영 서비스는 기존 전용 Supabase와 Vercel 자료실이다.
