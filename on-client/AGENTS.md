@@ -15,6 +15,9 @@
 - 14단계 앱 코드 수정은 같은 파일의 renderDecision 함수 하나다. 13단계의 renderIdentity를 그대로 보존한다. 입력은 { status, mode, data?, error?, appId }이며 data는 { appId, decision, reason, checkedAt }이다. 요청은 제공 버튼이 보내므로 학생 함수에 요청·자동 재시도를 추가하지 않는다.
 - 14단계는 idle/loading/ok/error를 나누고 allow/deny/challenge/unknown을 한국어 뜻과 코드로 표시한다. 목록 밖 판정은 확인 불가(unknown), 오류는 요청 실패이며 거부 판정이 아님을 표시한다. 판정 이유·시각·대상 앱을 표시하고 예제·연결 없음·확인 불가 모드를 유지한다.
 - 14단계 실제 확인은 현재 반환 결과와 키보드 조작을 확인한다. 네 판정을 만들기 위해 정책·인증을 변경하지 않는다. 다른 분기는 별도 모의 입력으로 검사하며 실제 연결 결과와 구분한다.
+- 15단계는 renderEvents만 구현하고 13·14단계 함수를 보존한다. 받은 배열을 복사해 at 최신순으로 정렬하며 추가 요청 없이 kind·appId·state.access 원래 값과 all로 필터링한다. 선택 상자의 접근 가능한 이름은 기록 종류·업무 앱·접속 상태다.
+- 각 행의 data-student-event-id와 <event.id> 상세 버튼, 상세의 data-student-event-detail을 실제 내용·동작과 연결한다. 상세에 사건·앱 ID, 근거·규칙의 id/text, 접속·세션·기기 상태의 뜻과 코드를 따로 표시한다. 없는 앱은 확인 불가, unknown은 확인 불가(unknown)로 표시한다.
+- 15단계는 새 호출에서 이전 목록과 상세를 교체한다. 빈 배열·조회 실패·계약 불일치를 구분하고 오류 후 이전 목록을 남기지 않는다. 제공 화면의 범위 수치를 추정하지 않으며 지원 조치 버튼은 추가하지 않는다. 모의 검사·예제 앱·실제 계정 연결·사용자 직접 확인·공식 판정을 구분한다.
 - public/app.js, src, 제공 서버·화면·판정 코드·인증 설정은 수정하지 않는다. 이름을 바꾼다는 이유로 제공 파일명·앱 제목을 임의 변경하지 않는다.
 - renderIdentity 입력은 { me, devices, sessions }, 각각 { status, mode, data?, error? }이다. 없는 계약·요청·사용자·권한을 만들지 않는다.
 - 세 입력의 loading/ok/error를 각각 처리하고, demo/disconnected/unknown은 loading·error 때도 표시한다. 오류가 나면 이전 사용자 값을 지운다. 새 입력으로 화면을 교체한다.
