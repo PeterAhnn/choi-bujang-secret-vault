@@ -1,5 +1,15 @@
 # BYTE BACK · 내 자료실
 
+## 4차 보안 Agent · 13단계 (2026-10-19)
+
+같은 저장소의 `on-client/`에서 공식 0.2.11 시작 틀로 13~22단계를 이어 간다. 기존 자료실·Git 원격·1~12단계 기록과 XDR를 보존한다. 포털 이름은 나라찬이며, 제공 앱 제목 케셰브와 실행 파일명은 그대로 유지한다.
+
+13단계는 `student/extension.mjs`의 `renderIdentity`만 구현했다. 문법 검사, 별도 모의 DOM 검사 41개, 실제 로컬 앱의 메뉴·갱신·서버 중지 후 이전 사용자 제거를 확인했다. 사용자는 세 메뉴의 마우스·키보드 조작과 제공 값·학생 표시의 일치, 다시 불러오기를 직접 확인했다. 공식 판정은 아직 제출 전이다. 예제 자료를 실제 계정 연결로 보고하지 않는다.
+
+실행: `on-client` 폴더에서 `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\start-alekov.ps1` 후 http://127.0.0.1:5189/ 를 연다. 기본은 외부 서버 미연결이며 `-Demo`는 예제 자료다. 외부 npm 설치·새 DB·Vercel 설정 변경은 필요하지 않다.
+
+[새 과정 규칙](on-client/AGENTS.md), [공식 원문](docs/DEFENSE-STEP-13-PROMPTS.md), [13단계 작업·검증 기록](docs/DEFENSE-STEP-13.md)을 따른다. 아래는 1~12단계 R5 기록이다.
+
 방어전 R5에서 시작한 공개 저장소이며 AI 과제와 별도로 관리한다. 실제 학생 자료와 비밀값을 넣지 않는다. 운영 서비스는 기존 전용 Supabase와 Vercel 자료실이다.
 
 - 공개 자료실: https://choi-bujang-secret-vault-ochre.vercel.app/
