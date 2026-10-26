@@ -1,0 +1,10 @@
+{
+  "type": "이전 대기 함수의 모의 검사이며 실제 연결 실패 기록이 아닙니다.",
+  "checkedAt": "2026-10-26T08:50:20.671Z",
+  "baselineCommit": "f0ec4380f48b950e5d9723c5dd7d4935ee5fadaf",
+  "sourceSha256": "cdf276630349ce705976062060e6eec7572cf12adf4d4ba8b4a69cb83208df38",
+  "passed": 9,
+  "failed": 44,
+  "total": 53,
+  "networkCalls": 0
+}

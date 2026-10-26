@@ -1,0 +1,18 @@
+{
+  "type": "실제 로컬 화면 관측이며 계정 승인·AI 호출·공식 통과 증거가 아닙니다.",
+  "checkedAt": "2026-10-26T08:55:26.381Z",
+  "url": "http://127.0.0.1:5189/",
+  "studentSourceSha256": "5568908820f6ea3af53a502621c7744aab8906194a787873f9fd678e5fb3376c",
+  "observedInitialState": "AI 연결 점검 전",
+  "observedImmediatelyAfterOneCheck": {
+    "code": "ON_AI_PROVISIONING_PENDING",
+    "status": "error",
+    "notice": "학생 앱 이용 권한의 발급·연결을 준비 중입니다. 담당자에게 확인하세요."
+  },
+  "observedLaterSnapshot": "학생 AI 연결 표시\nstudent/extension.mjs · renderAiConnection\nAI 연결 점검\n\n자료 모드: 확인 불가\n\nAI 연결 점검 전\n\n사건 설명은 보안 기록에서 별도로 요청하고 확인합니다.\n\n다시 점검하려면 제공 화면의 AI 연결 점검 버튼을 직접 누르세요. 자동으로 다시 요청하지 않습니다.",
+  "laterState": "idle",
+  "laterStateTransitionCause": "not_confirmed",
+  "realModelResponse": "not_run",
+  "realIncidentExplanation": "not_run",
+  "officialStage17Decision": "not_submitted"
+}
