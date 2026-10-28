@@ -1,0 +1,30 @@
+{
+  "stage": 21,
+  "portalUrl": "https://aleph-omega.vercel.app/defense",
+  "repository": "https://github.com/PeterAhnn/choi-bujang-secret-vault",
+  "submittedCommit": "8895985d5550842ab4222326a1f84857ead293a4",
+  "submittedAt": "2026-10-28T02:37:44.515Z",
+  "firstPassingReceiptAt": "2026-10-28 11:37",
+  "feedbackCheckedAtDisplayed": "2026-10-28 11:38",
+  "observedAt": "2026-10-28T02:39:30.059Z",
+  "timezone": "Asia/Seoul",
+  "officialStatus": "passed",
+  "passedCriteria": [
+    "documentation_scope",
+    "run_instructions_match_source",
+    "architecture_matches_source",
+    "provided_student_boundary",
+    "failure_guide_matches_source",
+    "support_scope_honest"
+  ],
+  "reviewMethod": "제출 커밋의 문서·코드 원문을 대조한 공식 AI 검토입니다. 서버가 실행 명령을 수행하거나 새 환경에서 재현한 결과는 아닙니다.",
+  "serverExecutedCommands": false,
+  "freshEnvironmentReproductionVerified": false,
+  "userLaunchCheckConfirmed": true,
+  "userDocumentMatchCheckConfirmed": true,
+  "actualExternalConnectionsVerified": false,
+  "nextStage": 22,
+  "nextStageDisplayedState": "제출 전",
+  "resubmittedAfterPass": false,
+  "visibleOfficialFeedback": "21단계 · 다른 사람이 이해할 수 있는 문서\n통과했습니다. 감염 껍질이 벗겨졌습니다.\n\n통과\n\n처음 통과한 서버 접수 시각: 2026-10-28 11:37\n\n권장일 2026-11-02 · 권장일이 지나도 제출은 그대로 받고, 늦었다는 표시도 하지 않습니다.\n\n이 단계는 서버의 AI가 제출한 커밋의 원문(코드·README·학생 문서·설정 설명·재현 기록)을 읽고 서로 맞는지 판정합니다. 서버가 명령을 실행하거나 새 환경에서 재현해 확인한 것은 아닙니다.\n\nAI가 코드를 읽고 모든 확인 항목을 통과로 판정해야 진도에 반영됩니다. 판정을 확인할 수 없으면 통과로 처리하지 않으며, 실패가 아니라 확인 불가로 남겨 다시 검토를 요청할 수 있습니다.\n\nAI 판정 설명 보기\n\nAI 가 코드를 읽고 쓴 판정 설명입니다.\n\n공식 통과 기록과 진도는 이 피드백으로 바뀌지 않습니다.\n\n원문 검토 결과입니다. 서버가 실행해 확인하지 않았습니다.\n\n피드백 대상 커밋: 8895985d5550\n\n확인 시각: 2026-10-28 11:38\n\n피드백 결과: 통과\n\n모든 확인 항목을 통과했습니다. 참고: 비밀정보로 보이는 값이 있는 파일 1개(test/step-05.test.mjs: 키·토큰·비밀번호 변수에 값이 적힘)는 그 값을 가린 뒤 AI에 보냈습니다. 판정에는 영향이 없습니다. 실제 키라면 저장소에서 빼고(.env 는 .env.example 로 대신) 교체해 주세요. 문서·코드 대조 결과 6개 항목 모두 충족했습니다. 지금 반드시 고쳐야 할 불일치는 확인되지 않았습니다.\n\ndocumentation_scope — 통과: README에 프로젝트 목적·기능과 사용 기술이 있고, 학생 실행 설명서에는 지원 운영체제와 버전 범위, 확인한 버전 및 시작 틀 버전이 구분되어 적혀 있습니다.\n\nrun_instructions_match_source — 통과: README와 실행 설명서의 명령은 실제 제공 실행 도구의 위치, Demo·포트 옵션 및 Node.js 지원 범위와 맞습니다. package.json의 24.19.0 선언도 실행 도구가 허용하는 22~24 범위와 서로 다른 기준으로 명시되어 있습니다.\n\narchitecture_matches_source — 통과: 학생 설명서의 구성도에 적힌 브라우저·서버·학생 표시·엔진·AI·OSV의 경로와 연결 관계가 제공 코드의 실제 모듈 및 미설정 처리와 일치합니다.\n\nprovided_student_boundary — 통과: 학생 실행 설명서는 학생이 작성한 표시 함수와 제공 실행·통신 코드를 별도 구분합니다. 실제 학생 파일의 함수 구성과도 대조됩니다.\n\nfailure_guide_matches_source — 통과: 설명서의 연결 없음·계약 불일치·요청 실패 안내는 실행 도구의 검증, 제공 화면의 오류 상태 처리, 기본 엔진의 미연결 동작과 연결되어 있습니다. 비밀값을 만들거나 실패를 성공으로 바꾸는 절차도 안내하지 않습니다.\n\nsupport_scope_honest — 통과: 지원 범위와 미확인 동작을 문서에서 구분하고, 공식 코드 검토를 외부 AI·OSV 조회나 실제 조치 성공의 증거로 확대하지 않습니다. 현재 OSV 스캐너의 프로젝트 설정 없음 처리 및 SDP 자료의 운영 미검증 범위와도 모순되지 않습니다.\n\n"
+}
