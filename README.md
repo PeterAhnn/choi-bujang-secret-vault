@@ -4,6 +4,12 @@
 
 [웹 자료실](https://choi-bujang-secret-vault-ochre.vercel.app/) · [보안 Agent 구현](on-client/student/extension.mjs)
 
+## 나라찬 PC 관제 대시보드
+
+보호 현황에서 CPU·메모리·앱 디스크 여유, 네트워크·방화벽과 최근 Windows 기록을 읽어 봅니다. 제공된 읽기 전용 수집기를 활용하고, 학생 영역에 측정 시각·단위·실패 이유와 최근 수동 조회 10회 비교를 추가했습니다. PC 실측과 SDP 연결 상태를 구분하며 Windows 경고·오류 건수를 침해 판정으로 표현하지 않습니다.
+
+[실행 안내](docs/FINAL-ASSAULT-RUN.md) · [구현·검증·남은 범위](docs/FINAL-ASSAULT.md)
+
 ## 주요 기능
 
 **웹 자료실**
@@ -49,7 +55,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\start-alekov.ps1 -De
 
 브라우저에서 [http://127.0.0.1:5189/](http://127.0.0.1:5189/)를 엽니다. 예제 모드는 실제 계정 연결 없이 화면을 둘러보는 용도입니다. 기존 앱을 유지하며 다른 포트로 확인하는 방법, 종료·재실행, 구성도와 오류별 절차는 [학생 실행 설명서](docs/STUDENT_RUNBOOK.md)에 정리했습니다. [공식 실행 안내](on-client/docs/STUDENT_LAUNCH_GUIDE.md)도 함께 참고하세요.
 
-다른 폴더로 옮길 때의 커밋 고정·재현 기록·데이터 보존 계획은 [인수인계 문서](docs/STUDENT_HANDOFF.md)를 참고하세요. 학생 버전은 **검증 중 r22.1**입니다. 실제 집행과 외부 연결의 미확인 범위가 남아 있어 운영 인증이나 v1.0으로 표시하지 않습니다.
+22단계 당시의 커밋 고정·재현 기록·데이터 보존 계획은 [인수인계 문서](docs/STUDENT_HANDOFF.md)에 있습니다. 이후 PC 관제 표시를 추가한 학생 버전은 **검증 중 r22.2**이며 [총공세 기록](docs/FINAL-ASSAULT.md)에서 구분합니다. 실제 집행과 외부 연결의 미확인 범위가 남아 있어 운영 인증이나 v1.0으로 표시하지 않습니다.
 
 ## 검증과 현재 범위
 

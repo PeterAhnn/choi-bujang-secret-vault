@@ -1,0 +1,10 @@
+{
+  "recordedAt": "2026-10-28T03:46:59.9155743Z",
+  "day": 5,
+  "confirmed": true,
+  "response": "안내만으로 따라갔고 막힘이 없습니다",
+  "scope": "실행 안내 2절에 따라 별도 앱에서 자원·네트워크/방화벽·Windows 기록 확인과 재조회 이력 비교",
+  "userCommandExecutionConfirmed": false,
+  "processLaunchActor": "AI",
+  "otherPersonUsabilityTest": "미실시"
+}

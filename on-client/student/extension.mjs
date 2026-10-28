@@ -1,6 +1,7 @@
 // 이 파일은 학생이 같은 프로젝트에서 이어서 구현합니다.
 // 제공 UI를 받은 것만으로 단계 완료를 인정하지 않습니다.
-export function createStudentView() {
+export function createStudentView({ api } = {}) {
+  const pcDashboard = createPcDashboard(api);
   return {
     renderIdentity({ me, devices, sessions } = {}) {
       const root = document.createElement('section');
@@ -266,6 +267,8 @@ export function createStudentView() {
     },
     renderStatus({ devices, sessions, notifications, diagnostics, mode } = {}) {
       const root = document.createElement('section');
+      pcDashboard.setSdpMode(mode);
+      root.appendChild(pcDashboard.element);
       const text = (parent, tag, content) => {
         const node = document.createElement(tag);
         node.textContent = content;
@@ -735,4 +738,139 @@ export function createStudentView() {
       return root;
     },
   };
+}
+
+// 마지막 총공세: 제공 PC 수집기를 사용하는 학생 표시·수동 조회 이력입니다.
+// PC 요청으로 onChange를 호출하지 않아 기존 기록의 필터·선택을 보존합니다.
+function createPcDashboard(api) {
+  const element = document.createElement('section');
+  element.setAttribute('data-student-pc-dashboard', '');
+  element.setAttribute('aria-label', '나라찬 PC 관제 대시보드');
+  const node = (parent, tag, value) => {
+    const result = document.createElement(tag);
+    if (value !== undefined) result.textContent = value;
+    parent.appendChild(result);
+    return result;
+  };
+  node(element, 'h3', '나라찬 · PC 관제 대시보드');
+  node(element, 'p', '제공 기능: 내 PC 읽기 전용 수집기. 학생 개선: 항목별 설명과 최근 수동 조회 비교. 자동 조회·설정 변경·외부 전송은 하지 않습니다.');
+  const sdp = node(element, 'p', 'SDP 연결 상태: 확인 불가(unknown). PC 실측과 별도입니다.');
+  const controls = node(element, 'div');
+  const reload = node(controls, 'button', 'PC 상태 다시 조회'); reload.type = 'button';
+  const cancel = node(controls, 'button', 'PC 조회 취소'); cancel.type = 'button';
+  const announcement = node(element, 'p'); announcement.setAttribute('role', 'status'); announcement.setAttribute('aria-live', 'polite');
+  const current = node(element, 'section'); current.setAttribute('data-student-pc-current', ''); current.setAttribute('aria-label', '현재 PC 조회 결과');
+  const historyHost = node(element, 'section'); historyHost.setAttribute('data-student-pc-history', ''); historyHost.setAttribute('aria-label', '최근 수동 조회');
+  let state = 'idle', data = null, errorCode = '', busy = false, generation = 0;
+  const history = [];
+  const nonnegative = value => typeof value === 'number' && Number.isFinite(value) && value >= 0;
+  const count = value => Number.isSafeInteger(value) && value >= 0;
+  const unavailable = reason => ({state: 'unavailable', reason: pcReason(reason)});
+  const gib = value => `${(value / 1024 ** 3).toFixed(2)} GiB`;
+  const time = value => `${new Date(value).toLocaleString('ko-KR', {timeZone: 'Asia/Seoul', hour12: false})} (한국 시간) · ${value}`;
+  function normalize(raw) {
+    if (raw?.schema !== 'aleph.on.pc-status.v1' || raw.source !== 'local-pc' || !raw.metrics || typeof raw.metrics !== 'object' || Array.isArray(raw.metrics)) return null;
+    const measured = typeof raw.measuredAt === 'string' && /(?:Z|[+-]\d{2}:\d{2})$/.test(raw.measuredAt) ? Date.parse(raw.measuredAt) : NaN;
+    if (!Number.isFinite(measured) || Date.now() - measured > 300000 || measured - Date.now() > 30000) return null;
+    const m = raw.metrics, metrics = {};
+    metrics.cpu = m.cpu?.state === 'ok' && nonnegative(m.cpu.usagePercent) && m.cpu.usagePercent <= 100 && m.cpu.sampleMs === 200
+      ? {state: 'ok', usagePercent: m.cpu.usagePercent, sampleMs: 200} : unavailable(m.cpu?.reason);
+    metrics.memory = m.memory?.state === 'ok' && count(m.memory.usedBytes) && count(m.memory.totalBytes) && m.memory.totalBytes > 0 && m.memory.usedBytes <= m.memory.totalBytes
+      ? {state: 'ok', usedBytes: m.memory.usedBytes, totalBytes: m.memory.totalBytes} : unavailable(m.memory?.reason);
+    metrics.disk = m.disk?.state === 'ok' && count(m.disk.freeBytes) && count(m.disk.totalBytes) && m.disk.totalBytes > 0 && m.disk.freeBytes <= m.disk.totalBytes
+      ? {state: 'ok', freeBytes: m.disk.freeBytes, totalBytes: m.disk.totalBytes} : unavailable(m.disk?.reason);
+    metrics.network = m.network?.state === 'ok' && count(m.network.interfaceCount) && count(m.network.ipv4Count)
+      ? {state: 'ok', interfaceCount: m.network.interfaceCount, ipv4Count: m.network.ipv4Count} : unavailable(m.network?.reason);
+    const profiles = m.firewall?.profiles, names = ['Domain', 'Private', 'Public'];
+    metrics.firewall = m.firewall?.state === 'ok' && Array.isArray(profiles) && profiles.length === 3 && names.every(name => profiles.filter(p => p?.name === name && typeof p.enabled === 'boolean').length === 1)
+      ? {state: 'ok', profiles: names.map(name => { const p = profiles.find(v => v.name === name); return {name, enabled: p.enabled}; })} : unavailable(m.firewall?.reason);
+    const e = m.events, since = typeof e?.since === 'string' && /(?:Z|[+-]\d{2}:\d{2})$/.test(e.since) ? Date.parse(e.since) : NaN;
+    metrics.events = e?.state === 'ok' && count(e.warningCount) && count(e.errorCount) && e.warningCount + e.errorCount <= 5000 && e.sampleLimit === 5000 && typeof e.truncated === 'boolean' && Number.isFinite(since) && Math.abs(measured - since - 86400000) <= 300000
+      ? {state: 'ok', warningCount: e.warningCount, errorCount: e.errorCount, sampleLimit: 5000, truncated: e.truncated, since: e.since} : unavailable(e?.reason);
+    return {source: 'local-pc', measuredAt: raw.measuredAt, metrics};
+  }
+  function metricCard(parent, title, metric, display, explanation) {
+    const card = node(parent, 'article');
+    card.style.padding = '12px'; card.style.border = '1px solid var(--border, #334155)'; card.style.borderRadius = '10px';
+    node(card, 'h4', title);
+    const missingReason = state === 'idle' ? '아직 조회하지 않았습니다.' : state === 'loading' ? '이번 조회가 진행 중입니다.' : state === 'cancelled' ? '화면 조회를 취소해 현재 값을 확인하지 않았습니다.' : '이번 조회의 값을 확인할 수 없습니다.';
+    node(card, 'p', metric?.state === 'ok' ? display(metric) : `확인 불가 · ${metric?.reason ?? missingReason}`);
+    node(card, 'p', explanation);
+  }
+  function paintHistory() {
+    historyHost.replaceChildren(); node(historyHost, 'h4', '최근 수동 조회');
+    node(historyHost, 'p', '이 화면에서 받은 최근 10회까지만 메모리에 보관합니다. 과거 측정값이며 현재 상태나 보안 판정이 아닙니다. 새로고침하면 지워집니다.');
+    if (!history.length) { node(historyHost, 'p', '아직 비교할 조회가 없습니다.'); return; }
+    const scroll = node(historyHost, 'div'); scroll.style.overflowX = 'auto';
+    const table = node(scroll, 'table'); node(table, 'caption', '최근 조회 시각별 자원 비교');
+    const head = node(table, 'thead'), header = node(head, 'tr');
+    for (const title of ['측정 시각', 'CPU 사용률(%)', '메모리 사용량(GiB)', '앱 디스크 여유(GiB)']) { const th = node(header, 'th', title); th.setAttribute('scope', 'col'); }
+    const body = node(table, 'tbody');
+    for (const sample of [...history].reverse()) {
+      const row = node(body, 'tr'), m = sample.metrics;
+      node(row, 'td', time(sample.measuredAt));
+      node(row, 'td', m.cpu.state === 'ok' ? m.cpu.usagePercent.toFixed(1) : '확인 불가');
+      node(row, 'td', m.memory.state === 'ok' ? (m.memory.usedBytes / 1024 ** 3).toFixed(2) : '확인 불가');
+      node(row, 'td', m.disk.state === 'ok' ? (m.disk.freeBytes / 1024 ** 3).toFixed(2) : '확인 불가');
+    }
+    if (history.length > 1) {
+      const previous = history.at(-2).metrics.cpu, latest = history.at(-1).metrics.cpu;
+      if (previous.state === 'ok' && latest.state === 'ok') node(historyHost, 'p', `직전 수동 조회 대비 CPU 차이: ${(latest.usagePercent - previous.usagePercent).toFixed(1)}%p. 측정 시점이 다른 약 200ms 구간의 비교입니다.`);
+    }
+  }
+  function paint() {
+    element.setAttribute('data-state', state); element.setAttribute('aria-busy', String(state === 'loading'));
+    reload.disabled = busy || typeof api?.get !== 'function'; cancel.disabled = state !== 'loading';
+    announcement.textContent = typeof api?.get !== 'function' ? '제공 PC 조회 API를 확인할 수 없습니다. 학생 모듈 연결을 확인하거나 제공 화면의 내 PC 확인을 사용하세요.'
+      : state === 'idle' ? '아직 PC를 조회하지 않았습니다. 버튼을 직접 누르면 제공 수집기로 읽습니다.'
+      : state === 'loading' ? '내 PC를 조회하는 중입니다. 이전 값을 현재 결과로 표시하지 않습니다.'
+      : state === 'cancelled' ? `화면의 조회를 취소했습니다. 늦은 결과를 무시합니다. 공유 GET 자체를 취소한 것은 아닙니다.${busy ? ' 원래 요청이 끝난 뒤 다시 조회할 수 있습니다.' : ' 버튼을 눌러 다시 조회할 수 있습니다.'}`
+      : state === 'error' ? `PC 조회 실패(${errorCode}). 이전 값을 현재 결과로 표시하지 않습니다. 연결을 확인한 뒤 PC 상태 다시 조회를 직접 누르세요.`
+      : 'PC 조회 응답을 받았습니다. 항목별 결과와 측정 시각을 확인하세요. 자동으로 갱신하지 않습니다.';
+    current.replaceChildren(); node(current, 'h4', '현재 PC 조회 결과');
+    if (data) node(current, 'p', `자료: 실제 조회 · 출처: ${data.source} · 측정 시각: ${time(data.measuredAt)}`);
+    else node(current, 'p', '현재 확인된 실측값이 없습니다. 예시 값이나 이전 값을 대신 표시하지 않습니다.');
+    const grid = node(current, 'div'); grid.style.display = 'grid'; grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(130px, 1fr))'; grid.style.gap = '12px';
+    const m = data?.metrics ?? {};
+    metricCard(grid, 'CPU 사용률', m.cpu, v => `${v.usagePercent.toFixed(1)}%`, '전체 CPU의 약 200ms 측정 구간입니다. 작업 관리자와 집계 시점이 다를 수 있습니다.');
+    metricCard(grid, '메모리 사용량', m.memory, v => `${gib(v.usedBytes)} / ${gib(v.totalBytes)}`, '사용량 / 전체 용량입니다. 1 GiB = 1,073,741,824바이트입니다.');
+    metricCard(grid, '앱 디스크 여유', m.disk, v => `${gib(v.freeBytes)} / ${gib(v.totalBytes)}`, '이 앱이 위치한 디스크의 여유 / 전체 용량입니다. PC의 모든 디스크 합계가 아닙니다.');
+    metricCard(grid, 'Windows 방화벽', m.firewall, v => v.profiles.map(p => `${p.name}: ${p.enabled ? '켜짐' : '꺼짐'}`).join(' · '), 'Domain·Private·Public 세 프로필의 설정만 읽습니다. 앱이 설정을 바꾸지 않으며 보호 전체의 안전 판정이 아닙니다.');
+    const details = node(current, 'div'); details.style.display = 'grid'; details.style.gridTemplateColumns = 'repeat(auto-fit, minmax(180px, 1fr))'; details.style.gap = '12px';
+    metricCard(details, '네트워크 구성', m.network, v => `인터페이스 ${v.interfaceCount}개 · IPv4 구성 ${v.ipv4Count}개`, '주소를 제외한 로컬 구성 수입니다. 인터넷 접속 성공이나 ZTNA 허용을 확인한 결과가 아닙니다.');
+    metricCard(details, 'Windows 기록 요약', m.events, v => `최근 24시간 경고 ${v.warningCount}건 · 오류 ${v.errorCount}건`, 'System·Application의 경고·오류 집계입니다. 침해나 공격 탐지 결과가 아닙니다.');
+    if (m.events?.state === 'ok') node(current, 'p', `기록 조회 시작: ${time(m.events.since)} · 끝: 위 측정 시각 · 최대 ${m.events.sampleLimit.toLocaleString('ko-KR')}건${m.events.truncated ? ' · 상한 때문에 일부 기록이 생략됐습니다.' : ' · 조회 범위에서 생략 없음.'}`);
+    paintHistory();
+  }
+  async function refresh() {
+    if (busy || typeof api?.get !== 'function') return;
+    const requestGeneration = ++generation; busy = true; state = 'loading'; data = null; errorCode = ''; paint();
+    try {
+      const result = await api.get('/api/pc/status');
+      if (requestGeneration !== generation) return;
+      const normalized = result?.ok === true ? normalize(result.data) : null;
+      if (!normalized) {
+        state = 'error'; errorCode = result?.ok === true ? 'CONTRACT_MISMATCH' : pcError(result?.error?.code);
+      } else {
+        state = 'ok'; data = normalized;
+        if (history.at(-1)?.measuredAt !== data.measuredAt) { history.push(data); if (history.length > 10) history.shift(); }
+      }
+    } catch { if (requestGeneration === generation) { state = 'error'; errorCode = 'NETWORK_ERROR'; } }
+    finally { busy = false; paint(); }
+  }
+  reload.addEventListener('click', refresh);
+  cancel.addEventListener('click', () => { if (state !== 'loading') return; generation++; state = 'cancelled'; data = null; paint(); });
+  paint();
+  return {element, setSdpMode(mode) {
+    const labels = new Map([['connected', 'SDP 자료는 연결 모드(connected)입니다.'], ['disconnected', 'SDP 미연결(disconnected)입니다.'], ['demo', 'SDP 자료는 예제(demo)이며 실제 연결이 아닙니다.']]);
+    sdp.textContent = `${labels.get(mode) ?? 'SDP 연결 상태: 확인 불가(unknown)입니다.'} PC 실측 결과와 별도입니다.`;
+  }};
+}
+
+function pcReason(reason) {
+  return new Map([['permission_denied', '읽기 권한이 없습니다.'], ['timeout', '조회 시간이 초과됐습니다.'], ['query_failed', '조회하지 못했습니다.'], ['unsupported', '이 운영체제에서 제공하지 않습니다.'], ['unsupported_platform', '이 운영체제에서 제공하지 않습니다.'], ['cancelled', '조회가 취소됐습니다.'], ['invalid_sample', '측정 구간을 확인할 수 없습니다.'], ['invalid_response', '응답 형식이 맞지 않습니다.']]).get(reason) ?? '응답 형식이나 값을 확인할 수 없습니다.';
+}
+
+function pcError(code) {
+  return ['TIMEOUT', 'REQUEST_TIMEOUT', 'NETWORK_ERROR', 'CANCELLED', 'NOT_ALLOWED', 'CONTRACT_MISMATCH'].includes(code) ? code : 'REQUEST_FAILED';
 }

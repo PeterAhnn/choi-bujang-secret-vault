@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-28T03:43:19.0380618Z",
+  "baselineCommit": "687120e6f97cc61d0088487491d8bdae283c67d9",
+  "studentSha256": "1d0c8f12ab3f0208b9b550e4da3112e691adcfd1fa41a2e5e166dec6d391d705",
+  "expectedChangedOnClientFiles": [
+    "on-client/AGENTS.md",
+    "on-client/student/extension.mjs"
+  ],
+  "unexpectedProvidedFileChanges": 0,
+  "preservedUserCopies": 26,
+  "changedUserCopies": 0,
+  "mockPassed": 72,
+  "mockFailed": 0,
+  "localLinks": 23,
+  "brokenLinks": 0,
+  "powerShellBlocks": 3,
+  "powerShellParseErrors": 0,
+  "realSecuritySettingsChanged": false,
+  "paidAiCallsExecuted": false,
+  "passedStagesResubmitted": false
+}

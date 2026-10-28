@@ -1,0 +1,17 @@
+{
+  "stage": "총공세 5일차",
+  "observedAt": "2026-10-28T03:41:25.5157005Z",
+  "performedBy": "AI",
+  "source": "687120e 기준 새 복제본 + 현재 학생 파일·문서 대조 복사",
+  "studentSha256": "1d0c8f12ab3f0208b9b550e4da3112e691adcfd1fa41a2e5e166dec6d391d705",
+  "grammarPassed": true,
+  "initialProcessId": 3764,
+  "initialProcessStopped": true,
+  "portClosedBeforeRestart": true,
+  "restartedProcessId": 6508,
+  "port": 5197,
+  "credentialFilesCopied": false,
+  "otherPersonUsabilityTest": "미실시",
+  "userIndependentWalkthrough": "사용자 본인의 안내 2절 화면 사용 확인 완료. PowerShell 기동은 AI 수행.",
+  "finalCommittedSourceReproduction": false
+}
