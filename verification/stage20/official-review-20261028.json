@@ -1,0 +1,32 @@
+{
+  "stage": 20,
+  "portalUrl": "https://aleph-omega.vercel.app/defense",
+  "repository": "https://github.com/PeterAhnn/choi-bujang-secret-vault",
+  "submittedCommit": "49135e480beada4c9248430adc100e56a1b2cdde",
+  "submittedAt": "2026-10-28T01:19:31.128Z",
+  "firstPassingReceiptAt": "2026-10-28 10:19",
+  "feedbackCheckedAtDisplayed": "2026-10-28 10:20",
+  "observedAt": "2026-10-28T01:21:21.955Z",
+  "timezone": "Asia/Seoul",
+  "officialStatus": "passed",
+  "passedCriteria": [
+    "student-source-changed",
+    "exact_lock_version",
+    "osv_match",
+    "lookup_unavailable",
+    "no_results_distinction",
+    "partial_preservation",
+    "refresh_replaces",
+    "request_recovery",
+    "stale_response_blocked"
+  ],
+  "reviewMethod": "제출 커밋 원문을 읽는 공식 AI 코드 검토이며 실제 외부 OSV 조회의 성공을 확인한 결과가 아닙니다.",
+  "actualConfiguredOsvLookupVerified": false,
+  "actualAppLookupStatus": "not_configured",
+  "userSyntheticVersionCheckConfirmed": true,
+  "userSyntheticUnavailableStateCheckConfirmed": true,
+  "nextStage": 21,
+  "nextStageDisplayedState": "제출 전",
+  "resubmittedAfterPass": false,
+  "visibleOfficialFeedback": "20단계 · 사용 라이브러리와 취약점 정보 대조\n통과했습니다. 감염 껍질이 벗겨졌습니다.\n\n통과\n\n처음 통과한 서버 접수 시각: 2026-10-28 10:19\n\n권장일 2026-10-29 · 권장일이 지나도 제출은 그대로 받고, 늦었다는 표시도 하지 않습니다.\n\nAI가 코드를 읽고 모든 확인 항목을 통과로 판정해야 진도에 반영됩니다. 판정을 확인할 수 없으면 통과로 처리하지 않으며, 실패가 아니라 확인 불가로 남겨 다시 검토를 요청할 수 있습니다.\n\nAI 판정 설명 보기\n\nAI 가 코드를 읽고 쓴 판정 설명입니다.\n\n공식 통과 기록과 진도는 이 피드백으로 바뀌지 않습니다.\n\n피드백 대상 커밋: 49135e480bea\n\n확인 시각: 2026-10-28 10:20\n\n피드백 결과: 통과\n\n모든 확인 항목을 통과했습니다. 검토한 9개 기준은 모두 통과했습니다. 지금 바로 고칠 필수 항목은 없습니다. 실제 OSV 응답 성공은 이번 원문 검토에서 확인하지 않았습니다. 실제 조회를 확인할 때도 미조회·실패를 취약점 없음으로 보지 말고, 다시 조회는 버튼을 직접 눌러 진행해 주세요.\n\nstudent-source-changed — 통과: on-client/student/extension.mjs의 renderVulnerabilities에 상태별 화면을 만드는 학생 코드가 작성되어 있습니다.\n\nexact_lock_version — 통과: 프로젝트 스캔은 설치 메타데이터의 이름과 버전을 잠금 파일에서 고른 좌표와 대조하고, renderVulnerabilities는 전달된 설치 버전을 표시합니다.\n\nosv_match — 통과: 프로젝트 스캔이 잠금 파일의 패키지·버전 좌표로 OSV 조회를 연결하고, 학생 표시가 받은 조회 상태와 출처를 보여 줍니다. 실제 외부 조회 성공을 확인했다는 뜻은 아닙니다.\n\nlookup_unavailable — 통과: renderVulnerabilities는 설정 없음·미조회·lock 확인 불가를 각각 구분하고, 미조회가 취약점 없음이라는 뜻이 아니라고 안내합니다.\n\nno_results_distinction — 통과: 패키지별 known_vulnerabilities, none_found, unverifiable 상태를 서로 구별하고, none_found도 안전 보장으로 표현하지 않습니다.\n\npartial_preservation — 통과: partial 상태에서 이미 받은 ID를 유지한다고 알리고, unverifiable 패키지에 취약점이 있어도 받은 항목을 표시합니다.\n\nrefresh_replaces — 통과: 새 조회 때 제공 UI가 이전 상태를 loading으로 바꾸고, 학생 함수는 호출마다 새 표시 요소를 만들어 전달된 최신 결과로 교체합니다.\n\nrequest_recovery — 통과: 오류 화면은 제공 화면의 조회 버튼을 직접 누르도록 안내하며, 해당 버튼은 새 조회를 요청하는 경로에 연결되어 있습니다.\n\nstale_response_blocked — 통과: 제공 UI가 취소 시 요청 세대를 올리고 늦은 응답을 차단합니다. 학생 표시는 loading·error에서 이전 패키지 표를 현재 결과로 남기지 않습니다.\n\n"
+}
