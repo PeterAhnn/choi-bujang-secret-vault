@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-28",
+  "timezone": "Asia/Seoul",
+  "starterVersion": "0.2.21",
+  "studentSourceSha256": "5568908820f6ea3af53a502621c7744aab8906194a787873f9fd678e5fb3376c",
+  "nativeAccountConnection": {
+    "userConfirmed": true,
+    "applicationConfirmed": true,
+    "currentLoginCheckConfirmed": true
+  },
+  "aiApplicationConnection": {
+    "userRegisteredProjectAndApproved": true,
+    "applicationPhase": "connected",
+    "reason": null,
+    "failedStage": null,
+    "detailCode": null,
+    "automaticRetries": 0,
+    "manualSecretInputs": 0
+  },
+  "modelListCheck": {
+    "audienceAuthorization": "verified",
+    "modelCount": 1,
+    "observedCheckedAt": [
+      "2026-10-28T00:27:00.805Z",
+      "2026-10-28T00:27:21.708Z"
+    ],
+    "providedAndStudentCheckedAtMatched": true,
+    "studentShowsExplanationNotRun": true
+  },
+  "securityEventExplanation": {
+    "executed": false,
+    "modelInferenceConfirmed": false,
+    "engineMode": "disconnected",
+    "eventQuerySucceeded": false,
+    "explanationRequestButtonPresent": false,
+    "observedMessage": "기존 서버·에이전트의 연결을 확인할 수 없습니다. 연결 어댑터를 먼저 확인하세요.",
+    "reason": "SDP 원천 보안 기록을 조회할 수 없어 선택할 사건이 없었습니다. 가상 사건·별도 학습 도움 호출로 대체하지 않았습니다."
+  },
+  "userChecks": {
+    "connectionCheckIsNotEventExplanation": true,
+    "threeAiRolesAreDistinct": true
+  },
+  "verificationBoundary": "계정 연결·앱 승인·모델 목록 접근의 실제 확인입니다. 실제 사건 설명·모델 추론·공식 단계 판정의 성공을 뜻하지 않습니다."
+}
