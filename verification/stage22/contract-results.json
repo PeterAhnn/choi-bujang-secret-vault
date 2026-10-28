@@ -1,0 +1,356 @@
+{
+  "type": "20단계 독립 모의 DOM·제공 함수 격리 검사. 실제 OSV 조회·계정·공식 판정 검사가 아닙니다.",
+  "checkedAt": "2026-10-28T02:54:19.086Z",
+  "baselineCommit": "a5b77e06db211724215ec57b036b814bee1ca482",
+  "baselineOnly": false,
+  "sourceSha256": "3dd4ca879b9ef6ff8db3ae12e19a3cdbf290aeb220ff6bc5d45fa5144f907c7b",
+  "providedFunctionsSha256": "2582d13b52e2373ab74009b38168b4f6f9d68f45df2d755c1d101e11b3f440bf",
+  "passed": 68,
+  "failed": 0,
+  "total": 68,
+  "networkCalls": 0,
+  "unsafeCalls": 0,
+  "syntheticProvidedRequests": 5,
+  "tests": [
+    {
+      "name": "idle DOM 요소 반환",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "idle 이전 패키지 표 없음",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 예제 자료조회 전(idle). 아직 설치 패키지를 조회하지 않았습니다."
+    },
+    {
+      "name": "idle 상태 구분",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 예제 자료조회 전(idle). 아직 설치 패키지를 조회하지 않았습니다."
+    },
+    {
+      "name": "loading DOM 요소 반환",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "loading 이전 패키지 표 없음",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 예제 자료조회 중(loading). 이전 표는 현재 조회 결과가 아닙니다."
+    },
+    {
+      "name": "loading 상태 구분",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 예제 자료조회 중(loading). 이전 표는 현재 조회 결과가 아닙니다."
+    },
+    {
+      "name": "error DOM 요소 반환",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "error 이전 패키지 표 없음",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 예제 자료조회 실패(error). 현재 취약점 조회 결과를 확인할 수 없습니다.오류 코드: SERVICE_UNAVAILABLE오류 안내: 모의 조회 실패 안내조회 실패는 취약점이 없다는 뜻이 아닙니다.필요하면 제공 화면의 설치 패키지 조회 버튼을 직접 누르세요. 자동으로 다시 조회하지 않습니다."
+    },
+    {
+      "name": "error 상태 구분",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 예제 자료조회 실패(error). 현재 취약점 조회 결과를 확인할 수 없습니다.오류 코드: SERVICE_UNAVAILABLE오류 안내: 모의 조회 실패 안내조회 실패는 취약점이 없다는 뜻이 아닙니다.필요하면 제공 화면의 설치 패키지 조회 버튼을 직접 누르세요. 자동으로 다시 조회하지 않습니다."
+    },
+    {
+      "name": "안전한 오류 메시지 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 예제 자료조회 실패(error). 현재 취약점 조회 결과를 확인할 수 없습니다.오류 코드: SERVICE_UNAVAILABLE오류 안내: 모의 조회 실패 안내조회 실패는 취약점이 없다는 뜻이 아닙니다.필요하면 제공 화면의 설치 패키지 조회 버튼을 직접 누르세요. 자동으로 다시 조회하지 않습니다."
+    },
+    {
+      "name": "complete 공식 정규화 통과",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "complete 원래 전체 상태값 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "complete 한국어 뜻 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "complete 전달된 조회 시각 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "partial 공식 정규화 통과",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "partial 원래 전체 상태값 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 일부 조회 실패(partial)일부 조회가 실패했습니다. 이미 받은 취약점 ID는 유지하며 전체 조회 결과를 확정하지 않습니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 조회 확인 불가(unverifiable)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z일부 확인·전체 조회 확인 불가. 이미 받은 취약점 ID를 아래에 표시합니다.취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z"
+    },
+    {
+      "name": "partial 한국어 뜻 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 일부 조회 실패(partial)일부 조회가 실패했습니다. 이미 받은 취약점 ID는 유지하며 전체 조회 결과를 확정하지 않습니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 조회 확인 불가(unverifiable)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z일부 확인·전체 조회 확인 불가. 이미 받은 취약점 ID를 아래에 표시합니다.취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z"
+    },
+    {
+      "name": "partial 전달된 조회 시각 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 일부 조회 실패(partial)일부 조회가 실패했습니다. 이미 받은 취약점 ID는 유지하며 전체 조회 결과를 확정하지 않습니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 조회 확인 불가(unverifiable)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z일부 확인·전체 조회 확인 불가. 이미 받은 취약점 ID를 아래에 표시합니다.취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z"
+    },
+    {
+      "name": "not_checked 공식 정규화 통과",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "not_checked 원래 전체 상태값 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 아직 조회 안 함(not_checked)승인된 공개 조회 대상이 없어 아직 조회하지 않은 상태입니다. 취약점이 없다는 결과가 아닙니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "not_checked 한국어 뜻 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 아직 조회 안 함(not_checked)승인된 공개 조회 대상이 없어 아직 조회하지 않은 상태입니다. 취약점이 없다는 결과가 아닙니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "not_checked 전달된 조회 시각 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 아직 조회 안 함(not_checked)승인된 공개 조회 대상이 없어 아직 조회하지 않은 상태입니다. 취약점이 없다는 결과가 아닙니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "not_checked 미조회·확인 불가를 알려진 항목 없음으로 표시하지 않음",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 아직 조회 안 함(not_checked)승인된 공개 조회 대상이 없어 아직 조회하지 않은 상태입니다. 취약점이 없다는 결과가 아닙니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "not_configured 공식 정규화 통과",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "not_configured 원래 전체 상태값 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 조회 준비 미완료(not_configured)조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "not_configured 한국어 뜻 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 조회 준비 미완료(not_configured)조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "not_configured 전달된 조회 시각 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 조회 준비 미완료(not_configured)조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "not_configured 미조회·확인 불가를 알려진 항목 없음으로 표시하지 않음",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 조회 준비 미완료(not_configured)조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "unverifiable 공식 정규화 통과",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "unverifiable 원래 전체 상태값 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: lock 파일 확인 불가(unverifiable)package-lock.json과 설치 메타데이터를 확인할 수 없어 조회 결과를 판단할 수 없습니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "unverifiable 한국어 뜻 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: lock 파일 확인 불가(unverifiable)package-lock.json과 설치 메타데이터를 확인할 수 없어 조회 결과를 판단할 수 없습니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "unverifiable 전달된 조회 시각 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: lock 파일 확인 불가(unverifiable)package-lock.json과 설치 메타데이터를 확인할 수 없어 조회 결과를 판단할 수 없습니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "unverifiable 미조회·확인 불가를 알려진 항목 없음으로 표시하지 않음",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: lock 파일 확인 불가(unverifiable)package-lock.json과 설치 메타데이터를 확인할 수 없어 조회 결과를 판단할 수 없습니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "lock 버전·해시·시각 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: @supabase/supabase-js설치된 정확한 버전: 2.117.2패키지 조회 상태: 알려진 항목 있음(known_vulnerabilities)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "두 패키지 행 속성과 정확한 버전",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "패키지 원래 상태·출처·시각",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: @supabase/supabase-js설치된 정확한 버전: 2.117.2패키지 조회 상태: 알려진 항목 있음(known_vulnerabilities)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "취약점 ID·modified 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: @supabase/supabase-js설치된 정확한 버전: 2.117.2패키지 조회 상태: 알려진 항목 있음(known_vulnerabilities)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "none_found 조회 범위이며 안전 보장 아님",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: @supabase/supabase-js설치된 정확한 버전: 2.117.2패키지 조회 상태: 알려진 항목 있음(known_vulnerabilities)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "partial과 unverifiable 원래값 보존",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 일부 조회 실패(partial)일부 조회가 실패했습니다. 이미 받은 취약점 ID는 유지하며 전체 조회 결과를 확정하지 않습니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 조회 확인 불가(unverifiable)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z일부 확인·전체 조회 확인 불가. 이미 받은 취약점 ID를 아래에 표시합니다.취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z"
+    },
+    {
+      "name": "부분 실패에도 받은 취약점 ID·시각 보존",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 일부 조회 실패(partial)일부 조회가 실패했습니다. 이미 받은 취약점 ID는 유지하며 전체 조회 결과를 확정하지 않습니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 조회 확인 불가(unverifiable)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z일부 확인·전체 조회 확인 불가. 이미 받은 취약점 ID를 아래에 표시합니다.취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z"
+    },
+    {
+      "name": "부분 확인·전체 확인 불가 구분",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 일부 조회 실패(partial)일부 조회가 실패했습니다. 이미 받은 취약점 ID는 유지하며 전체 조회 결과를 확정하지 않습니다.잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.12패키지 조회 상태: 조회 확인 불가(unverifiable)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z일부 확인·전체 조회 확인 불가. 이미 받은 취약점 ID를 아래에 표시합니다.취약점 ID: OSV-FIXTURE-STAGE20수정 시각(modified): 2026-10-27T01:00:00.000Z"
+    },
+    {
+      "name": "빈 complete 목록을 앱 안전으로 표시하지 않음",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "없는 lockVersion·hash를 만들지 않음",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 조회 준비 미완료(not_configured)조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "name": "진행 상태에서 이전 표·해시 제거",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "취소 상태에서 이전 표·ID 제거",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 확인 불가조회 실패(error). 현재 취약점 조회 결과를 확인할 수 없습니다.오류 코드: CANCELLED오류 안내: 패키지 조회를 취소했습니다.조회가 취소됐습니다. 이전 결과는 현재 확인 결과가 아닙니다.필요하면 제공 화면의 설치 패키지 조회 버튼을 직접 누르세요. 자동으로 다시 조회하지 않습니다."
+    },
+    {
+      "name": "새 hash·버전·목록으로 교체",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 연결 모드전체 조회 상태: 모두 조회(complete)잠금 파일 형식 버전(lockfileVersion): 3잠금 파일 해시(lockfileHash): bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb조회 시각(checkedAt): 2026-10-28T02:00:00.000ZOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.패키지 이름: jose설치된 정확한 버전: 6.2.13패키지 조회 상태: 알려진 항목 없음(none_found)출처(source): https://api.osv.dev/v1/querybatch패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "name": "HTML을 텍스트로 표시",
+      "passed": true,
+      "observed": "설치 패키지와 알려진 취약점 조회자료 모드: 확인 불가조회 실패(error). 현재 취약점 조회 결과를 확인할 수 없습니다.오류 코드: FIXTURE_ERROR오류 안내: <b>합성 오류</b>조회 실패는 취약점이 없다는 뜻이 아닙니다.필요하면 제공 화면의 설치 패키지 조회 버튼을 직접 누르세요. 자동으로 다시 조회하지 않습니다."
+    },
+    {
+      "name": "학생 조회 버튼을 추가하지 않음",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "금지 HTML 삽입 0회",
+      "passed": true,
+      "observed": 0
+    },
+    {
+      "name": "학생 추가 통신 0회",
+      "passed": true,
+      "observed": 0
+    },
+    {
+      "name": "renderIdentity 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderDecision 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderEvents 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderStatus 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderAiConnection 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderExplanation 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderAction 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderVulnerabilities 밖 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "기준 stub에서 실제 구현으로 변경",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "공개 버전 예제가 실제 lock과 일치",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "수동 조회마다 지정 API 요청",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "실패 응답 error 상태 전환",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "오류 뒤 직접 재조회가 새 요청 생성",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "재조회 성공이 이전 오류 제거",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "취소가 요청 중단과 CANCELLED 표시",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "취소 후 늦은 응답이 현재 결과를 덮지 않음",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "새 요청 뒤 예전 응답 폐기",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "계정 세대 초기화 뒤 이전 표 제거",
+      "passed": true,
+      "observed": ""
+    }
+  ]
+}

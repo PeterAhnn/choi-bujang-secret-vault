@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "a3c66e394502c517b722d67ff68b1b4094a4528e",
+  "checkedAt": "2026-10-28T02:56:25.366Z",
+  "sourceBranch": "main",
+  "reproductionCheckout": "detached",
+  "sourceUrl": "https://github.com/PeterAhnn/choi-bujang-secret-vault",
+  "mode": "demo",
+  "credentialFilesCopied": false,
+  "nodeModulesCopied": false,
+  "originalStudentSha256": "db796c646d25747883472314a23203014c39229a211e7fb710119f388af73c31",
+  "cloneStudentSha256": "3dd4ca879b9ef6ff8db3ae12e19a3cdbf290aeb220ff6bc5d45fa5144f907c7b",
+  "normalizedStudentContentsEqual": true,
+  "runtimeGitTreeIdentical": true,
+  "runtimeTreeSha256": "9fe1f75a4b2edb397ba65656253690f88754393ab70e20aefddee41b5fa388d0",
+  "explanation": "기준 clone의 Windows 줄바꿈 변환은 작업 파일 SHA256을 바꿨습니다. Git blob 목록과 줄바꿈 정규화 내용은 같습니다. 최종 복제에서는 clone의 core.autocrlf=false를 사용합니다."
+}

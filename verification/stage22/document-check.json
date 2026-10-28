@@ -1,0 +1,196 @@
+{
+  "checkedAt": "2026-10-28T02:59:30.353Z",
+  "sourceCommit": "a3c66e394502c517b722d67ff68b1b4094a4528e",
+  "localLinks": [
+    {
+      "file": "README.md",
+      "target": "on-client/student/extension.mjs",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-13.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-14.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-15.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-16.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-17.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-18.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-19.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-20.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/STUDENT_RUNBOOK.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "on-client/docs/STUDENT_LAUNCH_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/STUDENT_HANDOFF.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "verification/stage21/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HTTP-VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "verification/stage17/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../on-client/docs/STUDENT_LAUNCH_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "STUDENT_HANDOFF.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../on-client/docs/CONNECTION_TROUBLESHOOT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../verification/stage20/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../verification/stage21/runtime-check.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage22/source-identity.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "STUDENT_RUNBOOK.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage22/browser-reproduction.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage22/contract-results.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage22/source-identity.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "DEFENSE-STEP-13.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "DEFENSE-STEP-14.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "DEFENSE-STEP-15.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "DEFENSE-STEP-16.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage17/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage18/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage19/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage20/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_HANDOFF.md",
+      "target": "../verification/stage21/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEFENSE-STEP-22.md",
+      "target": "DEFENSE-STEP-22-PROMPTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEFENSE-STEP-22.md",
+      "target": "STUDENT_HANDOFF.md",
+      "exists": true
+    }
+  ],
+  "allLocalLinksExist": true,
+  "userUntrackedCopyCount": 26,
+  "userUntrackedCopiesUnchanged": true,
+  "runtimeAndDependencyFilesChanged": [],
+  "originalStudentSha256": "db796c646d25747883472314a23203014c39229a211e7fb710119f388af73c31",
+  "studentSourceUnchanged": true,
+  "linksCheckedAt": "2026-10-28T03:00:53.305Z",
+  "secretPatternCount": 0,
+  "powerShellCodeBlocksParsed": 6,
+  "powerShellParseErrorCount": 0
+}

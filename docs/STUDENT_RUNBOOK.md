@@ -12,13 +12,13 @@
 | 시작 틀 | `on-client/package.json` 기준 0.2.21입니다. |
 | 추가 설치 | `on-client/package.json`에는 외부 dependencies가 없습니다. 로컬 앱 실행을 위해 `npm install`을 할 필요가 없습니다. |
 
-현재 작업한 Git 저장소는 `https://github.com/PeterAhnn/choi-bujang-secret-vault`입니다. 이 PC의 Git 최상위는 다음 폴더입니다.
+현재 작업한 Git 저장소는 `https://github.com/PeterAhnn/choi-bujang-secret-vault`입니다. 아래 절대 경로는 원래 PC의 작업 이력입니다. 새 환경에서 그대로 사용할 경로가 아닙니다.
 
 ```text
 C:\Users\Administrator\Desktop\SKT ALEPH\SKT-ALEPH\SKT-ALEPH-Defense-My-Library
 ```
 
-앱 실행 위치는 그 안의 `on-client`입니다. 커밋은 Git 최상위에서 합니다. 다른 PC에서는 저장소를 둔 실제 위치에 맞춰 경로만 바꿉니다. 기존 Workbench의 별도 저장소 `SKT-ALEPH-Defence-KESHEV`와 파일을 섞지 않습니다.
+앱 실행 위치는 각 복제본 안의 `on-client`입니다. 커밋은 Git 최상위에서 합니다. 새 환경은 [인수인계 절차](STUDENT_HANDOFF.md)에 따라 커밋을 받은 뒤 아래 상대 경로 명령을 사용합니다. 기존 Workbench의 별도 저장소 `SKT-ALEPH-Defence-KESHEV`와 파일을 섞지 않습니다.
 
 ```text
 저장소/
@@ -47,10 +47,10 @@ C:\Users\Administrator\Desktop\SKT ALEPH\SKT-ALEPH\SKT-ALEPH-Defense-My-Library
 
 ## 2. 예제 화면 실행·종료·재실행
 
-기존 5189 앱을 유지하면서 확인하려면 별도 5193 포트를 사용합니다. 파일 탐색기에서 아래 `on-client` 폴더를 열고 주소 표시줄에 `powershell`을 입력해 새 창을 엽니다. 또는 새 PowerShell 창에서 다음 위치로 이동합니다.
+기존 5189 앱을 유지하면서 확인하려면 별도 5193 포트를 사용합니다. 파일 탐색기에서 복제본의 `on-client` 폴더를 열고 주소 표시줄에 `powershell`을 입력해 새 창을 엽니다. 아래 명령 블록은 **저장소 최상위에서** 시작합니다. 이미 on-client에서 창을 열었다면 첫 줄은 생략합니다.
 
 ```powershell
-Set-Location -LiteralPath 'C:\Users\Administrator\Desktop\SKT ALEPH\SKT-ALEPH\SKT-ALEPH-Defense-My-Library\on-client'
+Set-Location -LiteralPath '.\on-client'
 node --version
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\start-alekov.ps1 -Demo -Port 5193
 ```

@@ -1,0 +1,67 @@
+{
+  "stage": 22,
+  "studentVersion": "검증 중 r22.1",
+  "starterVersion": "0.2.21",
+  "sourceCommit": "a3c66e394502c517b722d67ff68b1b4094a4528e",
+  "sourceBranch": "main",
+  "checkout": "detached",
+  "sourceUrl": "https://github.com/PeterAhnn/choi-bujang-secret-vault",
+  "reproductionFolder": "C:/Users/Administrator/Documents/Codex/reproductions/alekov-stage22-20261028",
+  "environment": {
+    "os": "Windows 11 Pro 64비트",
+    "node": "24.21.0",
+    "windowsPowerShell": "5.1.26100.9711"
+  },
+  "procedure": [
+    "GitHub main을 새 빈 폴더에 clone",
+    "지정 40자리 커밋 detached checkout",
+    "node --version 및 npm run check",
+    "독립 표시 계약 검사",
+    "공식 도구 Demo·Port5195·Background 실행",
+    "브라우저 예제 확인",
+    "해당 node만 종료하고 포트 닫힘 확인",
+    "같은 명령으로 재실행"
+  ],
+  "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\tools\\start-alekov.ps1 -Demo -Port 5195 -Background",
+  "initial": {
+    "processId": 16340,
+    "httpStatus": 200
+  },
+  "stopped": {
+    "processId": 16340,
+    "portClosed": true,
+    "observedAt": "2026-10-28T02:56:22.0739615Z"
+  },
+  "restart": {
+    "processId": 9500,
+    "launcherReady": true
+  },
+  "contracts": {
+    "checkedAt": "2026-10-28T02:54:19.086Z",
+    "passed": 68,
+    "failed": 0,
+    "networkCalls": 0,
+    "syntheticProvidedRequests": 5,
+    "harnessBaselineCommit": "a5b77e06db211724215ec57b036b814bee1ca482",
+    "scope": "20단계 합성 표시 계약·앞 단계 원문 보존 및 제공 요청 수명 검사. 13~21 전 기능 재시험 아님"
+  },
+  "identity": {
+    "runtimeGitTreeIdentical": true,
+    "normalizedStudentContentsEqual": true
+  },
+  "scope": "AI가 새 로컬 폴더에서 실행한 예제 재현입니다. 과거 공식 판정·사용자 진술·실운영 검증과 별도입니다.",
+  "credentialFilesCopied": false,
+  "realAccountApprovalStarted": false,
+  "realAiCalled": false,
+  "realSecurityActionExecuted": false,
+  "realOsvSuccessVerified": false,
+  "databaseBackupOrRestoreExecuted": false,
+  "userOriginalPreservationConfirmation": {
+    "confirmed": true,
+    "response": "기존 폴더와 기록이 그대로 남아 있습니다"
+  },
+  "userVersionScopeConfirmation": {
+    "confirmed": true,
+    "response": "검증 중 버전과 미완료 범위 구분을 확인했습니다"
+  }
+}
