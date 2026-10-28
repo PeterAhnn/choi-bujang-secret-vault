@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-28T01:14:12.9003687Z",
+  "type": "선택한 공개 패키지의 잠금 파일·설치 메타데이터 읽기 전용 대조. OSV 조회 아님",
+  "actualOsvLookup": false,
+  "packages": [
+    {
+      "name": "@supabase/supabase-js",
+      "lockVersion": "2.117.2",
+      "installedName": "@supabase/supabase-js",
+      "installedVersion": "2.117.2",
+      "matches": true
+    },
+    {
+      "name": "jose",
+      "lockVersion": "6.2.12",
+      "installedName": "jose",
+      "installedVersion": "6.2.12",
+      "matches": true
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "stage": 20,
+  "appUrl": "http://127.0.0.1:5189/",
+  "first": {
+    "observedAt": "2026-10-28T01:12:45.986Z",
+    "provided": "프로젝트 연결 준비 중\n\n코드PROJECT_NOT_CONFIGURED\n\n조회 시각2026-10-28T01:12:04.458Z\n\n출처https://api.osv.dev/v1/querybatch",
+    "rows": [],
+    "student": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 연결 없음\n\n전체 조회 상태: 조회 준비 미완료(not_configured)\n\n조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.\n\n조회 시각(checkedAt): 2026-10-28T01:12:04.458Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+  },
+  "repeated": {
+    "observedAt": "2026-10-28T01:12:46.291Z",
+    "provided": "프로젝트 연결 준비 중\n\n코드PROJECT_NOT_CONFIGURED\n\n조회 시각2026-10-28T01:12:46.076Z\n\n출처https://api.osv.dev/v1/querybatch",
+    "student": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 연결 없음\n\n전체 조회 상태: 조회 준비 미완료(not_configured)\n\n조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.\n\n조회 시각(checkedAt): 2026-10-28T01:12:46.076Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+  },
+  "actualConfiguredOsvLookupVerified": false,
+  "actualInstalledVersionUiComparisonVerified": false,
+  "actualCancelRaceVerified": false,
+  "reason": "실제 앱은 PROJECT_NOT_CONFIGURED로 즉시 응답하며 패키지 행이 없습니다. 운영자 설정을 바꾸지 않았습니다.",
+  "syntheticBrowserChecks": [
+    {
+      "input": "partial",
+      "rowCount": 2,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n전체 조회 상태: 일부 조회 실패(partial)\n\n일부 조회가 실패했습니다. 이미 받은 취약점 ID는 유지하며 전체 조회 결과를 확정하지 않습니다.\n\n잠금 파일 형식 버전(lockfileVersion): 3\n\n잠금 파일 해시(lockfileHash): 5ae07a95366f987929b48780ab0d575a1a937ae7b1ddaadba5f60d509f9bab90\n\n조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n패키지 이름: @supabase/supabase-js\n\n설치된 정확한 버전: 2.117.2\n\n패키지 조회 상태: 조회 확인 불가(unverifiable)\n\n출처(source): https://api.osv.dev/v1/querybatch\n\n패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\n일부 확인·전체 조회 확인 불가. 이미 받은 취약점 ID를 아래에 표시합니다.\n\n취약점 ID: OSV-FIXTURE-STAGE20\n\n수정 시각(modified): 2026-10-27T01:00:00.000Z\n\n패키지 이름: jose\n\n설치된 정확한 버전: 6.2.12\n\n패키지 조회 상태: 알려진 항목 없음(none_found)\n\n출처(source): https://api.osv.dev/v1/querybatch\n\n패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\n이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "input": "not_checked",
+      "rowCount": 0,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n전체 조회 상태: 아직 조회 안 함(not_checked)\n\n승인된 공개 조회 대상이 없어 아직 조회하지 않은 상태입니다. 취약점이 없다는 결과가 아닙니다.\n\n잠금 파일 형식 버전(lockfileVersion): 3\n\n잠금 파일 해시(lockfileHash): 5ae07a95366f987929b48780ab0d575a1a937ae7b1ddaadba5f60d509f9bab90\n\n조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "input": "not_configured",
+      "rowCount": 0,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n전체 조회 상태: 조회 준비 미완료(not_configured)\n\n조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.\n\n조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "input": "unverifiable",
+      "rowCount": 0,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n전체 조회 상태: lock 파일 확인 불가(unverifiable)\n\npackage-lock.json과 설치 메타데이터를 확인할 수 없어 조회 결과를 판단할 수 없습니다.\n\n조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+    },
+    {
+      "input": "complete",
+      "rowCount": 2,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n전체 조회 상태: 모두 조회(complete)\n\n잠금 파일 형식 버전(lockfileVersion): 3\n\n잠금 파일 해시(lockfileHash): 5ae07a95366f987929b48780ab0d575a1a937ae7b1ddaadba5f60d509f9bab90\n\n조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n패키지 이름: @supabase/supabase-js\n\n설치된 정확한 버전: 2.117.2\n\n패키지 조회 상태: 알려진 항목 있음(known_vulnerabilities)\n\n출처(source): https://api.osv.dev/v1/querybatch\n\n패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\n취약점 ID: OSV-FIXTURE-STAGE20\n\n수정 시각(modified): 2026-10-27T01:00:00.000Z\n\n패키지 이름: jose\n\n설치된 정확한 버전: 6.2.12\n\n패키지 조회 상태: 알려진 항목 없음(none_found)\n\n출처(source): https://api.osv.dev/v1/querybatch\n\n패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\n이 버전의 조회 범위에서 알려진 항목이 없습니다. 안전을 보장하지 않습니다."
+    },
+    {
+      "input": "새 결과 B",
+      "rowCount": 1,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n전체 조회 상태: 모두 조회(complete)\n\n잠금 파일 형식 버전(lockfileVersion): 3\n\n잠금 파일 해시(lockfileHash): 7072d84e231793cafae76bb9c5121e7877050f12c6801a31cbff69544122023e\n\n조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n패키지 이름: jose\n\n설치된 정확한 버전: 6.2.12\n\n패키지 조회 상태: 알려진 항목 있음(known_vulnerabilities)\n\n출처(source): https://api.osv.dev/v1/querybatch\n\n패키지 조회 시각(checkedAt): 2026-10-28T02:00:00.000Z\n\n취약점 ID: OSV-FIXTURE-STAGE20\n\n수정 시각(modified): 2026-10-27T01:00:00.000Z"
+    },
+    {
+      "input": "취소 입력",
+      "rowCount": 0,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n조회 실패(error). 현재 취약점 조회 결과를 확인할 수 없습니다.\n\n오류 코드: CANCELLED\n\n오류 안내: 패키지 조회를 취소했습니다. 이전 결과는 현재 확인 결과가 아닙니다.\n\n조회가 취소됐습니다. 이전 결과는 현재 확인 결과가 아닙니다.\n\n필요하면 제공 화면의 설치 패키지 조회 버튼을 직접 누르세요. 자동으로 다시 조회하지 않습니다."
+    },
+    {
+      "input": "초기화",
+      "rowCount": 0,
+      "text": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n조회 전(idle). 아직 설치 패키지를 조회하지 않았습니다."
+    }
+  ],
+  "userVersionConfirmation": {
+    "confirmed": true,
+    "response": "두 패키지 버전이 일치합니다",
+    "type": "합성 조회 화면의 잠금 파일 공개 좌표 대조"
+  },
+  "userUnavailableStateConfirmation": {
+    "confirmed": true,
+    "response": "두 미조회 상태가 구분되고 안전하다고 표시하지 않습니다",
+    "type": "합성 조회 화면의 not_configured·not_checked 구분"
+  }
+}
