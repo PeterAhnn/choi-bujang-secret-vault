@@ -1,0 +1,285 @@
+{
+  "type": "19단계 독립 모의 DOM 검사. 실제 조치·계정·연동 시스템·공식 판정 검사가 아닙니다.",
+  "checkedAt": "2026-10-28T00:57:34.013Z",
+  "baselineCommit": "2e9645bfe609848443d0ba11d785834af50b83fd",
+  "baselineOnly": false,
+  "phase": "implemented",
+  "sourceSha256": "4456a2bacdae18756e1c9630248fd6519e9ffdefb508e69d35b07a66ad6bd411",
+  "passed": 54,
+  "failed": 0,
+  "total": 54,
+  "networkCalls": 0,
+  "unsafeCalls": 0,
+  "tests": [
+    {
+      "name": "idle 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과아직 미실행(idle)아직 조치를 실행하지 않았습니다. AI 제안만으로 조치가 실행되지는 않습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "loading 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과조치 준비 또는 결과 조회 중(loading)조치를 준비하거나 연동 시스템의 결과를 조회하고 있습니다. 결과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "prepared 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과준비됨·미실행(prepared)준비만 됐으며 아직 실행되지 않았습니다. 제공 화면에서 사건·대상·확인 기한을 읽고 사람이 확인해야 합니다.확인 기한: 2026-10-28T02:05:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "executing 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과서버에 전달 중(executing)요청을 서버에 전달하고 있습니다. 처리 결과와 효과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "pending 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과서버 접수·처리 중(pending)서버가 요청을 받아 처리 중입니다. 접수 응답(ACK)은 효과 확인이 아닙니다. 결과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "succeeded 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과효과 확인(succeeded)effectApplied: true관측 시각: 2026-10-28T02:00:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "denied 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과거절(denied)연동 시스템이 요청을 거절했습니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "failed 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과실패(failed)연동 시스템의 조치 처리가 실패했습니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "unknown 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "error 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과요청 처리 안 됨(error)요청이 처리되지 않았습니다. 안전한 오류 안내를 확인하세요.안내: 모의 서버 안내 A오류 코드: ACTION_NETWORK_ERROR오류 안내: 모의 네트워크 오류사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "expired 원래 상태값 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과확인 기한 지남(expired)사람 확인 기한이 지났습니다. 제공 화면에서 조치를 다시 준비하고 현재 대상과 기한을 확인하세요.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "DOM 요소 하나 반환",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "idle 아직 미실행 안내",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과아직 미실행(idle)아직 조치를 실행하지 않았습니다. AI 제안만으로 조치가 실행되지는 않습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "loading 준비·조회 진행 안내",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과조치 준비 또는 결과 조회 중(loading)조치를 준비하거나 연동 시스템의 결과를 조회하고 있습니다. 결과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "prepared 준비·미실행·사람 확인·기한",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과준비됨·미실행(prepared)준비만 됐으며 아직 실행되지 않았습니다. 제공 화면에서 사건·대상·확인 기한을 읽고 사람이 확인해야 합니다.확인 기한: 2026-10-28T02:05:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "executing 서버 전달 진행 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과서버에 전달 중(executing)요청을 서버에 전달하고 있습니다. 처리 결과와 효과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "pending 서버 접수·처리 진행 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과서버 접수·처리 중(pending)서버가 요청을 받아 처리 중입니다. 접수 응답(ACK)은 효과 확인이 아닙니다. 결과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "executing 효과 확인으로 표시하지 않음",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과서버에 전달 중(executing)요청을 서버에 전달하고 있습니다. 처리 결과와 효과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "pending 효과 확인으로 표시하지 않음",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과서버 접수·처리 중(pending)서버가 요청을 받아 처리 중입니다. 접수 응답(ACK)은 효과 확인이 아닙니다. 결과는 아직 확인되지 않았습니다.사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "실제 효과 true 성공 표시",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과효과 확인(succeeded)effectApplied: true관측 시각: 2026-10-28T02:00:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "효과 확인 근거의 시각·true·receiptId",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과효과 확인(succeeded)effectApplied: true관측 시각: 2026-10-28T02:00:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "denied 거절·메시지",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과거절(denied)연동 시스템이 요청을 거절했습니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "failed 실패·메시지",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과실패(failed)연동 시스템의 조치 처리가 실패했습니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "unknown 결과 불명·재조회 안내",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "expired 기한 지남·다시 준비",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과확인 기한 지남(expired)사람 확인 기한이 지났습니다. 제공 화면에서 조치를 다시 준비하고 현재 대상과 기한을 확인하세요.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "error 안전한 코드·메시지",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과요청 처리 안 됨(error)요청이 처리되지 않았습니다. 안전한 오류 안내를 확인하세요.안내: 모의 서버 안내 A오류 코드: ACTION_NETWORK_ERROR오류 안내: 모의 네트워크 오류사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "succeeded 효과 미확인 false은 unknown",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "succeeded 효과 미확인 null은 unknown",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "succeeded 효과 미확인 undefined은 unknown",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "succeeded 효과 미확인 true은 unknown",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "pending의 관측값만으로 succeeded 승격 금지",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "목록 밖 constructor은 결과 불명",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "목록 밖 unlisted-state은 결과 불명",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과결과 불명(unknown)효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.안내: 모의 서버 안내 A사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "현재 사건·근거·조치·대상·요청·영수증·버전 값",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과준비됨·미실행(prepared)준비만 됐으며 아직 실행되지 않았습니다. 제공 화면에서 사건·대상·확인 기한을 읽고 사람이 확인해야 합니다.확인 기한: 2026-10-28T02:05:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 7요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 3버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "현재 사건 속성 결속",
+      "passed": true,
+      "observed": "event-stage19-A"
+    },
+    {
+      "name": "현재 요청 속성 결속",
+      "passed": true,
+      "observed": "request-A"
+    },
+    {
+      "name": "generation 0 생략하지 않음",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과준비됨·미실행(prepared)준비만 됐으며 아직 실행되지 않았습니다. 제공 화면에서 사건·대상·확인 기한을 읽고 사람이 확인해야 합니다.확인 기한: 2026-10-28T02:05:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 0요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 0버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "version 0 생략하지 않음",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과준비됨·미실행(prepared)준비만 됐으며 아직 실행되지 않았습니다. 제공 화면에서 사건·대상·확인 기한을 읽고 사람이 확인해야 합니다.확인 기한: 2026-10-28T02:05:00.000Z사건 ID: event-stage19-A근거 ID: evidence-A1조치 ID: revoke_session실제 대상 ID: target-A대상 세대(generation): 0요청 ID(requestId): request-A접수 ID(receiptId): receipt-A응답 버전(version): 0버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "없는 사건·요청 속성 생성하지 않음",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "초기화 입력에서 옛 ID·효과 없음",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과아직 미실행(idle)아직 조치를 실행하지 않았습니다. AI 제안만으로 조치가 실행되지는 않습니다.버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "문자열을 HTML로 해석하지 않고 표시",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "새 대상 B에 이전 A 대상·요청·결과 잔존 없음",
+      "passed": true,
+      "observed": "보안 조치 요청과 결과준비됨·미실행(prepared)준비만 됐으며 아직 실행되지 않았습니다. 제공 화면에서 사건·대상·확인 기한을 읽고 사람이 확인해야 합니다.확인 기한: 2026-10-28T02:05:00.000Z사건 ID: event-stage19-B근거 ID: evidence-B1조치 ID: revoke_session실제 대상 ID: target-B대상 세대(generation): 8요청 ID(requestId): request-B접수 ID(receiptId): receipt-B응답 버전(version): 4버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다."
+    },
+    {
+      "name": "초기화 후 이전 대상·요청·결과·속성 제거",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "학생 조치 UI 버튼 없음",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "HTML 삽입 0회",
+      "passed": true,
+      "observed": 0
+    },
+    {
+      "name": "조회·AI·집행 요청 0회",
+      "passed": true,
+      "observed": 0
+    },
+    {
+      "name": "renderIdentity 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderDecision 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderEvents 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderStatus 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderAiConnection 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderExplanation 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderAction 밖 전체 원문 보존",
+      "passed": true,
+      "observed": ""
+    },
+    {
+      "name": "renderAction 기준선 대비 실제 변경",
+      "passed": true,
+      "observed": ""
+    }
+  ]
+}

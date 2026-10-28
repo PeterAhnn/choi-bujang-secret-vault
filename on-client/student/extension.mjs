@@ -549,6 +549,87 @@ export function createStudentView() {
       text('p', `확인 시각: ${value(checkedAt)}`);
       return root;
     },
-    renderAction() { return '학생 구현 대기: 현재 사건·조치·실제 대상·사람 확인·ACK와 원천 효과·unknown을 구분하세요.'; },
+    renderAction({ status = 'idle', event, actionId, target, receipt, observation, message, confirmationExpiresAt, error } = {}) {
+      const root = document.createElement('section');
+      const text = (tag, content) => {
+        const node = document.createElement(tag);
+        node.textContent = content;
+        root.appendChild(node);
+        return node;
+      };
+      const present = value => (typeof value === 'string' && value.trim().length > 0)
+        || (typeof value === 'number' && Number.isFinite(value));
+      const field = (label, value) => {
+        if (present(value)) text('p', `${label}: ${value}`);
+      };
+      const labels = new Map([
+        ['idle', '아직 미실행(idle)'],
+        ['loading', '조치 준비 또는 결과 조회 중(loading)'],
+        ['prepared', '준비됨·미실행(prepared)'],
+        ['executing', '서버에 전달 중(executing)'],
+        ['pending', '서버 접수·처리 중(pending)'],
+        ['succeeded', '효과 확인(succeeded)'],
+        ['denied', '거절(denied)'],
+        ['failed', '실패(failed)'],
+        ['unknown', '결과 불명(unknown)'],
+        ['expired', '확인 기한 지남(expired)'],
+        ['error', '요청 처리 안 됨(error)'],
+      ]);
+      let current = labels.has(status) ? status : 'unknown';
+      if (current === 'succeeded' && observation?.effectApplied !== true) current = 'unknown';
+      text('h4', '보안 조치 요청과 결과');
+      text('p', labels.get(current));
+      if (current === 'idle') {
+        text('p', '아직 조치를 실행하지 않았습니다. AI 제안만으로 조치가 실행되지는 않습니다.');
+      } else if (current === 'loading') {
+        text('p', '조치를 준비하거나 연동 시스템의 결과를 조회하고 있습니다. 결과는 아직 확인되지 않았습니다.');
+      } else if (current === 'prepared') {
+        text('p', '준비만 됐으며 아직 실행되지 않았습니다. 제공 화면에서 사건·대상·확인 기한을 읽고 사람이 확인해야 합니다.');
+        field('확인 기한', confirmationExpiresAt);
+      } else if (current === 'executing') {
+        text('p', '요청을 서버에 전달하고 있습니다. 처리 결과와 효과는 아직 확인되지 않았습니다.');
+      } else if (current === 'pending') {
+        text('p', '서버가 요청을 받아 처리 중입니다. 접수 응답(ACK)은 효과 확인이 아닙니다. 결과는 아직 확인되지 않았습니다.');
+      } else if (current === 'succeeded') {
+        text('p', 'effectApplied: true');
+        text('p', `관측 시각: ${present(observation?.observedAt) ? observation.observedAt : '확인 불가'}`);
+      } else if (current === 'unknown') {
+        text('p', '효과가 없다고도 성공했다고도 판단할 수 없습니다. 제공 화면의 결과 재조회 버튼으로 연동 시스템 결과만 다시 확인하세요. 실행 요청을 다시 보내는 동작이 아닙니다.');
+      } else if (current === 'expired') {
+        text('p', '사람 확인 기한이 지났습니다. 제공 화면에서 조치를 다시 준비하고 현재 대상과 기한을 확인하세요.');
+      } else if (current === 'denied') {
+        text('p', '연동 시스템이 요청을 거절했습니다.');
+      } else if (current === 'failed') {
+        text('p', '연동 시스템의 조치 처리가 실패했습니다.');
+      } else if (current === 'error') {
+        text('p', '요청이 처리되지 않았습니다. 안전한 오류 안내를 확인하세요.');
+      }
+      if (['denied', 'failed', 'unknown', 'expired', 'error'].includes(current)) field('안내', message);
+      if (current === 'error') {
+        field('오류 코드', error?.code);
+        field('오류 안내', error?.message);
+      }
+
+      // 식별 속성은 현재 입력의 사건·요청을 가리킨다. 조치의 성공을 뜻하는 속성이 아니다.
+      if (present(event?.id)) root.setAttribute('data-student-action-event', String(event.id));
+      if (present(receipt?.requestId)) root.setAttribute('data-student-action-request', String(receipt.requestId));
+      field('사건 ID', event?.id);
+      if (Array.isArray(event?.evidence)) {
+        for (const evidence of event.evidence) field('근거 ID', evidence?.id);
+      }
+      field('조치 ID', actionId);
+      field('실제 대상 ID', target?.id);
+      field('대상 세대(generation)', target?.generation);
+      field('요청 ID(requestId)', receipt?.requestId);
+      field('접수 ID(receiptId)', receipt?.receiptId);
+      field('응답 버전(version)', receipt?.version);
+      if (receipt?.replayed === true) text('p', '기존 요청의 응답 재사용(replayed: true)입니다. 새 조치를 실행했다는 뜻이 아닙니다.');
+      if (Array.isArray(event?.supportedActions) && event.supportedActions.length === 0) {
+        text('p', '연동 시스템이 지원하는 조치가 없어 조치 준비 버튼이 없는 것이 정상입니다.');
+      }
+      text('p', '버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.');
+      text('p', '「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다.');
+      return root;
+    },
   };
 }
