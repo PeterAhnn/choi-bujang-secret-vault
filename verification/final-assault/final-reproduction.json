@@ -1,0 +1,16 @@
+{
+  "createdAt": "2026-10-28T03:48:15.5389693Z",
+  "sourceCommit": "a45bd4b8c7a22652bef5ae24fdc87d7c6f38b70b",
+  "studentSha256": "1d0c8f12ab3f0208b9b550e4da3112e691adcfd1fa41a2e5e166dec6d391d705",
+  "credentialFilesCopied": false,
+  "source": "GitHub",
+  "port": 5198,
+  "processId": 22168,
+  "grammarPassed": true,
+  "trackedChanges": 0,
+  "performedBy": "AI",
+  "accountApprovalStarted": false,
+  "realAiCalled": false,
+  "realSecurityActionExecuted": false,
+  "sourceScope": "GitHub의 정확한 후보 커밋을 새 폴더에 받은 실행이며 운영 인증이 아닙니다."
+}

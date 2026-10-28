@@ -8,7 +8,7 @@
 
 보호 현황에서 CPU·메모리·앱 디스크 여유, 네트워크·방화벽과 최근 Windows 기록을 읽어 봅니다. 제공된 읽기 전용 수집기를 활용하고, 학생 영역에 측정 시각·단위·실패 이유와 최근 수동 조회 10회 비교를 추가했습니다. PC 실측과 SDP 연결 상태를 구분하며 Windows 경고·오류 건수를 침해 판정으로 표현하지 않습니다.
 
-[실행 안내](docs/FINAL-ASSAULT-RUN.md) · [구현·검증·남은 범위](docs/FINAL-ASSAULT.md)
+[실행 안내](docs/FINAL-ASSAULT-RUN.md) · [세 기능 시연과 한계](docs/FINAL-ASSAULT-DEMO.md) · [구현·검증 기록](docs/FINAL-ASSAULT.md)
 
 ## 주요 기능
 
