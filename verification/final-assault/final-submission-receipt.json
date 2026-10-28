@@ -1,0 +1,23 @@
+{
+  "type": "마지막 총공세 마무리 자료 실제 접수",
+  "portalUrl": "https://aleph-omega.vercel.app/cortex?panel=tasks&final=1",
+  "repository": "https://github.com/PeterAhnn/choi-bujang-secret-vault",
+  "submittedCommit": "af6da0ccd128071ea137831a632671c95352e2d8",
+  "submittedAtClient": "2026-10-28T03:54:51.389Z",
+  "observedAt": "2026-10-28T03:55:24.301Z",
+  "timezone": "Asia/Seoul",
+  "receiptId": "CEX-35e68a835010",
+  "status": "instructor_review_pending",
+  "instructorApproved": false,
+  "masterApproved": false,
+  "gradingCompleted": false,
+  "evidencePhotoAttached": false,
+  "submissionCountThisRun": 1,
+  "passedStagesResubmitted": false,
+  "userApproval": "이대로 마무리 자료를 제출합니다",
+  "visibleReceipt": [
+    "마무리 자료 제출\n×\n\n방어전 22단계를 모두 통과한 뒤 GitHub에 올린 마지막 커밋으로 냅니다. 기본 과제 13단계는 다 마치지 않아도 됩니다.\n\n제출했습니다. 강사 확인을 기다립니다.\n\n강사가 확인하기 전까지는 제출을 되돌리고 고쳐서 다시 낼 수 있습니다. 되돌려도 지금 낸 기록은 지워지지 않습니다.\n\n제출 되돌리고 다시 내기\n\n과제를 제출했습니다. 강사 승인을 기다려 주세요.",
+    "제출 완료\n\nCEX-35e68a835010 제출을 마쳤습니다\n담당 강사가 승인합니다.\n그 뒤 마스터가 직접 승인합니다.\n마스터 승인 뒤 다음 과제가 열립니다. 채점은 나중에 별도로 진행됩니다.\n\n결과는 이 화면에 표시됩니다. 따로 확인하러 오지 않아도 됩니다. 보완이 필요하면 사유와 함께 다시 열립니다.\n\n확인"
+  ],
+  "scope": "마무리 자료의 접수 완료이며 강사·마스터 승인이나 채점 통과가 아닙니다."
+}

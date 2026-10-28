@@ -21,10 +21,12 @@
 ## 실제 확인한 근거
 
 - 시연 후보: `a45bd4b8c7a22652bef5ae24fdc87d7c6f38b70b`. GitHub에서 새 폴더에 받아 실행했다.
+- 최종 제출: `af6da0ccd128071ea137831a632671c95352e2d8`. 실행 원문은 시연 후보와 같으며, 이 커밋으로도 재실행해 실제 조회를 확인했다. [재현 근거](../verification/final-assault/final-source-reproduction.json)를 보관했다.
 - 학생 코드 SHA256: `1d0c8f12ab3f0208b9b550e4da3112e691adcfd1fa41a2e5e166dec6d391d705`.
 - [모의 검사](../verification/final-assault/mock-check.json): 72개 통과, 실제 외부 통신·자동 조회·금지 HTML 삽입 0회.
 - [실제 시연](../verification/final-assault/day7-browser.json): 세 기능, 이력 두 건, 세 메뉴와 일반 다시 불러오기 뒤 패널·이력 유지.
 - [본인 확인](../verification/final-assault/user-walkthrough.json): 실행 안내 2절을 따라 화면을 사용했고 막힘이 없었다는 사용자 응답이다. 앱 기동·종료는 AI 수행이다.
+- [마무리 접수](../verification/final-assault/final-submission-receipt.json): CEX-35e68a835010, 강사 확인 대기다. 승인·채점 결과가 아니다.
 
 ## 남은 한계
 

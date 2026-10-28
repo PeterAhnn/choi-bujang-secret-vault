@@ -10,6 +10,8 @@
 
 [실행 안내](docs/FINAL-ASSAULT-RUN.md) · [세 기능 시연과 한계](docs/FINAL-ASSAULT-DEMO.md) · [구현·검증 기록](docs/FINAL-ASSAULT.md)
 
+마지막 총공세 마무리 자료는 커밋 `af6da0ccd128071ea137831a632671c95352e2d8`로 접수했습니다. 현재는 **강사 확인 대기**이며 승인·채점 완료와 구분합니다. [접수 기록](verification/final-assault/final-submission-receipt.json)을 보관했습니다.
+
 ## 주요 기능
 
 **웹 자료실**

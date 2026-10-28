@@ -57,4 +57,8 @@
 
 자원 상태 → 네트워크·방화벽 → Windows 기록 순서로 실제 표시를 확인했다. 두 번째 수동 조회 뒤 이력 두 건이 남았으며, 기존 세 메뉴를 오가고 일반 다시 불러오기를 실행한 뒤에도 PC 패널 한 개와 이력 두 건이 유지됐다. 근거는 [최종 재현](../verification/final-assault/final-reproduction.json)과 [시연 화면 기록](../verification/final-assault/day7-browser.json)에 있다. [시연 순서와 한계](FINAL-ASSAULT-DEMO.md)를 별도로 정리했다.
 
-이후 결과 기록 커밋은 실행 코드를 바꾸지 않는다. 과거 13~22단계의 공식 통과 기록은 그대로 보존하고 재제출하지 않았다. 마무리 과제는 저장소 주소와 선택한 40자리 커밋으로 별도 접수하며, 아직 실제 제출하지 않았다.
+이후 결과 기록 커밋 af6da0ccd128071ea137831a632671c95352e2d8은 실행 코드를 바꾸지 않았다. 이 커밋도 검증 폴더에 고정해 공식 도구로 재실행하고 실제 PC 조회를 확인했다. [최종 제출 소스 재현](../verification/final-assault/final-source-reproduction.json)에 기록했다. 과거 13~22단계의 공식 통과 기록은 그대로 보존하고 재제출하지 않았다.
+
+## 마무리 자료 접수
+
+사용자는 저장소 주소·최종 커밋·사진 미첨부 문안을 확인하고 **“이대로 마무리 자료를 제출합니다”**라고 승인했다. 최종 커밋 af6da0ccd128071ea137831a632671c95352e2d8로 한 번 제출했으며, 접수 번호는 **CEX-35e68a835010**이다. 현재는 **강사 확인 대기**다. 강사 승인·마스터 승인·별도 채점은 완료로 기록하지 않는다. [접수 기록](../verification/final-assault/final-submission-receipt.json)과 [접수 화면](../verification/final-assault/final-submission-receipt.png)을 보관했다. 이후 접수 기록 커밋은 재제출하지 않는다.

@@ -15,5 +15,7 @@
 | dashboard.png | 실제 로컬 학생 대시보드 화면이다. 전체 보안의 안전 판정이 아니다. |
 | final-reproduction.json | GitHub의 a45bd4b 후보를 새 폴더에 고정해 문법·원문·실행 경로를 확인한 기록이다. |
 | day7-browser.json · final-dashboard.png | 같은 후보의 세 기능 실제 시연과 이력·메뉴·일반 재조회 보존을 확인한 기록이다. |
+| final-source-reproduction.json | 최종 제출 커밋 af6da0c를 고정·재실행해 실제 조회와 시연 후보의 실행 원문 동일성을 확인한 기록이다. |
+| final-submission-receipt.json · final-submission-receipt.png | 승인된 af6da0c 한 번의 실제 접수 기록이다. 접수 번호 CEX-35e68a835010이며 강사 확인 대기다. |
 
 본인 화면 확인·AI 명령 실행·합성 검사·공식 단계 검토·마무리 자료 접수는 서로 다른 상태다. 다른 사람의 첫 사용 관찰과 실제 SDP·사건 설명·보안 조치·외부 OSV 성공·전체 DB 복원은 이번 검증으로 확인하지 않았다.
