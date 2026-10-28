@@ -13,12 +13,13 @@
 | 저장소 | https://github.com/PeterAhnn/choi-bujang-secret-vault |
 | 배포 브랜치 | main |
 | 이번 사전 재현의 원천 커밋 | a3c66e394502c517b722d67ff68b1b4094a4528e |
+| 22단계 통과·최종 재현 커밋 | 3ea41ade885402a49f7e5f2cdc5ef44171ef106d |
 | 학생 코드 | on-client/student/extension.mjs |
 | 실행 진입점 | on-client/tools/start-alekov.ps1 → on-client/src/server.mjs |
 | 환경 | Windows 11 Pro 64비트, Node.js 24.21.0, Windows PowerShell 5.1.26100.9711 |
 | 지원·기준 | 실행 도구 지원 Node.js 22~24, 수업 기준 24.19.0. 다른 운영체제는 미확인 |
 
-최종 제출 값은 **제출 시점의 40자리 커밋**입니다. 재현 문서 자체를 추가한 커밋과 그 이전 실행 원천 커밋을 혼동하지 않습니다. 이번 문서 변경은 앱 코드·제공 파일·의존성을 바꾸지 않으며, 원문 동일성은 [Git 원문 대조](../verification/stage22/source-identity.json)와 최종 제출 전 새 복제본 확인으로 연결합니다. 서로 다른 과거 단계의 통과를 최종 버전 전체의 실운영 성공으로 합치지 않습니다.
+최종 제출 값은 위 **22단계 통과 커밋**입니다. 재현 문서를 추가하기 전의 원천 커밋과 구분합니다. 앱 코드·제공 파일·의존성은 바꾸지 않았으며, 원문 동일성은 [Git 원문 대조](../verification/stage22/source-identity.json)와 [최종 커밋 재현](../verification/stage22/final-reproduction.json)에 기록했습니다. 통과 뒤 추가한 결과 기록 커밋은 재제출하지 않았습니다. 서로 다른 과거 단계의 통과를 최종 버전 전체의 실운영 성공으로 합치지 않습니다.
 
 ## 2. 새 빈 폴더에서 받기
 
@@ -58,7 +59,7 @@ AI 사전 검증에서는 같은 공식 명령 끝에 `-Background`를 붙였습
 
 ## 4. 이번 재현에서 관찰한 결과
 
-사전 재현은 위 원천 커밋을 GitHub에서 새 폴더로 받은 뒤 수행했습니다. 근거의 시각은 ISO UTC로 보관하며 한국 시각은 9시간 빠릅니다. 새 최종 제출 커밋의 확인 결과는 제출 전 별도 복제본에서 다시 확인해 전달합니다.
+사전 재현은 위 원천 커밋을 GitHub에서 새 폴더로 받은 뒤 수행했습니다. 근거의 시각은 ISO UTC로 보관하며 한국 시각은 9시간 빠릅니다. 이후 최종 제출 커밋도 다른 새 폴더에 고정해 같은 절차를 수행했습니다.
 
 | 범위 | 2026-10-28 재현 결과 | 근거·미확인 |
 |---|---|---|
@@ -76,6 +77,12 @@ AI 사전 검증에서는 같은 공식 명령 끝에 `-Background`를 붙였습
 근거는 [브라우저 기록](../verification/stage22/browser-reproduction.json), [표시 계약 검사](../verification/stage22/contract-results.json), [원문 대조](../verification/stage22/source-identity.json)에 있습니다. 기준 복제본은 Windows의 CRLF 변환으로 작업 파일 SHA256이 달랐지만 Git blob과 줄바꿈 정규화 내용은 같았습니다. 최종 복제 절차는 줄바꿈 변환을 끄도록 명시했습니다.
 
 검사 하네스의 baselineCommit `a5b77e06db211724215ec57b036b814bee1ca482`는 20단계 함수 밖 원문을 비교하는 기준입니다. 이번 GitHub 복제·실행의 원천 커밋 `a3c66e394502c517b722d67ff68b1b4094a4528e`와 역할이 다릅니다. 검사 결과의 두 커밋을 같은 의미로 쓰지 않습니다.
+
+### 최종 제출 커밋의 추가 확인
+
+커밋 `3ea41ade885402a49f7e5f2cdc5ef44171ef106d`를 GitHub에서 별도 빈 폴더에 받아 detached checkout했습니다. 줄바꿈 변환을 끈 복제본에서 학생 파일 SHA256이 원본과 같았으며, 문법 검사와 위 범위의 68개 검사를 통과했습니다. 공식 도구의 예제 실행·HTTP 200·종료·포트 닫힘·재실행과 예제 화면을 확인했습니다. Git bundle을 만들어 다른 새 폴더에 복원한 HEAD도 같은 커밋이었습니다. 코드·Git 기록의 복원이며 DB·개인 인증 자료의 복원은 아닙니다.
+
+근거는 [최종 재현 기록](../verification/stage22/final-reproduction.json)과 [해당 검사 출력](../verification/stage22/final-contract.json)입니다. 2026-10-28 12:06 접수분은 필수 6개 항목을 모두 통과했고, [공식 피드백](../verification/stage22/official-review-20261028.json)은 12:07에 기록됐습니다. 이는 원문 검토 결과입니다. 재현에 사용한 임시 앱만 종료했고 기존 앱·원래 프로젝트·복제본·코드 백업은 보존했습니다.
 
 ## 5. 과거 단계별 공식 검토 이력
 

@@ -1,0 +1,14 @@
+[
+  {
+    "processId": 9500,
+    "stopped": true,
+    "verifiedFolder": "C:\\Users\\Administrator\\Documents\\Codex\\reproductions\\alekov-stage22-20261028",
+    "observedAt": "2026-10-28T03:06:18.2076298Z"
+  },
+  {
+    "processId": 9800,
+    "stopped": true,
+    "verifiedFolder": "C:\\Users\\Administrator\\Documents\\Codex\\reproductions\\alekov-stage22-20261028-final",
+    "observedAt": "2026-10-28T03:06:18.3551626Z"
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "stage": 22,
+  "studentVersion": "검증 중 r22.1",
+  "starterVersion": "0.2.21",
+  "recordedAt": "2026-10-28T03:05:49.5134560Z",
+  "repository": "https://github.com/PeterAhnn/choi-bujang-secret-vault",
+  "submittedCommit": "3ea41ade885402a49f7e5f2cdc5ef44171ef106d",
+  "reproductionFolder": "C:\\Users\\Administrator\\Documents\\Codex\\reproductions\\alekov-stage22-20261028-final",
+  "checkout": "detached",
+  "freshCloneAutocrlf": false,
+  "grammarCheckPassed": true,
+  "finalCloneTrackedChanges": [],
+  "runtimeChangesFromPreliminary": [],
+  "originalStudentSha256": "db796c646d25747883472314a23203014c39229a211e7fb710119f388af73c31",
+  "finalStudentSha256": "db796c646d25747883472314a23203014c39229a211e7fb710119f388af73c31",
+  "exactStudentBytesEqual": true,
+  "contracts": {
+    "checkedAt": "2026-10-28T03:01:49.245Z",
+    "passed": 68,
+    "failed": 0,
+    "networkCalls": 0,
+    "syntheticProvidedRequests": 5,
+    "harnessBaselineCommit": "a5b77e06db211724215ec57b036b814bee1ca482",
+    "scope": "20단계 합성 표시 계약·앞 단계 원문 보존 검사이며 13~21 전체 기능의 재시험이 아닙니다."
+  },
+  "launcherCommand": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\tools\\start-alekov.ps1 -Demo -Port 5196 -Background",
+  "initial": {
+    "processId": 2324,
+    "httpStatus": 200
+  },
+  "stopped": {
+    "processId": 2324,
+    "portClosed": true,
+    "observedAt": "2026-10-28T03:02:18.9764378Z"
+  },
+  "restart": {
+    "processId": 9800,
+    "launcherReady": true
+  },
+  "browser": {
+    "action": "보안 조치 요청과 결과아직 미실행(idle)아직 조치를 실행하지 않았습니다. AI 제안만으로 조치가 실행되지는 않습니다.버튼 조작·사람 확인·요청 전송·중복 방지·결과 재조회는 제공 화면이 처리합니다. 이 학생 표시는 별도 요청을 보내거나 자동으로 다시 실행하지 않습니다.「조치 화면 취소」는 이미 서버에 전달된 조치 효과를 되돌리지 않습니다.",
+    "ai": "AI 연결 점검\n\n자료 모드: 확인 불가\n\nAI 연결 점검 전\n\n사건 설명은 보안 기록에서 별도로 요청하고 확인합니다.\n\n다시 점검하려면 제공 화면의 AI 연결 점검 버튼을 직접 누르세요. 자동으로 다시 요청하지 않습니다.",
+    "decision": "업무 앱 접근 요청 결과자료 모드: 예제 자료대상 앱 ID: library판정: 접근 허용(allow)판정 이유: 예제 정책이 접속을 허용했습니다.판정 시각: 2026-10-28T03:04:47.227Z정책상 접근 허용이며 실제 앱 접속 성공을 보장하지 않습니다.",
+    "events": "본인 접속 기록·저장된 XDR 경보자료 모드: 예제 자료서버가 전달한 본인의 최근 기록을 표시합니다. 조회 범위는 최대 40건이며, 전체·생략 건수와 확인 시각은 제공 화면에서 확인합니다. XDR 경보는 이미 저장된 기록입니다.기록 종류전체접속 기록(access)업무 앱전체repository접속 상태전체접근 거부(denied)표시 기록: 1건 / 받은 기록: 1건사건 ID: event-01 · 시각: 2026-10-12T03:00:00.000Z종류: 접속 기록(access) · 업무 앱 ID: repository요약: 개발 저장소 접속이 제한됐습니다.event-01 상세event-01 상세사건 ID: event-01업무 앱 ID: repository근거ID: e-01 · 서버 예제 판정: deny규칙ID: rule-01 · 기기 상태 확인이 필요합니다.기록 당시 상태접속 상태: 접근 거부(denied)세션 상태: 활성(active)기기 상태: 확인 불가(unknown)",
+    "explanation": "AI 사건 설명자료 모드: 확인 불가보안 기록에서 기록을 먼저 고르세요.",
+    "identity": "현재 사용자·기기·세션\n\n자료 모드: 예제 자료\n\n사용자: 연습 사용자 (ID: practice-user)\n\n기기: 연습 PC (ID: practice-pc)\n\n기기 상태: 확인 불가(unknown)\n\n세션 ID: practice-session\n\n세션 상태: 활성(active)\n\n기기 목록\n\n자료 모드: 예제 자료\n\n연습 PC (ID: practice-pc) · 확인 불가(unknown)\n세션 목록\n\n자료 모드: 예제 자료\n\n세션 ID: practice-session · 활성(active)",
+    "observedAt": "2026-10-28T03:05:35.563Z",
+    "status": "기기·현재 세션·알림과 도움정보\n\n자료 모드: 예제 자료\n\n등록 기기는 본인에게 등록되고 회수되지 않은 기기 최대 100개입니다. 세션은 현재 검증된 연결 한 개이며 과거 세션 전체 목록이 아닙니다.\n\n등록 기기\n\n자료 모드: 예제 자료\n\n기기: 연습 PC (ID: practice-pc) · 확인 불가(unknown)\n현재 세션\n\n자료 모드: 예제 자료\n\n세션 ID: practice-session · 활성(active)\n주의할 알림\n자료: devices · 코드: unknown · 연습 PC: 확인 불가(unknown)\n자료: events · 코드: access · event-01: 개발 저장소 접속이 제한됐습니다.\n진단 도움정보\n\n자료 모드: 예제 자료\n\nrequestId: a96a868c-db96-44d7-a60c-ba47550194e9\n\ncomponent: on-client\n\nversion: 0.1.0\n\ncheckedAt: 2026-10-28T03:05:06.634Z\n\nengine.mode: demo\n\nengine.code: DEMO_ONLY\n\n도움 요청에 사용할 위 여섯 값만 복사합니다. 사용자가 버튼을 누를 때만 클립보드에 복사합니다.\n\n도움정보 복사",
+    "url": "http://127.0.0.1:5196/",
+    "vulnerabilities": "설치 패키지와 알려진 취약점 조회\n\n자료 모드: 예제 자료\n\n전체 조회 상태: 조회 준비 미완료(not_configured)\n\n조회 대상 프로젝트 설정이 필요합니다. 대상 경로와 허용 패키지는 운영자가 준비합니다.\n\n조회 시각(checkedAt): 2026-10-28T03:05:16.034Z\n\nOSV는 알려진 취약점 데이터베이스입니다. 조회 범위에서 알려진 항목이 없더라도 패키지나 앱 전체가 안전하다는 보장은 아닙니다.\n\n표시할 패키지 조회 결과가 없습니다. 미조회·확인 불가를 취약점 없음으로 판단하지 않습니다."
+  },
+  "codeBackup": {
+    "bundlePath": "C:\\Users\\Administrator\\Documents\\Codex\\reproductions\\narachan-r22-3ea41ad-code.bundle",
+    "bytes": 997287,
+    "sha256": "6ce016622bbb68061eda911debad1100484533a688ed7ba9a28e12042625e988",
+    "bundleVerifyPassed": true,
+    "restoreFolder": "C:\\Users\\Administrator\\Documents\\Codex\\reproductions\\alekov-stage22-20261028-restored",
+    "restoredCommit": "3ea41ade885402a49f7e5f2cdc5ef44171ef106d",
+    "exactCommitRestored": true,
+    "scope": "추적된 코드와 Git 기록만 백업·복원했습니다. DB·미추적 파일·개인 인증 자료는 포함하지 않습니다."
+  },
+  "credentialFilesCopied": false,
+  "realAccountApprovalStarted": false,
+  "realAiCalled": false,
+  "realSecurityActionExecuted": false,
+  "realOsvSuccessVerified": false,
+  "databaseBackupOrRestoreExecuted": false,
+  "userOriginalPreservationConfirmed": true,
+  "userVersionScopeConfirmed": true,
+  "proofTiming": "최종 제출 커밋을 push한 뒤 새 폴더에서 실제 재현했습니다. 이 결과 기록은 판정 후 별도 기록 커밋에 보관하며 통과한 제출 커밋을 바꾸지 않습니다."
+}
