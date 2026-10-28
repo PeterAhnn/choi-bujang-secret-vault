@@ -39,7 +39,7 @@
 
 ## 보안 Agent 실행
 
-Node.js 24와 PowerShell을 사용합니다. 공식 기준 버전은 24.19.0이며, 예제 실행에 추가 npm 패키지는 필요하지 않습니다.
+Windows에서 Node.js 22~24와 PowerShell을 사용합니다. 수업 기준은 24.19.0이며, 이번에는 Windows 11·Node.js 24.21.0·Windows PowerShell 5.1에서 실행을 확인했습니다. 예제 실행에 추가 npm 패키지는 필요하지 않습니다.
 
 ```powershell
 git clone https://github.com/PeterAhnn/choi-bujang-secret-vault.git
@@ -47,7 +47,7 @@ Set-Location choi-bujang-secret-vault/on-client
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\start-alekov.ps1 -Demo -Port 5189
 ```
 
-브라우저에서 [http://127.0.0.1:5189/](http://127.0.0.1:5189/)를 엽니다. 예제 모드는 실제 계정 연결 없이 화면을 둘러보는 용도입니다. 자세한 실행·종료 방법은 [공식 실행 안내](on-client/docs/STUDENT_LAUNCH_GUIDE.md)를 참고하세요.
+브라우저에서 [http://127.0.0.1:5189/](http://127.0.0.1:5189/)를 엽니다. 예제 모드는 실제 계정 연결 없이 화면을 둘러보는 용도입니다. 기존 앱을 유지하며 다른 포트로 확인하는 방법, 종료·재실행, 구성도와 오류별 절차는 [학생 실행 설명서](docs/STUDENT_RUNBOOK.md)에 정리했습니다. [공식 실행 안내](on-client/docs/STUDENT_LAUNCH_GUIDE.md)도 함께 참고하세요.
 
 ## 검증과 현재 범위
 

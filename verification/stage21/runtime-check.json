@@ -1,0 +1,49 @@
+{
+  "stage": 21,
+  "baselineCommit": "b8668b0dd39edcc25c1088f9b5c91fd40012ea24",
+  "type": "AI가 별도 포트에서 실행한 실제 예제 앱 사전 확인. 사용자 직접 확인과 별도.",
+  "os": "Windows 11 Pro 64비트",
+  "nodeVersion": "24.21.0",
+  "windowsPowerShellVersion": "5.1.26100.9711",
+  "starterVersion": "0.2.21",
+  "workingDirectory": "on-client",
+  "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\tools\\start-alekov.ps1 -Demo -Port 5194 -Background",
+  "firstStart": {
+    "processId": 16688,
+    "httpStatus": 200
+  },
+  "stop": {
+    "processId": 16688,
+    "portClosed": true
+  },
+  "restart": {
+    "processId": 8932,
+    "httpStatus": 200
+  },
+  "studentSourceSha256": "db796c646d25747883472314a23203014c39229a211e7fb710119f388af73c31",
+  "browser": {
+    "decision": "업무 앱 접근 요청 결과자료 모드: 확인 불가앱을 골라 접속을 요청하세요. 아직 판정을 요청하지 않았습니다.",
+    "identity": "현재 사용자·기기·세션\n\n자료 모드: 예제 자료\n\n사용자: 연습 사용자 (ID: practice-user)\n\n기기: 연습 PC (ID: practice-pc)\n\n기기 상태: 확인 불가(unknown)\n\n세션 ID: practice-session\n\n세션 상태: 활성(active)\n\n기기 목록\n\n자료 모드: 예제 자료\n\n연습 PC (ID: practice-pc) · 확인 불가(unknown)\n세션 목록\n\n자료 모드: 예제 자료\n\n세션 ID: practice-session · 활성(active)",
+    "menus": [
+      "보호 현황",
+      "업무 앱",
+      "보안 기록"
+    ],
+    "mode": true,
+    "observedAt": "2026-10-28T02:01:42.641Z"
+  },
+  "realAccountConnectionTested": false,
+  "realExternalAiCalled": false,
+  "userLaunchConfirmation": {
+    "confirmed": true,
+    "response": "새 창에서 실행·종료·재실행을 확인했습니다",
+    "mode": "demo",
+    "port": 5193,
+    "existing5189Preserved": true
+  },
+  "userDocumentMatchConfirmation": {
+    "confirmed": true,
+    "response": "경로·명령·메뉴·버튼 이름이 일치합니다",
+    "type": "학생 실행 설명서 2절·6절과 실제 프로젝트·예제 화면 대조"
+  }
+}

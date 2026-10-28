@@ -1,0 +1,106 @@
+{
+  "stage": 21,
+  "checkedAt": "2026-10-28T02:03:29.181Z",
+  "baselineCommit": "b8668b0dd39edcc25c1088f9b5c91fd40012ea24",
+  "studentSourceSha256": "db796c646d25747883472314a23203014c39229a211e7fb710119f388af73c31",
+  "baselineStudentSourceSha256": "db796c646d25747883472314a23203014c39229a211e7fb710119f388af73c31",
+  "studentSourceByteIdentical": true,
+  "runtimeAndDependencyFilesChanged": [],
+  "localLinks": [
+    {
+      "file": "README.md",
+      "target": "on-client/student/extension.mjs",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-13.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-14.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-15.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-16.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-17.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-18.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-19.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEFENSE-STEP-20.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/STUDENT_RUNBOOK.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "on-client/docs/STUDENT_LAUNCH_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "verification/stage20/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HTTP-VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "verification/stage17/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../on-client/docs/STUDENT_LAUNCH_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../on-client/docs/CONNECTION_TROUBLESHOOT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../verification/stage20/official-review-20261028.json",
+      "exists": true
+    },
+    {
+      "file": "docs/STUDENT_RUNBOOK.md",
+      "target": "../verification/stage21/runtime-check.json",
+      "exists": true
+    }
+  ],
+  "allLocalLinksExist": true,
+  "type": "문서 링크와 런타임 원문 보존 검사. 공식 판정이나 사용자 직접 확인이 아닙니다.",
+  "powerShellCodeBlocksParsed": 3,
+  "powerShellParseErrorCount": 0,
+  "linksCheckedAt": "2026-10-28T02:37:09.523Z"
+}
